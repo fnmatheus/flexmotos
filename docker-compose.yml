@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  frontend:
+    build: ./frontend
+    command: npm start
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "backend"
+
+  backend:
+    build: ./backend
+    command: npm start
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend:/usr/app
+    depends_on:
+      - "mongo"
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "3002:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
