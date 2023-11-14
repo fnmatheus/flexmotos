@@ -4,9 +4,8 @@ const bodyParser = require('body-parser')
 const UsersRoutes = require('./routes/users.routes');
 
 const app = express();
-const PORT = 3001;
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
   res.status(200).json({msg: 'Flex Motos API'});
@@ -15,9 +14,9 @@ app.get('/', (req, res) => {
 app.use('/users', UsersRoutes);
 
 mongoose
-  .connect('mongodb://localhost:3002/flexmotos')
+  .connect(process.env.MONGODB_URI)
   .then(() => {
-    app.listen(PORT, () => {
+    app.listen(process.env.PORT, () => {
       console.log('Database connected!');
     })
   })

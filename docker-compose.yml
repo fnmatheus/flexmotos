@@ -1,26 +1,34 @@
-version: '3'
+version: '3.9'
 
 services:
-  # frontend:
-  #   build: ./frontend
-  #   command: npm start
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - "backend"
-
-  # backend:
-  #   build: ./backend
-  #   command: npm start
-  #   ports:
-  #     - "3001:3001"
-  #   volumes:
-  #     - ./backend:/usr/app
-  #   depends_on:
-  #     - "mongo"
-
-  mongo:
-    image: mongo
+  # MongoDB services
+  mongo_db:
+    container_name: db_container
+    image: mongo:latest
     restart: always
+    volumes:
+      - mongo_db:/data/db
+
+  # Node API services
+  api:
+    build: ./backend
     ports:
-      - "3002:27017"
+      - 3000:3000
+    environment:
+      PORT: 3000
+      MONGODB_URI: mongodb://mongo_db:27017
+      DB_NAME: flexmotos_db
+      NAME: FlexMotos
+    depends_on:
+      - mongo_db
+
+  # Next.js app
+  frontend:
+    build: ./frontend
+    ports:
+      - 3001:3001
+    depends_on:
+      - api
+
+volumes:
+  mongo_db: {}
