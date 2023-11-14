@@ -1,11 +1,12 @@
 const User = require('../database/schemas/User');
 const bcrypt = require('bcrypt');
+const { generateToken } = require('../utils/auth');
 
 async function SignUpService({code, name, password, category}) {
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
     const userExists = await User.findOne({ name });
     if(!userExists) {
+      const hashedPassword = await bcrypt.hash(password, 10);
       await User.create({
         code,
         name,
@@ -20,4 +21,16 @@ async function SignUpService({code, name, password, category}) {
   }
 }
 
-module.exports = { SignUpService };
+async function SignInService({code, name, password}) {
+  const user = await User.findOne({ name });
+  if (user) {
+    const validatePassword = await bcrypt.compare(password, user.password).then((res) => res);
+    if (!validatePassword) return { type: 'WrongPassword', message: 'Wrong Password' };
+    if (code !== user.code) return { type: 'WrongCode', message: 'Wrong Code' };
+    const token = generateToken({ category: user.category, name: user.name });
+    return { token };
+  }
+  return { type: 'NotFound', message: 'UserNotFound' }
+}
+
+module.exports = { SignUpService, SignInService };
