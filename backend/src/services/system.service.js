@@ -167,8 +167,9 @@ async function getYearBilling(year) {
   try {
     const systems = await System.find();
     const billing = Object.values(systems[0].billing.years[year]);
+    const years = Object.keys((systems[0].billing.years));
     const sumBilling = billing.map((month) => month.reduce((acc, value) => acc + value));
-    return { type: null, message: sumBilling };
+    return { type: null, message: { years, billing: sumBilling } };
   } catch (error) {
     return { type: 'System Error', message: `Can't access the system` };
   }
