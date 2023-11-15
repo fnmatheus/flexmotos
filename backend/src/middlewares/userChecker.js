@@ -1,4 +1,4 @@
-async function SignUpChecker(req, res, next) {
+async function signUpChecker(req, res, next) {
   const { body } = req;
   if (!body || !body.name || !body.password || !body.category) {
     return res.status(406).json({ message: 'incorrect arguments' });
@@ -6,7 +6,7 @@ async function SignUpChecker(req, res, next) {
   next();
 }
 
-async function SignInChecker(req, res, next) {
+async function signInChecker(req, res, next) {
   const { body } = req;
   if (!body || !body.code || !body.name || !body.password) {
     return res.status(406).json({ message: 'incorrect arguments' });
@@ -14,4 +14,12 @@ async function SignInChecker(req, res, next) {
   next();
 }
 
-module.exports = { SignUpChecker, SignInChecker };
+async function updateChecker(req, res, next) {
+  const { body } = req;
+  if (!body || !body.name || !body.category) {
+    return res.status(406).json({ message: 'incorrect arguments' });
+  }
+  next();
+}
+
+module.exports = { signUpChecker, signInChecker, updateChecker };

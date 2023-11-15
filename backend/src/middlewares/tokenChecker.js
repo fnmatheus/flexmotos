@@ -1,4 +1,4 @@
-const { validateToken } = require('../utils/auth')
+const { validateToken } = require('../utils/auth');
 
 async function checkToken(req, res, next) {
   const { authorization } = req.headers;
@@ -7,7 +7,7 @@ async function checkToken(req, res, next) {
   next();
 }
 
-async function checkRoleToDeleteUser(req, res, next) {
+async function checkUserRole(req, res, next) {
   const { authorization } = req.headers;
   const { name } = req.body;
   const token = validateToken(authorization);
@@ -17,4 +17,4 @@ async function checkRoleToDeleteUser(req, res, next) {
   next();
 }
 
-module.exports = { checkToken, checkRoleToDeleteUser };
+module.exports = { checkToken, checkUserRole };

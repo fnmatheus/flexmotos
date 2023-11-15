@@ -80,4 +80,26 @@ async function getAllService() {
   }
 }
 
-module.exports = { signUpService, signInService, removeService, getAllService };
+async function updateService({name, password, category}) {
+  try {
+    const user = await User.findOne({ name });
+    if (!user) return { type: 'notFound', message: 'User not found' };
+    if (category === 'super') return {type: 'super', message: `Users can't be a super`}
+    if (!password) {
+      await User.findOneAndUpdate({name}, {
+        category,
+      });
+    } else {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      await User.findOneAndUpdate({name}, {
+        password: hashedPassword,
+        category,
+      });
+    }
+    return {type: null, message: `${name} updated`};
+  } catch (error) {
+    return {type: 'UpdateError', message: `Can't access to update users`};
+  }
+}
+
+module.exports = { signUpService, signInService, removeService, getAllService, updateService };
