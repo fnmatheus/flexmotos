@@ -146,10 +146,40 @@ async function setGoal(value) {
   }
 }
 
+async function getDashboard() {
+  try {
+    const systems = await System.find();
+    const billing = systems[0].billing;
+    const thisMonth = billing.years[billing.currentYear][billing.currentMonth];
+    const monthSum = thisMonth.reduce((acc, value) => acc + value);
+    const dashboard = {
+      today: billing.today,
+      goal: billing.goal,
+      month: monthSum,
+    };
+    return { type: null, message: dashboard };
+  } catch (error) {
+    return { type: 'System Error', message: `Can't access the system` };
+  }
+}
+
+async function getYearBilling(year) {
+  try {
+    const systems = await System.find();
+    const billing = Object.values(systems[0].billing.years[year]);
+    const sumBilling = billing.map((month) => month.reduce((acc, value) => acc + value));
+    return { type: null, message: sumBilling };
+  } catch (error) {
+    return { type: 'System Error', message: `Can't access the system` };
+  }
+}
+
 module.exports = {
   createSystem,
   giveCode,
   dailyBillingUpdate,
   changeToday,
-  setGoal
+  setGoal,
+  getDashboard,
+  getYearBilling
 };
