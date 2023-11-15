@@ -113,7 +113,7 @@ async function dailyBillingUpdate() {
 }
 
 async function changeToday(value) {
-  try {
+  try { 
     const systems = await System.find();
     const system = systems[0];
     const billing = system.billing;
@@ -123,9 +123,26 @@ async function changeToday(value) {
         today: billing.today + value
       }
     });
-    return { type: null, message: 'Today updated' }
+    return { type: null, message: 'Today updated' };
   } catch (error) {
-    return { type: 'System Error', message: `Can't access the system` }
+    return { type: 'System Error', message: `Can't access the system` };
+  }
+}
+
+async function setGoal(value) {
+  try {
+    const systems = await System.find();
+    const system = systems[0];
+    const billing = system.billing;
+    await System.findOneAndUpdate({ code: system.code }, {
+      billing: {
+        ...billing,
+        goal: value
+      }
+    });
+    return { type: null, message: 'Goal was set' };
+  } catch (error) {
+    return { type: 'System Error', message: `Can't access the system` };
   }
 }
 
@@ -133,5 +150,6 @@ module.exports = {
   createSystem,
   giveCode,
   dailyBillingUpdate,
-  changeToday
+  changeToday,
+  setGoal
 };
