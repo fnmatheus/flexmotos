@@ -102,4 +102,13 @@ async function updateService({name, password, category}) {
   }
 }
 
-module.exports = { signUpService, signInService, removeService, getAllService, updateService };
+async function getByCategory(category) {
+  try {
+    const users = await User.find({category}, '-password');
+    return { type: null, message: users };
+  } catch (error) {
+    return { type: 'UsersError', message: `Can't access to give users` };
+  }
+}
+
+module.exports = { signUpService, signInService, removeService, getAllService, updateService, getByCategory };
