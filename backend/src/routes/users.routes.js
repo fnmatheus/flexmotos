@@ -9,16 +9,16 @@ const {
   getByNameController
 } = require('../controller/users.controller');
 const { signUpChecker, signInChecker, updateChecker } = require('../middlewares/userChecker');
-const { checkUserRole, checkToken } = require('../middlewares/tokenChecker');
+const { checkRole, checkToken } = require('../middlewares/tokenChecker');
 
-const UsersRoutes = express.Router();
+const usersRoutes = express.Router();
 
-UsersRoutes.post('/signup', signUpChecker, signUpController);
-UsersRoutes.post('/signin', signInChecker, signInController);
-UsersRoutes.delete('/remove', checkUserRole, removeController);
-UsersRoutes.post('/update', checkUserRole, updateChecker, updateCotroller);
-UsersRoutes.get('/', checkToken, getAllController);
-UsersRoutes.get('/category/:category', checkToken, getByCategoryController);
-UsersRoutes.get('/name/:name', checkToken, getByNameController);
+usersRoutes.post('/signup', signUpChecker, signUpController);
+usersRoutes.post('/signin', signInChecker, signInController);
+usersRoutes.delete('/remove', checkRole, removeController);
+usersRoutes.post('/update', checkRole, updateChecker, updateCotroller);
+usersRoutes.get('/', checkToken, getAllController);
+usersRoutes.get('/category/:category', checkToken, getByCategoryController);
+usersRoutes.get('/name/:name', checkToken, getByNameController);
 
-module.exports = UsersRoutes;
+module.exports = usersRoutes;

@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { generateToken } = require('../utils/auth');
 const { createSystem, giveCode } = require('./system.service');
 
-async function signUpService({name, password, category}) {
+async function signUp({name, password, category}) {
   try {
     const hasSuper = await User.findOne({ category: 'super' });
     if (hasSuper) {
@@ -30,18 +30,17 @@ async function signUpService({name, password, category}) {
   }
 }
 
-async function signInService({code, name, password}) {
+async function signIn({code, name, password}) {
   try {
     const hasSuper = await User.findOne({ category: 'super' });
     if (hasSuper) {
       const user = await User.findOne({ name });
-      console.log(user);
       if (user) {
         const validatePassword = await bcrypt.compare(password, user.password).then((res) => res);
         if (!validatePassword) return { type: 'WrongPassword', message: 'Wrong Password' };
         if (code !== user.code) return { type: 'WrongCode', message: 'Wrong Code' };
         await User.updateOne({ name }, { lastTime: Date() });
-        const token = generateToken({ category: user.category, name: user.name });
+        const token = generateToken({ category: user.category, name: user.name, code });
         return { type: null, message: token };
       }
       return { type: 'NotFound', message: 'UserNotFound' }
@@ -55,13 +54,13 @@ async function signInService({code, name, password}) {
       password: hashedPassword,
       category: 'super',
     });
-    return { type, message }
+    return { type, message };
   } catch (error) {
     return { type: 'LoginError', message: 'Login Error' };
   }
 }
 
-async function removeService(name) {
+async function remove(name) {
   const user = await User.findOne({ name });
   if (!user) return { type: 'notFound', message: 'User not found' };
   if (user.category !== 'super') {
@@ -71,7 +70,7 @@ async function removeService(name) {
   return { type: 'super', message: 'User is a super' };
 }
 
-async function getAllService() {
+async function getAll() {
   try {
     const users = await User.find({}, '-password');
     return { type: null, message: users };
@@ -80,7 +79,7 @@ async function getAllService() {
   }
 }
 
-async function updateService({name, password, category}) {
+async function update({name, password, category}) {
   try {
     const user = await User.findOne({ name });
     if (!user) return { type: 'notFound', message: 'User not found' };
@@ -121,11 +120,11 @@ async function getByName(name) {
 }
 
 module.exports = {
-  signUpService,
-  signInService,
-  removeService,
-  getAllService,
-  updateService,
+  signUp,
+  signIn,
+  remove,
+  getAll,
+  update,
   getByCategory,
   getByName
 };

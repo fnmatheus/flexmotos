@@ -11,6 +11,8 @@ const System = new mongoose.Schema({
     today: {
       type: Number,
     },
+    currentMonth: Number,
+    currentYear: Number,
     goal: {
       type: Number,
     },

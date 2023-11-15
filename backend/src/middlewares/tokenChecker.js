@@ -7,14 +7,20 @@ async function checkToken(req, res, next) {
   next();
 }
 
-async function checkUserRole(req, res, next) {
+async function checkRole(req, res, next) {
   const { authorization } = req.headers;
   const { name } = req.body;
   const token = validateToken(authorization);
-  if ((name !== token.name && token.category !== 'super' && token.category !== 'admin') || !token) {
+  if (!token) return res.status(401).json({message: `User don't have permission`});
+  if (name) {
+    if (name !== token.name && token.category !== 'super' && token.category !== 'admin') {
+      return res.status(401).json({message: `User don't have permission`});
+    }
+  }
+  if (token.category !== 'super' && token.category !== 'admin') {
     return res.status(401).json({message: `User don't have permission`});
   }
   next();
 }
 
-module.exports = { checkToken, checkUserRole };
+module.exports = { checkToken, checkRole };
