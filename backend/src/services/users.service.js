@@ -3,11 +3,11 @@ const bcrypt = require('bcrypt');
 const { generateToken } = require('../utils/auth');
 const { CreateSystem, GiveCode } = require('./system.service');
 
-async function SignUpService({name, password, category}) {
+async function signUpService({name, password, category}) {
   try {
     const hasSuper = await User.findOne({ category: 'super' });
     if (hasSuper) {
-      const {message: code} = GiveCode();
+      const {message: code} = await GiveCode();
       const userExists = await User.findOne({ name });
       if(userExists) {
         return { type: 'used', message: 'Already registered user' };
@@ -30,11 +30,12 @@ async function SignUpService({name, password, category}) {
   }
 }
 
-async function SignInService({code, name, password}) {
+async function signInService({code, name, password}) {
   try {
     const hasSuper = await User.findOne({ category: 'super' });
     if (hasSuper) {
       const user = await User.findOne({ name });
+      console.log(user);
       if (user) {
         const validatePassword = await bcrypt.compare(password, user.password).then((res) => res);
         if (!validatePassword) return { type: 'WrongPassword', message: 'Wrong Password' };
@@ -60,7 +61,7 @@ async function SignInService({code, name, password}) {
   }
 }
 
-async function RemoveService(name) {
+async function removeService(name) {
   const user = await User.findOne({ name });
   if (!user) return { type: 'notFound', message: 'User not found' };
   if (user.category !== 'super') {
@@ -70,4 +71,9 @@ async function RemoveService(name) {
   return { type: 'super', message: 'User is a super' };
 }
 
-module.exports = { SignUpService, SignInService, RemoveService };
+async function getAllUserService() {
+  const users = await User.find({}, '-password');
+  console.log(users);
+}
+
+module.exports = { signUpService, signInService, removeService, getAllUserService };

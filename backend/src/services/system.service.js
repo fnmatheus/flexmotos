@@ -1,6 +1,6 @@
 const System = require('../database/schemas/System');
 
-async function CreateSystem() {
+async function createSystem() {
   try {
     const code = Math.floor(Math.random() * 9000 + 1000);
     const year = new Date().getFullYear();
@@ -20,7 +20,7 @@ async function CreateSystem() {
   }
 }
 
-async function GiveCode() {
+async function giveCode() {
   try {
     const systems = await System.find({}, '-billing');
     const { code } = systems[0];
@@ -30,4 +30,4 @@ async function GiveCode() {
   }
 }
 
-module.exports = { CreateSystem, GiveCode };
+module.exports = { createSystem, giveCode };
