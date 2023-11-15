@@ -107,12 +107,31 @@ async function dailyBillingUpdate() {
     await updateBilling();
     await checkCurrentYear();
     await checkCurrentMonth();
-    const systems = await System.find();
-    const billing = systems[0].billing;
-    console.log(billing.years['2023']['10']);
   } catch (error) {
     console.log('System not created');
   }
 }
 
-module.exports = { createSystem, giveCode, dailyBillingUpdate };
+async function changeToday(value) {
+  try {
+    const systems = await System.find();
+    const system = systems[0];
+    const billing = system.billing;
+    await System.findOneAndUpdate({ code: system.code }, {
+      billing: {
+        ...billing,
+        today: billing.today + value
+      }
+    });
+    return { type: null, message: 'Today updated' }
+  } catch (error) {
+    return { type: 'System Error', message: `Can't access the system` }
+  }
+}
+
+module.exports = {
+  createSystem,
+  giveCode,
+  dailyBillingUpdate,
+  changeToday
+};
