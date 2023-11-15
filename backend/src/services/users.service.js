@@ -111,4 +111,21 @@ async function getByCategory(category) {
   }
 }
 
-module.exports = { signUpService, signInService, removeService, getAllService, updateService, getByCategory };
+async function getByName(name) {
+  try {
+    const users = await User.find({name: { "$regex": name, "$options": "i" }}, '-password');
+    return { type: null, message: users };
+  } catch (error) {
+    return { type: 'UsersError', message: `Can't access to give users` };
+  }
+}
+
+module.exports = {
+  signUpService,
+  signInService,
+  removeService,
+  getAllService,
+  updateService,
+  getByCategory,
+  getByName
+};

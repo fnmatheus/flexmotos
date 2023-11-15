@@ -1,4 +1,4 @@
-const { signUpService, signInService, removeService, getAllService, updateService, getByCategory } = require('../services/users.service');
+const { signUpService, signInService, removeService, getAllService, updateService, getByCategory, getByName } = require('../services/users.service');
 
 async function signUpController(req, res) {
   const {name, password, category} = req.body;
@@ -47,4 +47,19 @@ async function getByCategoryController(req, res) {
   return res.status(200).json(message);
 }
 
-module.exports = { signUpController, signInController, removeController, getAllController, updateCotroller, getByCategoryController };
+async function getByNameController(req, res) {
+  const { name } = req.params;
+  const {type, message} = await getByName(name);
+  if (type) return res.status(500).json(message);
+  return res.status(200).json(message);
+}
+
+module.exports = {
+  signUpController,
+  signInController,
+  removeController,
+  getAllController,
+  updateCotroller,
+  getByCategoryController,
+  getByNameController
+};
