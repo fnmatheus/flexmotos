@@ -1,12 +1,13 @@
 const express = require('express');
-const { SignUpController, SignInController, RemoveController } = require('../controller/users.controller');
-const { SignUpChecker, SignInChecker, RemoveChecker } = require('../middlewares/userChecker');
-const { checkRoleToDeleteUser } = require('../middlewares/tokenChecker');
+const { signUpController, signInController, removeController, getAllController } = require('../controller/users.controller');
+const { SignUpChecker, SignInChecker } = require('../middlewares/userChecker');
+const { checkRoleToDeleteUser, checkToken } = require('../middlewares/tokenChecker');
 
 const UsersRoutes = express.Router();
 
-UsersRoutes.post('/signup', SignUpChecker, SignUpController);
-UsersRoutes.post('/signin', SignInChecker, SignInController);
-UsersRoutes.delete('/remove', checkRoleToDeleteUser, RemoveController)
+UsersRoutes.post('/signup', SignUpChecker, signUpController);
+UsersRoutes.post('/signin', SignInChecker, signInController);
+UsersRoutes.delete('/remove', checkRoleToDeleteUser, removeController);
+UsersRoutes.get('/', checkToken, getAllController);
 
 module.exports = UsersRoutes;

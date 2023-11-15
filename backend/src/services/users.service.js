@@ -1,13 +1,13 @@
 const User = require('../database/schemas/User');
 const bcrypt = require('bcrypt');
 const { generateToken } = require('../utils/auth');
-const { CreateSystem, GiveCode } = require('./system.service');
+const { createSystem, giveCode } = require('./system.service');
 
 async function signUpService({name, password, category}) {
   try {
     const hasSuper = await User.findOne({ category: 'super' });
     if (hasSuper) {
-      const {message: code} = await GiveCode();
+      const {message: code} = await giveCode();
       const userExists = await User.findOne({ name });
       if(userExists) {
         return { type: 'used', message: 'Already registered user' };
@@ -46,7 +46,7 @@ async function signInService({code, name, password}) {
       }
       return { type: 'NotFound', message: 'UserNotFound' }
     }
-    const {type, message} = await CreateSystem();
+    const {type, message} = await createSystem();
     if (type === 'SystemError') return { type, message };
     const hashedPassword = await bcrypt.hash(password, 10);
     await User.create({
@@ -71,9 +71,13 @@ async function removeService(name) {
   return { type: 'super', message: 'User is a super' };
 }
 
-async function getAllUserService() {
-  const users = await User.find({}, '-password');
-  console.log(users);
+async function getAllService() {
+  try {
+    const users = await User.find({}, '-password');
+    return { type: null, message: users };
+  } catch (error) {
+    return { type: 'UsersError', message: `Can't access to give users` };
+  }
 }
 
-module.exports = { signUpService, signInService, removeService, getAllUserService };
+module.exports = { signUpService, signInService, removeService, getAllService };

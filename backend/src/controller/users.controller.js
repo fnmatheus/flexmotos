@@ -1,4 +1,4 @@
-const { signUpService, signInService, removeService, getAllUserService } = require('../services/users.service');
+const { signUpService, signInService, removeService, getAllService } = require('../services/users.service');
 
 async function signUpController(req, res) {
   const {name, password, category} = req.body;
@@ -25,10 +25,10 @@ async function removeController(req, res) {
   return res.status(200).json(message);
 }
 
-async function getAllUserController(_req, res) {
-  const users = await getAllUserService();
-  console.log(users);
-  return res.status(200).json('users');
+async function getAllController(_req, res) {
+  const {type, message} = await getAllService();
+  if (type) return res.status(500).json(message);
+  return res.status(200).json(message);
 }
 
-module.exports = { signUpController, signInController, removeController, getAllUserController };
+module.exports = { signUpController, signInController, removeController, getAllController };
