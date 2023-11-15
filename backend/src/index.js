@@ -12,11 +12,14 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', UsersRoutes);
+// app.use('/billing');
 
 mongoose
-  .connect(process.env.MONGODB_URI)
+  // .connect(process.env.MONGODB_URI)
+  .connect('mongodb://localhost:27017')
   .then(() => {
-    app.listen(process.env.PORT, () => {
+    // app.listen(process.env.PORT, () => {
+    app.listen(3000, () => {
       console.log('Database connected!');
     })
   })

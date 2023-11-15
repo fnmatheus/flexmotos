@@ -7,6 +7,6 @@ const UsersRoutes = express.Router();
 
 UsersRoutes.post('/signup', SignUpChecker, SignUpController);
 UsersRoutes.post('/signin', SignInChecker, SignInController);
-UsersRoutes.delete('/delete', checkRoleToDeleteUser, RemoveController)
+UsersRoutes.delete('/remove', checkRoleToDeleteUser, RemoveController)
 
 module.exports = UsersRoutes;
