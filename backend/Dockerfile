@@ -3,11 +3,9 @@ FROM node:20.9.0-alpine3.18
 RUN mkdir -p /usr/app/
 WORKDIR /usr/app
 
-COPY package*.json ./
-RUN npm install
+COPY package*.json .
+RUN npm ci
 
-COPY ./ ./
-
-EXPOSE 3001
+COPY . .
 
 CMD ["npm", "start"]
