@@ -31,6 +31,7 @@ async function SignInService({code, name, password}) {
     const validatePassword = await bcrypt.compare(password, user.password).then((res) => res);
     if (!validatePassword) return { type: 'WrongPassword', message: 'Wrong Password' };
     if (code !== user.code) return { type: 'WrongCode', message: 'Wrong Code' };
+    await User.updateOne({ name }, { lastTime: Date.now() });
     const token = generateToken({ category: user.category, name: user.name });
     return { type: null, message: token };
   }
