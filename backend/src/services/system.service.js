@@ -20,6 +20,14 @@ async function CreateSystem() {
   }
 }
 
-async function GiveCode() {}
+async function GiveCode() {
+  try {
+    const systems = await System.find({}, '-billing');
+    const { code } = systems[0];
+    return { type: 'SystemCode', message: code };
+  } catch (error) {
+    return { type: 'SystemError', message: `Can't read a system` }
+  }
+}
 
-module.exports = { CreateSystem };
+module.exports = { CreateSystem, GiveCode };

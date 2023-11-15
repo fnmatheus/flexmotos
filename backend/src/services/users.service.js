@@ -1,12 +1,13 @@
 const User = require('../database/schemas/User');
 const bcrypt = require('bcrypt');
 const { generateToken } = require('../utils/auth');
-const { CreateSystem } = require('./system.service');
+const { CreateSystem, GiveCode } = require('./system.service');
 
-async function SignUpService({code, name, password, category}) {
+async function SignUpService({name, password, category}) {
   try {
     const hasSuper = await User.findOne({ category: 'super' });
     if (hasSuper) {
+      const {message: code} = GiveCode();
       const userExists = await User.findOne({ name });
       if(userExists) {
         return { type: 'used', message: 'Already registered user' };
