@@ -41,7 +41,7 @@ async function signInService({code, name, password}) {
         if (!validatePassword) return { type: 'WrongPassword', message: 'Wrong Password' };
         if (code !== user.code) return { type: 'WrongCode', message: 'Wrong Code' };
         await User.updateOne({ name }, { lastTime: Date() });
-        const token = generateToken({ category: user.category, name: user.name });
+        const token = generateToken({ category: user.category, name: user.name, code });
         return { type: null, message: token };
       }
       return { type: 'NotFound', message: 'UserNotFound' }
@@ -55,7 +55,7 @@ async function signInService({code, name, password}) {
       password: hashedPassword,
       category: 'super',
     });
-    return { type, message }
+    return { type, message };
   } catch (error) {
     return { type: 'LoginError', message: 'Login Error' };
   }
