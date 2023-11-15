@@ -39,8 +39,9 @@ async function SignInService({code, name, password}) {
 
 async function RemoveService(name) {
   const user = await User.findOne({ name });
+  if (!user) return { type: 'notFound', message: 'User not found' };
   if (user.category !== 'super') {
-    await User.findByIdAndRemove(user.id);
+    await User.deleteOne({ name: user.name});
     return { type: null, message: 'User has been removed' };
   }
   return { type: 'super', message: 'User is a super' };

@@ -10,7 +10,8 @@ async function SignUpController(req, res) {
 async function SignInController(req, res) {
   const {code, name, password} = req.body;
   const {type , message} = await SignInService({code, name, password});
-  if (type) return res.status(401).json(message);
+  if (type === 'super') return res.status(401).json(message);
+  if (type === 'notFound') return res.status(404).json(message);
   return res.status(200).json(message);
 }
 

@@ -14,13 +14,4 @@ async function SignInChecker(req, res, next) {
   next();
 }
 
-async function RemoveChecker(req, res, next) {
-  const { body } = req;
-  if (!body || !body.name) {
-    return res.status(406).json({ message: 'incorrect arguments' });
-  }
-  next();
-}
-
-
-module.exports = { SignUpChecker, SignInChecker, RemoveChecker };
+module.exports = { SignUpChecker, SignInChecker };
