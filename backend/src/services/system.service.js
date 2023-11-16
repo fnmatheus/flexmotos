@@ -151,7 +151,7 @@ async function getDashboard() {
     const systems = await System.find();
     const billing = systems[0].billing;
     const thisMonth = billing.years[billing.currentYear][billing.currentMonth];
-    const monthSum = thisMonth.reduce((acc, value) => acc + value);
+    const monthSum = thisMonth.reduce((acc, value) => acc + value, 0);
     const dashboard = {
       today: billing.today,
       goal: billing.goal,
@@ -168,7 +168,7 @@ async function getYearBilling(year) {
     const systems = await System.find();
     const billing = Object.values(systems[0].billing.years[year]);
     const years = Object.keys((systems[0].billing.years));
-    const sumBilling = billing.map((month) => month.reduce((acc, value) => acc + value));
+    const sumBilling = billing.map((month) => month.reduce((acc, value) => acc + value, 0));
     return { type: null, message: { years, billing: sumBilling } };
   } catch (error) {
     return { type: 'System Error', message: `Can't access the system` };
