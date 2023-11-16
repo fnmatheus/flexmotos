@@ -107,6 +107,7 @@ async function dailyBillingUpdate() {
     await updateBilling();
     await checkCurrentYear();
     await checkCurrentMonth();
+    console.log('Billing Updated!');
   } catch (error) {
     console.log('System not created');
   }
