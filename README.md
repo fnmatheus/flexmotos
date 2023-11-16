@@ -1,5 +1,5 @@
 <p align="center">
-<!--   <img src="./public/logo.svg" height="100"/> -->
+  <img src="./public/logo.svg" height="100"/>
 </p>
 <h1 align="center">🏍️ Flex Motos</h1>
 <h2 align="center">Sistema de gestão</h2>
