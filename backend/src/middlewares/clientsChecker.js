@@ -1,4 +1,4 @@
-async function clientValuesChecker(req, res, next) {
+async function clientAddChecker(req, res, next) {
   try {
     const values = ['name', 'birth', 'CPF', 'CNH', 'phone', 'address'];
     const { body } = req;
@@ -14,7 +14,7 @@ async function clientValuesChecker(req, res, next) {
   }
 }
 
-async function clientRemoveChecker(req, res, next) {
+async function clientCPFChecker(req, res, next) {
   try {
     const { body } = req;
     if (!body || !body.CPF) {
@@ -26,4 +26,4 @@ async function clientRemoveChecker(req, res, next) {
   }
 }
 
-module.exports = { clientValuesChecker, clientRemoveChecker };
+module.exports = { clientAddChecker, clientCPFChecker };

@@ -67,4 +67,14 @@ async function getAll() {
   }
 }
 
-module.exports = { add, remove, update, getAll };
+async function getDatails(CPF) {
+  try {
+    const client = await Client.findOne({ CPF }, '-proof');
+    if (!client) return { type: 'notFound', message: 'Client not found' };
+    return { type: null, message: client };
+  } catch (error) {
+    return { type: 'GetClientError', message: `Can't get clients` };
+  }
+}
+
+module.exports = { add, remove, update, getAll, getDatails };

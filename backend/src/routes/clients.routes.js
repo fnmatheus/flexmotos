@@ -1,14 +1,21 @@
 const express = require('express');
-const { addController, removeController, updateController, getAllController } = require('../controller/clients.controller');
-const { clientValuesChecker, clientRemoveChecker } = require('../middlewares/clientsChecker');
+const {
+  addController,
+  removeController,
+  updateController,
+  getAllController,
+  getDatailsController,
+} = require('../controller/clients.controller');
+const { clientAddChecker, clientCPFChecker } = require('../middlewares/clientsChecker');
 const { checkToken } = require('../middlewares/tokenChecker');
 const upload = require('../config/multer');
 
 const clientsRoutes = express.Router();
 
-clientsRoutes.post('/add', upload.single('file'), checkToken, clientValuesChecker, addController);
-clientsRoutes.delete('/remove', checkToken, clientRemoveChecker, removeController);
-clientsRoutes.post('/update', upload.single('file'), checkToken, updateController);
+clientsRoutes.post('/add', upload.single('file'), checkToken, clientAddChecker, addController);
+clientsRoutes.delete('/remove', checkToken, clientCPFChecker, removeController);
+clientsRoutes.post('/update', upload.single('file'), checkToken, clientCPFChecker, updateController);
 clientsRoutes.get('/', checkToken, getAllController);
+clientsRoutes.get('/client', checkToken, clientCPFChecker, getDatailsController);
 
 module.exports = clientsRoutes;
