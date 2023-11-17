@@ -14,4 +14,16 @@ async function clientValuesChecker(req, res, next) {
   }
 }
 
-module.exports = { clientValuesChecker };
+async function clientRemoveChecker(req, res, next) {
+  try {
+    const { body } = req;
+    if (!body || !body.CPF) {
+      return res.status(406).json({ message: 'incorrect arguments' });
+    }
+    next();
+  } catch (error) {
+    return res.status(406).json({ message: 'incorrect arguments' });
+  }
+}
+
+module.exports = { clientValuesChecker, clientRemoveChecker };

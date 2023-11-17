@@ -61,13 +61,17 @@ async function signIn({code, name, password}) {
 }
 
 async function remove(name) {
-  const user = await User.findOne({ name });
-  if (!user) return { type: 'notFound', message: 'User not found' };
-  if (user.category !== 'super') {
-    await User.deleteOne({ name: user.name});
-    return { type: null, message: 'User has been removed' };
+  try {
+    const user = await User.findOne({ name });
+    if (!user) return { type: 'notFound', message: 'User not found' };
+    if (user.category !== 'super') {
+      await User.deleteOne({ name: user.name});
+      return { type: null, message: 'User has been removed' };
+    }
+    return { type: 'super', message: 'User is a super' };
+  } catch (error) {
+    return { type: 'RemoveUserError', message: 'Remove User Error' };
   }
-  return { type: 'super', message: 'User is a super' };
 }
 
 async function getAll() {
