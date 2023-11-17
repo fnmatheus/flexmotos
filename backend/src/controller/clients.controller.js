@@ -1,4 +1,4 @@
-const { add, remove } = require('../services/clients.service');
+const { add, remove, update } = require('../services/clients.service');
 
 async function addController(req, res) {
   const {name, birth, CPF, CNH, phone, address} = req.body;
@@ -15,4 +15,13 @@ async function removeController(req, res) {
   return res.status(200).json(message);
 }
 
-module.exports = { addController, removeController }
+async function updateController(req, res) {
+  const {name, birth, CPF, CNH, phone, address} = req.body;
+  let file = '';
+  if (req.file) file = req.file.path;
+  const {type, message} = await update({name, birth, CPF, CNH, phone, address, file});
+  if (type) return res.status(500).json(message);
+  return res.status(200).json(message);
+}
+
+module.exports = { addController, removeController, updateController }
