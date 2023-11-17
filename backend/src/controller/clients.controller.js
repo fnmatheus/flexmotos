@@ -1,4 +1,4 @@
-const { add, remove, update } = require('../services/clients.service');
+const { add, remove, update, getAll } = require('../services/clients.service');
 
 async function addController(req, res) {
   const {name, birth, CPF, CNH, phone, address} = req.body;
@@ -24,4 +24,10 @@ async function updateController(req, res) {
   return res.status(200).json(message);
 }
 
-module.exports = { addController, removeController, updateController }
+async function getAllController(req, res) {
+  const {type, message} = await getAll();
+  if (type) return res.status(500).json(message);
+  return res.status(200).json(message);
+}
+
+module.exports = { addController, removeController, updateController, getAllController };

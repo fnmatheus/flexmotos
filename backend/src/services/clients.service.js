@@ -50,4 +50,21 @@ async function update({name, birth, CPF, CNH, phone, address, file: proof}) {
   }
 }
 
-module.exports = { add, remove, update };
+async function getAll() {
+  try {
+    const clients = await Client.find({}, '-birth -CNH -phone -adress -proof -securities');
+    const clientsInfo = clients.map((client) =>{
+      const lastCar = client.history[client.history.length - 1];
+      return {
+      name: client.name,
+      CPF: client.CPF,
+      status: client.status,
+      lastCar: (!lastCar) ? '' : lastCar,
+    }});
+    return { type: null, message: clientsInfo };
+  } catch (error) {
+    return { type: 'GetClientError', message: `Can't get clients` };
+  }
+}
+
+module.exports = { add, remove, update, getAll };
