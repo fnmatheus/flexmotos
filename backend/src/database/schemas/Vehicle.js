@@ -24,7 +24,7 @@ const Vehicle = new mongoose.Schema({
   },
   IPVA: {
     type: Boolean,
-    default: true,
+    require: true,
   },
   mileage: {
     type: Number,
