@@ -50,4 +50,23 @@ async function clientNameChecker(req, res, next) {
   }
 }
 
-module.exports = { clientAddChecker, clientCPFChecker, clientStatusChecker, clientNameChecker };
+async function addSecuritieChecker(req, res, next) {
+  try {
+    const { body } = req;
+    const [plate, value] = body.securitie;
+    if (!body || typeof plate !== 'string' || typeof value !== 'number' || !body.CPF) {
+      return res.status(406).json({ message: 'incorrect arguments' });
+    }
+    next();
+  } catch (error) {
+    return res.status(406).json({ message: 'incorrect arguments' });
+  }
+}
+
+module.exports = {
+  clientAddChecker,
+  clientCPFChecker,
+  clientStatusChecker,
+  clientNameChecker,
+  addSecuritieChecker,
+};

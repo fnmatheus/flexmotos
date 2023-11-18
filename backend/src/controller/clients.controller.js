@@ -7,6 +7,7 @@ const {
   getByName,
   downloadProof,
   getSecurities,
+  addSecuritie,
 } = require('../services/clients.service');
 
 async function addController(req, res) {
@@ -67,8 +68,15 @@ async function downloadProofController(req, res) {
   return res.download(message);
 }
 
-async function getSecuritiesController(req, res) {
+async function getSecuritiesController(_req, res) {
   const {type, message} = await getSecurities();
+  if (type) return res.status(500).json(message);
+  return res.status(200).json(message);
+}
+
+async function addSecuritieController(req, res) {
+  const {CPF, securitie} = req.body;
+  const {type, message} = await addSecuritie({CPF, securitie});
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
 }
@@ -83,4 +91,5 @@ module.exports = {
   getByNameController,
   downloadProofController,
   getSecuritiesController,
+  addSecuritieController,
 };

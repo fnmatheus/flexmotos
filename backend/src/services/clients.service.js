@@ -125,11 +125,29 @@ async function getSecurities() {
   try {
     const clients = await Client.find({}, 'name securities CPF');
     if (!clients) return { type: 'notFound', message: 'Client not found' };
-    return { type: null, message: clients };
+    const onlyHasSecurities = clients.filter((client) => client.securities.length > 0);
+    return { type: null, message: onlyHasSecurities };
   } catch (error) {
     return { type: 'GetClientError', message: `Can't get clients` };
   }
 }
+
+async function addSecuritie({CPF, securitie}) {
+  try {
+    const client = await Client.findOne({ CPF }, '-proof');
+    if (!client) return { type: 'notFound', message: 'Client not found' };
+    const checkPlateIsAvailable = client.securities.filter((item) => item.includes(securitie[0]));
+    if (checkPlateIsAvailable.length > 0) return { type: 'notAvailable', message: 'Plate not available' };;
+    await Client.findOneAndUpdate({CPF}, {
+      securities: [...client.securities, securitie],
+    });
+    return { type: null, message: 'Securitie added' };
+  } catch (error) {
+    return { type: 'GetClientError', message: `Can't get clients` };
+  }
+}
+
+async function removeSecuritie() {}
 
 async function updateStatus({CPF, status}) {
   try {
@@ -152,5 +170,7 @@ module.exports = {
   getByName,
   downloadProof,
   getSecurities,
+  addSecuritie,
+  removeSecuritie,
   updateStatus,
 };
