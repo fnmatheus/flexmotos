@@ -63,10 +63,23 @@ async function addSecuritieChecker(req, res, next) {
   }
 }
 
+async function removeSecuritieChecker(req, res, next) {
+  try {
+    const { body } = req;
+    if (!body || !body.plate || !body.CPF) {
+      return res.status(406).json({ message: 'incorrect arguments' });
+    }
+    next();
+  } catch (error) {
+    return res.status(406).json({ message: 'incorrect arguments' });
+  }
+}
+
 module.exports = {
   clientAddChecker,
   clientCPFChecker,
   clientStatusChecker,
   clientNameChecker,
   addSecuritieChecker,
+  removeSecuritieChecker,
 };

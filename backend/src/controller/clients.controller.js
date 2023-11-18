@@ -8,6 +8,7 @@ const {
   downloadProof,
   getSecurities,
   addSecuritie,
+  removeSecuritie,
 } = require('../services/clients.service');
 
 async function addController(req, res) {
@@ -81,6 +82,13 @@ async function addSecuritieController(req, res) {
   return res.status(200).json(message);
 }
 
+async function removeSecuritieController(req, res) {
+  const {CPF, plate} = req.body;
+  const {type, message} = await removeSecuritie({CPF, plate});
+  if (type) return res.status(500).json(message);
+  return res.status(200).json(message);
+}
+
 module.exports = {
   addController,
   removeController,
@@ -92,4 +100,5 @@ module.exports = {
   downloadProofController,
   getSecuritiesController,
   addSecuritieController,
+  removeSecuritieController,
 };

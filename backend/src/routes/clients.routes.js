@@ -10,6 +10,7 @@ const {
   downloadProofController,
   getSecuritiesController,
   addSecuritieController,
+  removeSecuritieController,
 } = require('../controller/clients.controller');
 const {
   clientAddChecker,
@@ -17,6 +18,7 @@ const {
   clientStatusChecker,
   clientNameChecker,
   addSecuritieChecker,
+  removeSecuritieChecker,
 } = require('../middlewares/clientsChecker');
 const { checkToken } = require('../middlewares/tokenChecker');
 const upload = require('../config/multer');
@@ -32,6 +34,7 @@ clientsRoutes.get('/status', checkToken, clientStatusChecker, getByStatusControl
 clientsRoutes.get('/name', checkToken, clientNameChecker, getByNameController);
 clientsRoutes.get('/download', checkToken, clientCPFChecker, downloadProofController);
 clientsRoutes.get('/securities', checkToken, getSecuritiesController);
-clientsRoutes.post('/securities/add', checkToken, addSecuritieChecker, addSecuritieController);
+clientsRoutes.post('/securities', checkToken, addSecuritieChecker, addSecuritieController);
+clientsRoutes.delete('/securities', checkToken, removeSecuritieChecker, removeSecuritieController);
 
 module.exports = clientsRoutes;

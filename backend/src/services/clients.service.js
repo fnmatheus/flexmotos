@@ -136,7 +136,8 @@ async function addSecuritie({CPF, securitie}) {
   try {
     const client = await Client.findOne({ CPF }, '-proof');
     if (!client) return { type: 'notFound', message: 'Client not found' };
-    const checkPlateIsAvailable = client.securities.filter((item) => item.includes(securitie[0]));
+    const [plate, _value] = securitie;
+    const checkPlateIsAvailable = client.securities.filter((item) => item.includes(plate));
     if (checkPlateIsAvailable.length > 0) return { type: 'notAvailable', message: 'Plate not available' };;
     await Client.findOneAndUpdate({CPF}, {
       securities: [...client.securities, securitie],
@@ -147,7 +148,20 @@ async function addSecuritie({CPF, securitie}) {
   }
 }
 
-async function removeSecuritie() {}
+async function removeSecuritie({CPF, plate}) {
+  try {
+    const client = await Client.findOne({ CPF }, '-proof');
+    if (!client) return { type: 'notFound', message: 'Client not found' };
+    const findSecurite = client.securities.filter((item) => item.includes(plate));
+    if (findSecurite.length === 0) return { type: 'notFound', message: 'Securitie not found' };
+    await Client.findOneAndUpdate({CPF}, {
+      securities: client.securities.filter((item) => !item.includes(plate)),
+    });
+    return { type: null, message: 'Securitie removed' };
+  } catch (error) {
+    return { type: 'GetClientError', message: `Can't get clients` };
+  }
+}
 
 async function updateStatus({CPF, status}) {
   try {
