@@ -52,11 +52,11 @@ const Vehicle = new mongoose.Schema({
       default: '',
     },
   },
-  security_value: {
+  securityValue: {
     type: Number,
     require: true,
   },
-  rent_value: {
+  rentValue: {
     type: Number,
     require: true,
   },

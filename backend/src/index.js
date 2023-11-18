@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const usersRoutes = require('./routes/users.routes');
 const systemRoutes = require('./routes/system.routes');
 const clientsRoutes = require('./routes/clients.routes');
+const vehiclesRoutes = require('./routes/vehicles.routes');
 const schedules = require('./config/schedule');
 
 const app = express();
@@ -18,6 +19,7 @@ app.get('/', (_req, res) => {
 app.use('/users', usersRoutes);
 app.use('/system', systemRoutes);
 app.use('/clients', clientsRoutes);
+app.use('/vehicles', vehiclesRoutes);
 
 mongoose
 // .connect(process.env.MONGODB_URI)
