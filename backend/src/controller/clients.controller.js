@@ -1,4 +1,12 @@
-const { add, remove, update, getAll, getDatails, getByStatus, getByName } = require('../services/clients.service');
+const {
+  add,
+  remove,
+  update, getAll,
+  getDatails,
+  getByStatus,
+  getByName,
+  downloadProof,
+} = require('../services/clients.service');
 
 async function addController(req, res) {
   const {name, birth, CPF, CNH, phone, address} = req.body;
@@ -51,6 +59,13 @@ async function getByNameController(req, res) {
   return res.status(200).json(message);
 }
 
+async function downloadProofController(req, res) {
+  const {CPF} = req.body;
+  const {type, message} = await downloadProof(CPF);
+  if (type) return res.status(500).json(message);
+  return res.download(message);
+}
+
 module.exports = {
   addController,
   removeController,
@@ -59,4 +74,5 @@ module.exports = {
   getDatailsController,
   getByStatusController,
   getByNameController,
+  downloadProofController,
 };

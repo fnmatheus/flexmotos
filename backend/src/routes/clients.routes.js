@@ -7,6 +7,7 @@ const {
   getDatailsController,
   getByStatusController,
   getByNameController,
+  downloadProofController,
 } = require('../controller/clients.controller');
 const { clientAddChecker, clientCPFChecker, clientStatusChecker, clientNameChecker } = require('../middlewares/clientsChecker');
 const { checkToken } = require('../middlewares/tokenChecker');
@@ -21,5 +22,6 @@ clientsRoutes.get('/', checkToken, getAllController);
 clientsRoutes.get('/client', checkToken, clientCPFChecker, getDatailsController);
 clientsRoutes.get('/status', checkToken, clientStatusChecker, getByStatusController);
 clientsRoutes.get('/name', checkToken, clientNameChecker, getByNameController);
+clientsRoutes.get('/download', checkToken, clientCPFChecker, downloadProofController);
 
 module.exports = clientsRoutes;

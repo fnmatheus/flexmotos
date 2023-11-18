@@ -111,6 +111,16 @@ async function getByName(name) {
   }
 }
 
+async function downloadProof(CPF) {
+  try {
+    const client = await Client.findOne({ CPF }, 'proof');
+    if (!client) return { type: 'notFound', message: 'Client not found' };
+    return { type: null, message: client.proof };
+  } catch (error) {
+    return { type: 'GetClientError', message: `Can't get clients` };
+  }
+}
+
 async function updateStatus({CPF, status}) {
   try {
     const client = await Client.findOne({ CPF }, '-proof');
@@ -122,4 +132,14 @@ async function updateStatus({CPF, status}) {
   }
 }
 
-module.exports = { add, remove, update, getAll, getDatails, getByStatus, getByName };
+module.exports = {
+  add,
+  remove,
+  update,
+  getAll,
+  getDatails,
+  getByStatus,
+  getByName,
+  downloadProof,
+  updateStatus,
+};
