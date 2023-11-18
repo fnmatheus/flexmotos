@@ -94,4 +94,21 @@ async function getByStatus(status) {
   }
 }
 
-module.exports = { add, remove, update, getAll, getDatails, getByStatus };
+async function getByName(name) {
+  try {
+    const clients = await Client.find({name: { "$regex": name, "$options": "i" }}, '-birth -CNH -phone -adress -proof -securities');
+    const clientsInfo = clients.map((client) =>{
+      const lastVehicle = client.history[client.history.length - 1];
+      return {
+      name: client.name,
+      CPF: client.CPF,
+      status: client.status,
+      lastVehicle: (!lastVehicle) ? '' : lastVehicle,
+    }});
+    return { type: null, message: clientsInfo };
+  } catch (error) {
+    return { type: 'GetClientError', message: `Can't get clients` };
+  }
+}
+
+module.exports = { add, remove, update, getAll, getDatails, getByStatus, getByName };

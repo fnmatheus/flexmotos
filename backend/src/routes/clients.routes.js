@@ -6,8 +6,9 @@ const {
   getAllController,
   getDatailsController,
   getByStatusController,
+  getByNameController,
 } = require('../controller/clients.controller');
-const { clientAddChecker, clientCPFChecker, clientStatusChecker } = require('../middlewares/clientsChecker');
+const { clientAddChecker, clientCPFChecker, clientStatusChecker, clientNameChecker } = require('../middlewares/clientsChecker');
 const { checkToken } = require('../middlewares/tokenChecker');
 const upload = require('../config/multer');
 
@@ -19,5 +20,6 @@ clientsRoutes.post('/update', upload.single('file'), checkToken, clientCPFChecke
 clientsRoutes.get('/', checkToken, getAllController);
 clientsRoutes.get('/client', checkToken, clientCPFChecker, getDatailsController);
 clientsRoutes.get('/status', checkToken, clientStatusChecker, getByStatusController);
+clientsRoutes.get('/name', checkToken, clientNameChecker, getByNameController);
 
 module.exports = clientsRoutes;
