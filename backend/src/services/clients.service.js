@@ -121,6 +121,16 @@ async function downloadProof(CPF) {
   }
 }
 
+async function getSecurities() {
+  try {
+    const clients = await Client.find({}, 'name securities CPF');
+    if (!clients) return { type: 'notFound', message: 'Client not found' };
+    return { type: null, message: clients };
+  } catch (error) {
+    return { type: 'GetClientError', message: `Can't get clients` };
+  }
+}
+
 async function updateStatus({CPF, status}) {
   try {
     const client = await Client.findOne({ CPF }, '-proof');
@@ -141,5 +151,6 @@ module.exports = {
   getByStatus,
   getByName,
   downloadProof,
+  getSecurities,
   updateStatus,
 };
