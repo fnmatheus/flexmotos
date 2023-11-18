@@ -75,13 +75,6 @@ async function getSecuritiesController(_req, res) {
   return res.status(200).json(message);
 }
 
-async function addSecuritieController(req, res) {
-  const {CPF, securitie} = req.body;
-  const {type, message} = await addSecuritie({CPF, securitie});
-  if (type) return res.status(500).json(message);
-  return res.status(200).json(message);
-}
-
 async function removeSecuritieController(req, res) {
   const {CPF, plate} = req.body;
   const {type, message} = await removeSecuritie({CPF, plate});
@@ -99,6 +92,5 @@ module.exports = {
   getByNameController,
   downloadProofController,
   getSecuritiesController,
-  addSecuritieController,
   removeSecuritieController,
 };
