@@ -111,4 +111,15 @@ async function getByName(name) {
   }
 }
 
+async function updateStatus({CPF, status}) {
+  try {
+    const client = await Client.findOne({ CPF }, '-proof');
+    if (!client) return { type: 'notFound', message: 'Client not found' };
+    await Client.findOneAndUpdate({ CPF }, {status});
+    return { type: null, message: 'update' };
+  } catch (error) {
+    return { type: 'GetClientError', message: `Can't get clients` };
+  }
+}
+
 module.exports = { add, remove, update, getAll, getDatails, getByStatus, getByName };
