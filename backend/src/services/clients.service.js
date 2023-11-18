@@ -54,12 +54,12 @@ async function getAll() {
   try {
     const clients = await Client.find({}, '-birth -CNH -phone -adress -proof -securities');
     const clientsInfo = clients.map((client) =>{
-      const lastCar = client.history[client.history.length - 1];
+      const lastVehicle = client.history[client.history.length - 1];
       return {
       name: client.name,
       CPF: client.CPF,
       status: client.status,
-      lastCar: (!lastCar) ? '' : lastCar,
+      lastVehicle: (!lastVehicle) ? '' : lastVehicle,
     }});
     return { type: null, message: clientsInfo };
   } catch (error) {
@@ -77,4 +77,21 @@ async function getDatails(CPF) {
   }
 }
 
-module.exports = { add, remove, update, getAll, getDatails };
+async function getByStatus(status) {
+  try {
+    const clients = await Client.find({status}, '-birth -CNH -phone -adress -proof -securities');
+    const clientsInfo = clients.map((client) =>{
+      const lastVehicle = client.history[client.history.length - 1];
+      return {
+      name: client.name,
+      CPF: client.CPF,
+      status: client.status,
+      lastVehicle: (!lastVehicle) ? '' : lastVehicle,
+    }});
+    return { type: null, message: clientsInfo };
+  } catch (error) {
+    return { type: 'GetClientError', message: `Can't get clients` };
+  }
+}
+
+module.exports = { add, remove, update, getAll, getDatails, getByStatus };

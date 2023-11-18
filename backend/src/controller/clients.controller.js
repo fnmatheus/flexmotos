@@ -1,4 +1,4 @@
-const { add, remove, update, getAll, getDatails } = require('../services/clients.service');
+const { add, remove, update, getAll, getDatails, getByStatus } = require('../services/clients.service');
 
 async function addController(req, res) {
   const {name, birth, CPF, CNH, phone, address} = req.body;
@@ -37,4 +37,18 @@ async function getDatailsController(req, res) {
   return res.status(200).json(message);
 }
 
-module.exports = { addController, removeController, updateController, getAllController, getDatailsController };
+async function getByStatusController(req, res) {
+  const {status} = req.body;
+  const {type, message} = await getByStatus(status);
+  if (type) return res.status(500).json(message);
+  return res.status(200).json(message);
+}
+
+module.exports = {
+  addController,
+  removeController,
+  updateController,
+  getAllController,
+  getDatailsController,
+  getByStatusController,
+};

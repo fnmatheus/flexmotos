@@ -26,4 +26,16 @@ async function clientCPFChecker(req, res, next) {
   }
 }
 
-module.exports = { clientAddChecker, clientCPFChecker };
+async function clientStatusChecker(req, res, next) {
+  try {
+    const { body } = req;
+    if (!body || !typeof body.status === 'boolean') {
+      return res.status(406).json({ message: 'incorrect arguments' });
+    }
+    next();
+  } catch (error) {
+    return res.status(406).json({ message: 'incorrect arguments' });
+  }
+}
+
+module.exports = { clientAddChecker, clientCPFChecker, clientStatusChecker };
