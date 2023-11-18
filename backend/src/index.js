@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const usersRoutes = require('./routes/users.routes');
 const systemRoutes = require('./routes/system.routes');
 const clientsRoutes = require('./routes/clients.routes');
-const schedules = require('./schedule');
+const schedules = require('./config/schedule');
 
 const app = express();
 
