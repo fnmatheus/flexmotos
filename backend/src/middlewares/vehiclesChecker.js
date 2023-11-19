@@ -44,4 +44,16 @@ async function vehicleModelChecker(req, res, next) {
   }
 }
 
-module.exports = { vehicleAddChecker, vehicleStatusChecker, vehicleModelChecker };
+async function vehiclePlateChecker(req, res, next) {
+  try {
+    const {body} = req;
+    if (!body || typeof body.plate !== 'string') {
+      return res.status(406).json({ message: 'incorrect arguments' });
+    }
+    next();
+  } catch (error) {
+    return res.status(406).json({ message: 'incorrect arguments' });
+  }
+}
+
+module.exports = { vehicleAddChecker, vehicleStatusChecker, vehicleModelChecker, vehiclePlateChecker };

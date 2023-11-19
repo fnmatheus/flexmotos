@@ -94,6 +94,15 @@ async function IPVAsYearlyUpdate() {
   }
 }
 
+async function IPVAUpdate(plate) {
+  try {
+    await Vehicle.findOneAndUpdate({plate}, {IPVA: true});
+    return { type: null, message: 'IPVA updated' };
+  } catch (error) {
+    return { type: 'IPVAError', message: `Can't update this IPVA` };
+  }
+}
+
 async function getAllOilChange() {
   try {
     const vehicles = await Vehicle.find({}, 'model plate oil');
@@ -125,6 +134,7 @@ module.exports = {
   getByModel,
   getAllIPVAsToPay,
   IPVAsYearlyUpdate,
+  IPVAUpdate,
   getAllOilChange,
   oilChangeWeeklyUpdate,
 };

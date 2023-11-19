@@ -5,10 +5,11 @@ const {
   getByStatusController,
   getByModelController,
   getAllIPVAsToPayController,
+  IPVAUpdateController,
   getAllOilChangeController,
 } = require('../controller/vehicles.controller');
 const { checkToken } = require('../middlewares/tokenChecker');
-const { vehicleAddChecker, vehicleStatusChecker, vehicleModelChecker } = require('../middlewares/vehiclesChecker')
+const { vehicleAddChecker, vehicleStatusChecker, vehicleModelChecker, vehiclePlateChecker } = require('../middlewares/vehiclesChecker')
 
 const vehiclesRoutes = express.Router();
 
@@ -17,6 +18,7 @@ vehiclesRoutes.get('/', checkToken, getAllController);
 vehiclesRoutes.get('/status', checkToken, vehicleStatusChecker, getByStatusController);
 vehiclesRoutes.get('/model', checkToken, vehicleModelChecker, getByModelController);
 vehiclesRoutes.get('/IPVA', checkToken, getAllIPVAsToPayController);
+vehiclesRoutes.post('/IPVA', checkToken, vehiclePlateChecker, IPVAUpdateController);
 vehiclesRoutes.get('/oil', checkToken, getAllOilChangeController);
 
 module.exports = vehiclesRoutes;
