@@ -99,6 +99,16 @@ async function update({model, year, plate, RENAVAM, mileage, securityValue, rent
   }
 }
 
+async function getVehicleDetail(plate) {
+  try {
+    const vehicle = await Vehicle.findOne({ plate });
+    if (!vehicle) return { type: 'notFound', message: 'Vehicle not found' };
+    return { type: null, message: vehicle };
+  } catch (error) {
+    return { type: 'UpdateVehicleError', message: `Can't update this vehicle` };
+  }
+}
+
 async function getAllIPVAsToPay() {
   try {
     const vehicles = await Vehicle.find({}, 'model plate IPVA');
@@ -188,6 +198,7 @@ module.exports = {
   getByModel,
   remove,
   update,
+  getVehicleDetail,
   getAllIPVAsToPay,
   IPVAsYearlyUpdate,
   IPVAUpdate,

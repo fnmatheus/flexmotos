@@ -6,6 +6,7 @@ const {
   getByModelController,
   removeController,
   updateController,
+  getVehicleDetailController,
   getAllIPVAsToPayController,
   IPVAUpdateController,
   getAllOilChangeController,
@@ -29,6 +30,7 @@ vehiclesRoutes.get('/status', checkToken, vehicleStatusChecker, getByStatusContr
 vehiclesRoutes.get('/model', checkToken, vehicleModelChecker, getByModelController);
 vehiclesRoutes.delete('/remove', checkToken, vehiclePlateChecker, removeController);
 vehiclesRoutes.post('/update', checkToken, vehicleUpdateChecker, updateController);
+vehiclesRoutes.get('/vehicle', checkToken, vehiclePlateChecker, getVehicleDetailController);
 vehiclesRoutes.get('/IPVA', checkToken, getAllIPVAsToPayController);
 vehiclesRoutes.post('/IPVA', checkToken, vehiclePlateChecker, IPVAUpdateController);
 vehiclesRoutes.get('/oil', checkToken, getAllOilChangeController);
