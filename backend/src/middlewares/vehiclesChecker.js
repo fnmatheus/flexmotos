@@ -20,4 +20,28 @@ async function vehicleAddChecker(req, res, next) {
   }
 }
 
-module.exports = { vehicleAddChecker };
+async function vehicleStatusChecker(req, res, next) {
+  try {
+    const {body} = req;
+    if (!body || typeof body.status !== 'boolean') {
+      return res.status(406).json({ message: 'incorrect arguments' });
+    }
+    next();
+  } catch (error) {
+    return res.status(406).json({ message: 'incorrect arguments' });
+  }
+}
+
+async function vehicleModelChecker(req, res, next) {
+  try {
+    const {body} = req;
+    if (!body || typeof body.model !== 'string') {
+      return res.status(406).json({ message: 'incorrect arguments' });
+    }
+    next();
+  } catch (error) {
+    return res.status(406).json({ message: 'incorrect arguments' });
+  }
+}
+
+module.exports = { vehicleAddChecker, vehicleStatusChecker, vehicleModelChecker };

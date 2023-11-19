@@ -36,4 +36,38 @@ async function getAll() {
   }
 }
 
-module.exports = { add, getAll };
+async function getByStatus(status) {
+  try {
+    const vehicles = await Vehicle.find({});
+    const vehiclesInfo = vehicles.filter((vehicle) => vehicle.rent.status === status).map((vehicle) =>{
+      return {
+        category: vehicle.category,
+        plate: vehicle.plate,
+        model: vehicle.model,
+        status: vehicle.rent.status,
+      }
+    });
+    return { type: null, message: vehiclesInfo };
+  } catch (error) {
+    return { type: 'AddVehicleError', message: `Can't add this vehicle` };
+  }
+}
+
+async function getByModel(model) {
+  try {
+    const vehicles = await Vehicle.find({model: { "$regex": model, "$options": "i" }}, 'category plate model rent');
+    const vehiclesInfo = vehicles.map((vehicle) =>{
+      return {
+        category: vehicle.category,
+        plate: vehicle.plate,
+        model: vehicle.model,
+        status: vehicle.rent.status,
+      }
+    });
+    return { type: null, message: vehiclesInfo };
+  } catch (error) {
+    return { type: 'AddVehicleError', message: `Can't add this vehicle` };
+  }
+}
+
+module.exports = { add, getAll, getByStatus, getByModel };
