@@ -8,6 +8,7 @@ const {
   IPVAUpdateController,
   getAllOilChangeController,
   oilUpdateController,
+  getAllVehiclesToBeReturnedController,
 } = require('../controller/vehicles.controller');
 const { checkToken } = require('../middlewares/tokenChecker');
 const { vehicleAddChecker, vehicleStatusChecker, vehicleModelChecker, vehiclePlateChecker } = require('../middlewares/vehiclesChecker')
@@ -22,5 +23,6 @@ vehiclesRoutes.get('/IPVA', checkToken, getAllIPVAsToPayController);
 vehiclesRoutes.post('/IPVA', checkToken, vehiclePlateChecker, IPVAUpdateController);
 vehiclesRoutes.get('/oil', checkToken, getAllOilChangeController);
 vehiclesRoutes.post('/oil', checkToken, vehiclePlateChecker, oilUpdateController);
+vehiclesRoutes.get('/return', checkToken, getAllVehiclesToBeReturnedController);
 
 module.exports = vehiclesRoutes;

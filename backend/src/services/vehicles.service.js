@@ -136,6 +136,21 @@ async function oilUpdate(plate) {
   }
 }
 
+async function getAllVehiclesToBeReturned() {
+  try {
+    const vehicles = await Vehicle.find({}, 'plate model rent');
+    const vehiclesToBeReturned = vehicles.filter((vehicle) => vehicle.rent.status).map((vehicle) => {
+      return {
+        model: vehicle.model,
+        plate: vehicle.plate,
+        return: vehicle.rent.return,
+      }
+    });
+    return { type: null, message: vehiclesToBeReturned };
+  } catch (error) {
+    return { type: 'ToBeReturnedError', message: `Can't get all vehicles to be returned` };
+  }
+}
 
 module.exports = {
   add,
@@ -148,4 +163,5 @@ module.exports = {
   getAllOilChange,
   oilChangeWeeklyUpdate,
   oilUpdate,
+  getAllVehiclesToBeReturned,
 };
