@@ -32,7 +32,7 @@ async function getAll() {
     });
     return { type: null, message: vehiclesInfo }
   } catch (error) {
-    return { type: 'AddVehicleError', message: `Can't add this vehicle` };
+    return { type: 'GetVehicleError', message: `Can't add this vehicle` };
   }
 }
 
@@ -49,7 +49,7 @@ async function getByStatus(status) {
     });
     return { type: null, message: vehiclesInfo };
   } catch (error) {
-    return { type: 'AddVehicleError', message: `Can't add this vehicle` };
+    return { type: 'GetVehicleError', message: `Can't get vehicles by status` };
   }
 }
 
@@ -66,7 +66,18 @@ async function getByModel(model) {
     });
     return { type: null, message: vehiclesInfo };
   } catch (error) {
-    return { type: 'AddVehicleError', message: `Can't add this vehicle` };
+    return { type: 'GetVehicleError', message: `Can't get vehicles by model` };
+  }
+}
+
+async function remove(plate) {
+  try {
+    const vehicle = await Vehicle.findOne({ plate });
+    if (!vehicle) return { type: 'notFound', message: 'Vehicle not found' };
+    await Vehicle.findOneAndDelete({plate});
+    return { type: null, message: 'Vehicle has been removed' };
+  } catch (error) {
+    return { type: 'RemoveVehicleError', message: `Can't remove this vehicle` };
   }
 }
 
@@ -157,6 +168,7 @@ module.exports = {
   getAll,
   getByStatus,
   getByModel,
+  remove,
   getAllIPVAsToPay,
   IPVAsYearlyUpdate,
   IPVAUpdate,
