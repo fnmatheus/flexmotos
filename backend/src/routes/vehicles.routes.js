@@ -13,6 +13,7 @@ const {
   oilUpdateController,
   getAllVehiclesToBeReturnedController,
   rentVehicleController,
+  returnVehicleController,
 } = require('../controller/vehicles.controller');
 const { checkToken } = require('../middlewares/tokenChecker');
 const {
@@ -22,6 +23,7 @@ const {
   vehiclePlateChecker,
   vehicleUpdateChecker,
   rentVehicleChecker,
+  returnVehicleChecker,
 } = require('../middlewares/vehiclesChecker')
 
 const vehiclesRoutes = express.Router();
@@ -39,5 +41,6 @@ vehiclesRoutes.get('/oil', checkToken, getAllOilChangeController);
 vehiclesRoutes.post('/oil', checkToken, vehiclePlateChecker, oilUpdateController);
 vehiclesRoutes.get('/return', checkToken, getAllVehiclesToBeReturnedController);
 vehiclesRoutes.post('/rent', checkToken, rentVehicleChecker, rentVehicleController);
+vehiclesRoutes.post('/return', checkToken, returnVehicleChecker, returnVehicleController);
 
 module.exports = vehiclesRoutes;

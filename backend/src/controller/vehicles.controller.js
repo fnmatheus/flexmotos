@@ -12,6 +12,7 @@ const {
   oilUpdate,
   getAllVehiclesToBeReturned,
   rentVehicle,
+  returnVehicle,
 } = require('../services/vehicles.service');
 
 async function addController(req, res) {
@@ -101,6 +102,13 @@ async function rentVehicleController(req, res) {
   return res.status(200).json(message);
 }
 
+async function returnVehicleController(req, res) {
+  const {CPF, plate} = req.body;
+  const {type, message} = await returnVehicle({CPF, plate});
+  if (type) return res.status(500).json(message);
+  return res.status(200).json(message);
+}
+
 module.exports = {
   addController,
   getAllController,
@@ -115,4 +123,5 @@ module.exports = {
   oilUpdateController,
   getAllVehiclesToBeReturnedController,
   rentVehicleController,
+  returnVehicleController,
 };

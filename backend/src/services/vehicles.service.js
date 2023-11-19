@@ -1,5 +1,5 @@
 const Vehicle = require('../database/schemas/Vehicle');
-const { updateClientToRent } = require('../services/clients.service');
+const { updateClientToRent, updateClientToReturn } = require('../services/clients.service');
 
 async function add({category, model, year, plate, RENAVAM, IPVA, mileage, securityValue, rentValue}) {
   try {
@@ -222,6 +222,26 @@ async function rentVehicle({CPF, name, rentalDate, returnDate, plate, hasSecurit
   }
 }
 
+async function returnVehicle({CPF, plate}) {
+  try {
+    const vehicle = await Vehicle.findOne({ plate });
+    if (!vehicle) return { type: 'notFound', message: 'Vehicle not found' };
+    await updateClientToReturn(CPF);
+    await Vehicle.findOneAndUpdate({ plate }, {
+      rent: {
+        status: false,
+        CPF: '',
+        name: '',
+        rentalDate: '',
+        returnDate: '',
+      }
+    });
+    return { type: null, message: 'Vehicle has been returned' };
+  } catch (error) {
+    return { type: 'RentError', message: `Can't rent this Vehicle` };
+  }
+}
+
 module.exports = {
   add,
   getAll,
@@ -239,4 +259,5 @@ module.exports = {
   getAllVehiclesToBeReturned,
   amountsMonthlysUpdate,
   rentVehicle,
+  returnVehicle,
 };

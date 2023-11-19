@@ -95,6 +95,21 @@ async function rentVehicleChecker(req, res, next) {
   }
 }
 
+async function returnVehicleChecker(req, res, next) {
+  try {
+    const {CPF, plate} = req.body;
+    const verifyType = (
+      typeof CPF !== 'string' ||
+      typeof plate !== 'string');
+    if (verifyType) {
+      return res.status(406).json({ message: 'incorrect arguments' });
+    }
+    next();
+  } catch (error) {
+    return res.status(406).json({ message: 'incorrect arguments' });
+  }
+}
+
 module.exports = {
   vehicleAddChecker,
   vehicleStatusChecker,
@@ -102,4 +117,5 @@ module.exports = {
   vehiclePlateChecker,
   vehicleUpdateChecker,
   rentVehicleChecker,
+  returnVehicleChecker,
 };
