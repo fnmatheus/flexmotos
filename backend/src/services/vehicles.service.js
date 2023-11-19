@@ -85,6 +85,15 @@ async function getAllIPVAsToPay() {
   }
 }
 
+async function IPVAsYearlyUpdate() {
+  try {
+    await Vehicle.updateMany({}, { IPVA: false });
+    console.log('IPVAs yearly update');
+  } catch (error) {
+    console.log(`Can't do oil change update`);
+  }
+}
+
 async function getAllOilChange() {
   try {
     const vehicles = await Vehicle.find({}, 'model plate oil');
@@ -100,4 +109,22 @@ async function getAllOilChange() {
   }
 }
 
-module.exports = { add, getAll, getByStatus, getByModel, getAllIPVAsToPay, getAllOilChange };
+async function oilChangeWeeklyUpdate() {
+  try {
+    await Vehicle.updateMany({}, { oil: false });
+    console.log('Oil change weekly update');
+  } catch (error) {
+    console.log(`Can't do oil change update`);
+  }
+}
+
+module.exports = {
+  add,
+  getAll,
+  getByStatus,
+  getByModel,
+  getAllIPVAsToPay,
+  IPVAsYearlyUpdate,
+  getAllOilChange,
+  oilChangeWeeklyUpdate,
+};
