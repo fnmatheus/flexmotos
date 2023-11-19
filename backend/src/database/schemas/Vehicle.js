@@ -43,11 +43,11 @@ const Vehicle = new mongoose.Schema({
       type: String,
       default: '',
     },
-    rental: {
+    rentalDate: {
       type: String,
       default: '',
     },
-    return: {
+    returnDate: {
       type: String,
       default: '',
     },

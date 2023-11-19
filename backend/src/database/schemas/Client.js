@@ -35,12 +35,12 @@ const Client = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  history: [{
+  history: [[{
     type: String,
-  }],
-  securities: [{
-    type: Array,
-  }],
+  }]],
+  securities: [[{
+    type: String,
+  }]],
 });
 
 module.exports = mongoose.model('Client', Client)

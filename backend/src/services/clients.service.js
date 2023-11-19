@@ -132,22 +132,6 @@ async function getSecurities() {
   }
 }
 
-async function addSecuritie({CPF, securitie}) {
-  try {
-    const client = await Client.findOne({ CPF }, '-proof');
-    if (!client) return { type: 'notFound', message: 'Client not found' };
-    const [plate, _value] = securitie;
-    const checkPlateIsAvailable = client.securities.filter((item) => item.includes(plate));
-    if (checkPlateIsAvailable.length > 0) return { type: 'notAvailable', message: 'Plate not available' };;
-    await Client.findOneAndUpdate({CPF}, {
-      securities: [...client.securities, securitie],
-    });
-    return { type: null, message: 'Securitie added' };
-  } catch (error) {
-    return { type: 'GetClientError', message: `Can't get clients` };
-  }
-}
-
 async function removeSecuritie({CPF, plate}) {
   try {
     const client = await Client.findOne({ CPF }, '-proof');
@@ -163,15 +147,25 @@ async function removeSecuritie({CPF, plate}) {
   }
 }
 
-async function updateStatus({CPF, status}) {
-  try {
-    const client = await Client.findOne({ CPF }, '-proof');
-    if (!client) return { type: 'notFound', message: 'Client not found' };
-    await Client.findOneAndUpdate({ CPF }, {status});
-    return { type: null, message: 'update' };
-  } catch (error) {
-    return { type: 'GetClientError', message: `Can't get clients` };
-  }
+async function updateClientToRent({CPF, model, plate, rentalDate, rentValue, hasSecurite}) {
+  const client = await Client.findOne({ CPF });
+  await Client.findOneAndUpdate({ CPF }, {
+    status: true,
+    history: [
+      ...client.history,
+      [model, plate, rentalDate],
+    ],
+    securities: (!hasSecurite) ? [...client.securities] : [
+      ...client.securities,
+      [plate, rentValue],
+    ],
+  });
+  console.log('Client has been updated');
+}
+
+async function updateClientToReturn(CPF) {
+  await Client.findOneAndUpdate({ CPF }, { status: false });
+  console.log('Client has been updated');
 }
 
 module.exports = {
@@ -184,7 +178,7 @@ module.exports = {
   getByName,
   downloadProof,
   getSecurities,
-  addSecuritie,
   removeSecuritie,
-  updateStatus,
+  updateClientToRent,
+  updateClientToReturn,
 };

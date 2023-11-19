@@ -76,10 +76,30 @@ async function vehicleUpdateChecker(req, res, next) {
   }
 }
 
+async function rentVehicleChecker(req, res, next) {
+  try {
+    const {CPF, name, rentalDate, returnDate, plate, hasSecurite} = req.body;
+    const verifyType = (
+      typeof CPF !== 'string' ||
+      typeof name !== 'string' ||
+      typeof rentalDate !== 'string' ||
+      typeof returnDate !== 'string' ||
+      typeof plate !== 'string' ||
+      typeof hasSecurite !== 'boolean');
+    if (verifyType) {
+      return res.status(406).json({ message: 'incorrect arguments' });
+    }
+    next();
+  } catch (error) {
+    return res.status(406).json({ message: 'incorrect arguments' });
+  }
+}
+
 module.exports = {
   vehicleAddChecker,
   vehicleStatusChecker,
   vehicleModelChecker,
   vehiclePlateChecker,
-  vehicleUpdateChecker
+  vehicleUpdateChecker,
+  rentVehicleChecker,
 };
