@@ -81,8 +81,23 @@ async function getAllIPVAsToPay() {
     });
     return { type: null, message: vehiclesInfo };
   } catch (error) {
-    return { type: 'AddVehicleError', message: `Can't add this vehicle` };
+    return { type: 'IPVAsError', message: `Can't get all IPVAs to pay` };
   }
 }
 
-module.exports = { add, getAll, getByStatus, getByModel, getAllIPVAsToPay };
+async function getAllOilChange() {
+  try {
+    const vehicles = await Vehicle.find({}, 'model plate oil');
+    const vehiclesInfo = vehicles.filter((vehicle) => !vehicle.oil).map((vehicle) =>{
+      return {
+        model: vehicle.model,
+        plate: vehicle.plate,
+      }
+    });
+    return { type: null, message: vehiclesInfo };
+  } catch (error) {
+    return { type: 'OilChangeError', message: `Can't get all oil change` };
+  }
+}
+
+module.exports = { add, getAll, getByStatus, getByModel, getAllIPVAsToPay, getAllOilChange };

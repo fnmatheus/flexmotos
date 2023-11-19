@@ -62,7 +62,7 @@ const Vehicle = new mongoose.Schema({
   },
   oil: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   amount: {
     type: Number,
