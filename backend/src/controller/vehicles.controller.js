@@ -6,6 +6,7 @@ const {
   getAllIPVAsToPay,
   IPVAUpdate,
   getAllOilChange,
+  oilUpdate,
 } = require('../services/vehicles.service');
 
 async function addController(req, res) {
@@ -53,6 +54,13 @@ async function getAllOilChangeController(_req, res) {
   return res.status(200).json(message);
 }
 
+async function oilUpdateController(req, res) {
+  const {plate} = req.body;
+  const {type, message} = await oilUpdate(plate);
+  if (type) return res.status(500).json(message);
+  return res.status(200).json(message);
+}
+
 module.exports = {
   addController,
   getAllController,
@@ -61,4 +69,5 @@ module.exports = {
   getAllIPVAsToPayController,
   IPVAUpdateController,
   getAllOilChangeController,
+  oilUpdateController,
 };

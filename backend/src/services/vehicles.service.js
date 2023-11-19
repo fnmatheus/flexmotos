@@ -127,6 +127,16 @@ async function oilChangeWeeklyUpdate() {
   }
 }
 
+async function oilUpdate(plate) {
+  try {
+    await Vehicle.findOneAndUpdate({plate}, {oil: true});
+    return { type: null, message: 'Oil updated' };
+  } catch (error) {
+    return { type: 'OilError', message: `Can't update this oil` };
+  }
+}
+
+
 module.exports = {
   add,
   getAll,
@@ -137,4 +147,5 @@ module.exports = {
   IPVAUpdate,
   getAllOilChange,
   oilChangeWeeklyUpdate,
+  oilUpdate,
 };
