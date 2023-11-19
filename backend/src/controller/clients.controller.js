@@ -7,7 +7,6 @@ const {
   getByName,
   downloadProof,
   getSecurities,
-  addSecuritie,
   removeSecuritie,
 } = require('../services/clients.service');
 

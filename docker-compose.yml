@@ -11,18 +11,18 @@ services:
     volumes:
       - mongo_db:/data/db
 
-  # # Node API services
-  # api:
-  #   build: ./backend
-  #   ports:
-  #     - 3000:3000
-  #   environment:
-  #     PORT: 3000
-  #     MONGODB_URI: mongodb://mongo_db:27017
-  #     DB_NAME: flexmotos_db
-  #     NAME: FlexMotos
-  #   depends_on:
-  #     - mongo_db
+  # Node API services
+  api:
+    build: ./backend
+    ports:
+      - 3000:3000
+    environment:
+      PORT: 3000
+      MONGODB_URI: mongodb://mongo_db:27017
+      DB_NAME: flexmotos_db
+      NAME: FlexMotos
+    depends_on:
+      - mongo_db
 
   # # Next.js app
   # frontend:
