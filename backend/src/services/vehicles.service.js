@@ -70,4 +70,19 @@ async function getByModel(model) {
   }
 }
 
-module.exports = { add, getAll, getByStatus, getByModel };
+async function getAllIPVAsToPay() {
+  try {
+    const vehicles = await Vehicle.find({}, 'model plate IPVA');
+    const vehiclesInfo = vehicles.filter((vehicle) => !vehicle.IPVA).map((vehicle) =>{
+      return {
+        model: vehicle.model,
+        plate: vehicle.plate,
+      }
+    });
+    return { type: null, message: vehiclesInfo };
+  } catch (error) {
+    return { type: 'AddVehicleError', message: `Can't add this vehicle` };
+  }
+}
+
+module.exports = { add, getAll, getByStatus, getByModel, getAllIPVAsToPay };
