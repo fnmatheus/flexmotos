@@ -191,6 +191,15 @@ async function getAllVehiclesToBeReturned() {
   }
 }
 
+async function amountsMonthlysUpdate() {
+  try {
+    await Vehicle.updateMany({}, { amount: 0 });
+    console.log('Amount monthly update');
+  } catch (error) {
+    console.log(`Can't do amount update`);
+  }
+}
+
 module.exports = {
   add,
   getAll,
@@ -206,4 +215,5 @@ module.exports = {
   oilChangeWeeklyUpdate,
   oilUpdate,
   getAllVehiclesToBeReturned,
+  amountsMonthlysUpdate,
 };
