@@ -81,6 +81,24 @@ async function remove(plate) {
   }
 }
 
+async function update({model, year, plate, RENAVAM, mileage, securityValue, rentValue}) {
+  try {
+    const vehicle = await Vehicle.findOne({ plate });
+    if (!vehicle) return { type: 'notFound', message: 'Vehicle not found' };
+    await Vehicle.findOneAndUpdate({plate}, {
+      model,
+      year,
+      RENAVAM,
+      mileage,
+      securityValue,
+      rentValue,
+    });
+    return { type: null, message: 'Vehicle has been updated' };
+  } catch (error) {
+    return { type: 'UpdateVehicleError', message: `Can't update this vehicle` };
+  }
+}
+
 async function getAllIPVAsToPay() {
   try {
     const vehicles = await Vehicle.find({}, 'model plate IPVA');
@@ -169,6 +187,7 @@ module.exports = {
   getByStatus,
   getByModel,
   remove,
+  update,
   getAllIPVAsToPay,
   IPVAsYearlyUpdate,
   IPVAUpdate,

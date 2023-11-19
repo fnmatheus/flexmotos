@@ -4,6 +4,7 @@ const {
   getByStatus,
   getByModel,
   remove,
+  update,
   getAllIPVAsToPay,
   IPVAUpdate,
   getAllOilChange,
@@ -41,6 +42,13 @@ async function getByModelController(req, res) {
 async function removeController(req, res) {
   const {plate} = req.body;
   const {type, message} = await remove(plate);
+  if (type) return res.status(500).json(message);
+  return res.status(200).json(message);
+}
+
+async function updateController(req, res) {
+  const {model, year, plate, RENAVAM, mileage, securityValue, rentValue} = req.body;
+  const {type, message} = await update({model, year, plate, RENAVAM, mileage, securityValue, rentValue});
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
 }
@@ -83,6 +91,7 @@ module.exports = {
   getByStatusController,
   getByModelController,
   removeController,
+  updateController,
   getAllIPVAsToPayController,
   IPVAUpdateController,
   getAllOilChangeController,

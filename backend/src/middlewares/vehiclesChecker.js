@@ -56,4 +56,30 @@ async function vehiclePlateChecker(req, res, next) {
   }
 }
 
-module.exports = { vehicleAddChecker, vehicleStatusChecker, vehicleModelChecker, vehiclePlateChecker };
+async function vehicleUpdateChecker(req, res, next) {
+  try {
+    const {model, year, plate, RENAVAM, mileage, securityValue, rentValue} = req.body;
+    const verifyType = (
+      typeof model !== 'string' ||
+      typeof year !== 'string' ||
+      typeof plate !== 'string' ||
+      typeof RENAVAM !== 'string' ||
+      typeof mileage !== 'number' ||
+      typeof securityValue !== 'number' ||
+      typeof rentValue !== 'number');
+    if (verifyType) {
+      return res.status(406).json({ message: 'incorrect arguments' });
+    }
+    next();
+  } catch (error) {
+    return res.status(406).json({ message: 'incorrect arguments' });
+  }
+}
+
+module.exports = {
+  vehicleAddChecker,
+  vehicleStatusChecker,
+  vehicleModelChecker,
+  vehiclePlateChecker,
+  vehicleUpdateChecker
+};
