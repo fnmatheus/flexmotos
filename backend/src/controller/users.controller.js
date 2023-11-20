@@ -3,7 +3,8 @@ const { signUp, signIn, remove, getAll, update, getByCategory, getByName } = req
 async function signUpController(req, res) {
   const {name, password, category} = req.body;
   const {type, message} = await signUp({name, password, category});
-  if (type) return res.status(409).json(message);
+  if (type === 'NoSuper') return res.status(409).json(message);
+  if (type) return res.status(500).json(message);
   return res.status(201).json(message);
 }
 
