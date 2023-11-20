@@ -28,19 +28,19 @@ const {
 
 const vehiclesRoutes = express.Router();
 
-vehiclesRoutes.post('/add', checkToken, vehicleAddChecker, addController);
-vehiclesRoutes.get('/', checkToken, getAllController);
-vehiclesRoutes.get('/status', checkToken, vehicleStatusChecker, getByStatusController);
-vehiclesRoutes.get('/model', checkToken, vehicleModelChecker, getByModelController);
-vehiclesRoutes.delete('/remove', checkToken, vehiclePlateChecker, removeController);
-vehiclesRoutes.post('/update', checkToken, vehicleUpdateChecker, updateController);
-vehiclesRoutes.get('/vehicle', checkToken, vehiclePlateChecker, getVehicleDetailController);
-vehiclesRoutes.get('/IPVA', checkToken, getAllIPVAsToPayController);
-vehiclesRoutes.post('/IPVA', checkToken, vehiclePlateChecker, IPVAUpdateController);
-vehiclesRoutes.get('/oil', checkToken, getAllOilChangeController);
-vehiclesRoutes.post('/oil', checkToken, vehiclePlateChecker, oilUpdateController);
-vehiclesRoutes.get('/return', checkToken, getAllVehiclesToBeReturnedController);
-vehiclesRoutes.post('/rent', checkToken, rentVehicleChecker, rentVehicleController);
-vehiclesRoutes.post('/return', checkToken, returnVehicleChecker, returnVehicleController);
+vehiclesRoutes.post('/add', vehicleAddChecker, addController);
+vehiclesRoutes.get('/', getAllController);
+vehiclesRoutes.get('/status', vehicleStatusChecker, getByStatusController);
+vehiclesRoutes.get('/model', vehicleModelChecker, getByModelController);
+vehiclesRoutes.delete('/remove', vehiclePlateChecker, removeController);
+vehiclesRoutes.post('/update', vehicleUpdateChecker, updateController);
+vehiclesRoutes.get('/vehicle', vehiclePlateChecker, getVehicleDetailController);
+vehiclesRoutes.get('/IPVA', getAllIPVAsToPayController);
+vehiclesRoutes.post('/IPVA', vehiclePlateChecker, IPVAUpdateController);
+vehiclesRoutes.get('/oil', getAllOilChangeController);
+vehiclesRoutes.post('/oil', vehiclePlateChecker, oilUpdateController);
+vehiclesRoutes.get('/return', getAllVehiclesToBeReturnedController);
+vehiclesRoutes.post('/rent', rentVehicleChecker, rentVehicleController);
+vehiclesRoutes.post('/return', returnVehicleChecker, returnVehicleController);
 
 module.exports = vehiclesRoutes;

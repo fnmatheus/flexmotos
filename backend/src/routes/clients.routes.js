@@ -23,15 +23,15 @@ const upload = require('../config/multer');
 
 const clientsRoutes = express.Router();
 
-clientsRoutes.post('/add', upload.single('file'), checkToken, clientAddChecker, addController);
-clientsRoutes.delete('/remove', checkToken, clientCPFChecker, removeController);
-clientsRoutes.post('/update', upload.single('file'), checkToken, clientCPFChecker, updateController);
-clientsRoutes.get('/', checkToken, getAllController);
-clientsRoutes.get('/client', checkToken, clientCPFChecker, getDatailsController);
-clientsRoutes.get('/status', checkToken, clientStatusChecker, getByStatusController);
-clientsRoutes.get('/name', checkToken, clientNameChecker, getByNameController);
-clientsRoutes.get('/download', checkToken, clientCPFChecker, downloadProofController);
-clientsRoutes.get('/securities', checkToken, getSecuritiesController);
-clientsRoutes.delete('/securities', checkToken, removeSecuritieChecker, removeSecuritieController);
+clientsRoutes.post('/add', upload.single('file'), clientAddChecker, addController);
+clientsRoutes.delete('/remove', clientCPFChecker, removeController);
+clientsRoutes.post('/update', upload.single('file'), clientCPFChecker, updateController);
+clientsRoutes.get('/', getAllController);
+clientsRoutes.get('/client', clientCPFChecker, getDatailsController);
+clientsRoutes.get('/status', clientStatusChecker, getByStatusController);
+clientsRoutes.get('/name', clientNameChecker, getByNameController);
+clientsRoutes.get('/download', clientCPFChecker, downloadProofController);
+clientsRoutes.get('/securities', getSecuritiesController);
+clientsRoutes.delete('/securities', removeSecuritieChecker, removeSecuritieController);
 
 module.exports = clientsRoutes;
