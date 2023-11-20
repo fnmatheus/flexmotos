@@ -43,7 +43,7 @@ async function signIn({code, name, password}) {
         const token = generateToken({ category: user.category, name: user.name, code });
         return { type: null, message: token };
       }
-      return { type: 'NotFound', message: 'UserNotFound' }
+      return { type: 'NotFound', message: 'User not Found' }
     }
     const {type, message} = await createSystem();
     if (type === 'SystemError') return { type, message };
