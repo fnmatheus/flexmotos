@@ -45,6 +45,7 @@ async function getByModelController(req, res) {
 async function removeController(req, res) {
   const {plate} = req.body;
   const {type, message} = await remove(plate);
+  if (type === 'notFound') return res.status(404).json(message);
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
 }
@@ -52,6 +53,7 @@ async function removeController(req, res) {
 async function updateController(req, res) {
   const {model, year, plate, RENAVAM, mileage, securityValue, rentValue} = req.body;
   const {type, message} = await update({model, year, plate, RENAVAM, mileage, securityValue, rentValue});
+  if (type === 'notFound') return res.status(404).json(message);
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
 }
@@ -59,6 +61,7 @@ async function updateController(req, res) {
 async function getVehicleDetailController(req, res) {
   const {plate} = req.body;
   const {type, message} = await getVehicleDetail(plate);
+  if (type === 'notFound') return res.status(404).json(message);
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
 }
@@ -98,6 +101,7 @@ async function getAllVehiclesToBeReturnedController(_req, res) {
 async function rentVehicleController(req, res) {
   const {CPF, name, rentalDate, returnDate, plate, hasSecurite} = req.body;
   const {type, message} = await rentVehicle({CPF, name, rentalDate, returnDate, plate, hasSecurite});
+  if (type === 'notFound') return res.status(404).json(message);
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
 }
@@ -105,6 +109,7 @@ async function rentVehicleController(req, res) {
 async function returnVehicleController(req, res) {
   const {CPF, plate} = req.body;
   const {type, message} = await returnVehicle({CPF, plate});
+  if (type === 'notFound') return res.status(404).json(message);
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
 }
