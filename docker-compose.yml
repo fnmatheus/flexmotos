@@ -24,13 +24,13 @@ services:
     depends_on:
       - mongo_db
 
-  # # Next.js app
-  # frontend:
-  #   build: ./frontend
-  #   ports:
-  #     - 3001:3001
-  #   depends_on:
-  #     - api
+  # Next.js app
+  frontend:
+    build: ./frontend
+    ports:
+      - 3001:3001
+    depends_on:
+      - api
 
 volumes:
   mongo_db: {}
