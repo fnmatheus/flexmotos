@@ -5,7 +5,7 @@ async function clientAddChecker(req, res, next) {
     const testValues = values.reduce((acc, value) => {
       if (acc) return typeof body[value] === 'string';
     }, true);
-    if (!body || !testValues || req.file === undefined) {
+    if (!testValues || req.file === undefined) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
@@ -17,7 +17,7 @@ async function clientAddChecker(req, res, next) {
 async function clientCPFChecker(req, res, next) {
   try {
     const { body } = req;
-    if (!body || !body.CPF) {
+    if (typeof body.CPF !== 'string') {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
@@ -29,7 +29,7 @@ async function clientCPFChecker(req, res, next) {
 async function clientStatusChecker(req, res, next) {
   try {
     const { body } = req;
-    if (!body || !typeof body.status === 'boolean') {
+    if (!typeof body.status === 'boolean') {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
@@ -41,7 +41,7 @@ async function clientStatusChecker(req, res, next) {
 async function clientNameChecker(req, res, next) {
   try {
     const { body } = req;
-    if (!body || !typeof body.name) {
+    if (!typeof body.name === 'string') {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
@@ -54,7 +54,8 @@ async function addSecuritieChecker(req, res, next) {
   try {
     const { body } = req;
     const [plate, value] = body.securitie;
-    if (!body || typeof plate !== 'string' || typeof value !== 'number' || !body.CPF) {
+    const validation = (typeof plate !== 'string' || typeof value === 'number' || typeof body.CPF === 'string');
+    if (!validation) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
@@ -66,7 +67,8 @@ async function addSecuritieChecker(req, res, next) {
 async function removeSecuritieChecker(req, res, next) {
   try {
     const { body } = req;
-    if (!body || !body.plate || !body.CPF) {
+    const validation = (typeof body.plate === 'number' || typeof body.CPF === 'string');
+    if (!validation) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
