@@ -21,6 +21,8 @@ export default function Home() {
         setIncorrectFields(true);
         return;
       }
+      if (typeof data === 'number') return alert(`novo código ${data}`);
+      console.log(data);
     } catch (e) {
       const error = e as AxiosError;
       alert(error);

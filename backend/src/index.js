@@ -15,8 +15,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors({
-  origin: '*',
-  methods: 'GET, POST'
+  origin: 'http://localhost:3001',
+  methods: 'GET, POST, DELETE'
 }));
 
 app.get('/', (_req, res) => {
