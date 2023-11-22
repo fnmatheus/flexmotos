@@ -41,7 +41,7 @@ async function clientStatusChecker(req, res, next) {
 async function clientNameChecker(req, res, next) {
   try {
     const { body } = req;
-    if (!typeof body.name === 'string') {
+    if (typeof body.name !== 'string') {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
