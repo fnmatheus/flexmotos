@@ -1,9 +1,11 @@
 "use client";
 
-import axios, { AxiosError, AxiosResponse } from "axios";
-import React from "react";
+import axios, { AxiosError } from "axios";
+import React, { useState } from "react";
 
 export default function Home() {
+  const [incorrectFields, setIncorrectFields] = useState(false);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -15,11 +17,13 @@ export default function Home() {
 
     try {
       const { data } = await axios.post('http://localhost:3000/users/signin', payload);
-      
-      console.log(data);
+      if (data === 'Wrong Code' || data === 'User not Found') {
+        setIncorrectFields(true);
+        return;
+      }
     } catch (e) {
       const error = e as AxiosError;
-      console.log(error);
+      alert(error);
     }
   }
 
@@ -31,6 +35,12 @@ export default function Home() {
           <input id="username" type="text" />
           <input id="password" type="password" name="" />
           <button className="bg-white">Entrar</button>
+          {
+            incorrectFields &&
+            <span className="text-white">
+              ⓘ campos não preenchidos ou incorretos
+            </span>
+          }
         </form>
       </div>
     </main>

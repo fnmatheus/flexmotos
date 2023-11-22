@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({
   origin: '*',
   methods: 'GET, POST'
-}))
+}));
 
 app.get('/', (_req, res) => {
   res.status(200).json({msg: 'Flex Motos API'});
