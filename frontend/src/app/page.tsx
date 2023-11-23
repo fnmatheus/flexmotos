@@ -1,10 +1,12 @@
 "use client";
 
 import axios, { AxiosError } from "axios";
+import { useRouter } from 'next/navigation'
 import React, { useState } from "react";
 
 export default function Home() {
   const [incorrectFields, setIncorrectFields] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -17,12 +19,13 @@ export default function Home() {
 
     try {
       const { data } = await axios.post('http://localhost:3000/users/signin', payload);
-      if (data === 'Wrong Code' || data === 'User not Found') {
+      if (data === 'Wrong Code' || data === 'User not Found' || data === 'Wrong Password') {
         setIncorrectFields(true);
         return;
       }
       if (typeof data === 'number') return alert(`novo código ${data}`);
-      console.log(data);
+      document.cookie = `authorization=${data}`;
+      router.push('/dashboard');
     } catch (e) {
       const error = e as AxiosError;
       alert(error);
