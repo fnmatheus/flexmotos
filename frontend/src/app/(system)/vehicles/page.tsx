@@ -1,4 +1,4 @@
-export default function Dashboard() {
+export default function Vehicles() {
   return (
     <section>
       <p>Vehicles</p>

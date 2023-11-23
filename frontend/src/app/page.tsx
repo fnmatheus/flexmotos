@@ -1,8 +1,8 @@
-"use client";
-
+'use client'
 import axios, { AxiosError } from "axios";
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 import React, { useState } from "react";
+import { setCookie } from "cookies-next";
 
 export default function Home() {
   const [incorrectFields, setIncorrectFields] = useState(false);
@@ -24,7 +24,7 @@ export default function Home() {
         return;
       }
       if (typeof data === 'number') return alert(`novo código ${data}`);
-      document.cookie = `authorization=${data}`;
+      setCookie('authorization', data);
       router.push('/dashboard');
     } catch (e) {
       const error = e as AxiosError;
