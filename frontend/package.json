@@ -12,6 +12,7 @@
     "@types/cookie": "^0.5.4",
     "axios": "^1.6.2",
     "cookie": "^0.6.0",
+    "cookies-next": "^4.1.0",
     "jsonwebtoken": "^9.0.2",
     "next": "14.0.2",
     "react": "^18",
