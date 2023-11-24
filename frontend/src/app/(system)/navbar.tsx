@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import Popup from './popup';
 
