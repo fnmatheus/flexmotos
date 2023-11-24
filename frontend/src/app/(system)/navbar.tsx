@@ -1,8 +1,10 @@
 'use client'
-import Link from "next/link";
-import { deleteCookie } from "cookies-next";
+import Link from 'next/link';
+import { deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
+
+import Popup from './popup';
 
 export default function Navbar() {
   const [logout, setLogout] = useState(false);
@@ -26,15 +28,11 @@ export default function Navbar() {
       <Link href='/vehicles'>vehicles</Link>
       {
         logout &&
-        <div>
-          <div>
-            <p>Tem certeza que deseja sair?</p>
-            <div className='flex gap-2'>
-              <button onClick={handleLogout}>Yes</button>
-              <button onClick={ () => setLogout(false) }>No</button>
-            </div>
-          </div>
-        </div>
+        <Popup
+          text={'Tem certeza que deseja sair?'}
+          handleYes={handleLogout}
+          handleNo={() => setLogout(false)}
+        />
       }
     </section>
   );

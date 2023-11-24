@@ -1,7 +1,11 @@
 export default function Dashboard() {
   return (
     <section>
-      <p>Dashboard</p>
+      <div>Billing</div>
+      <div>Securities</div>
+      <div>IPVA</div>
+      <div>Oil</div>
+      <div>Return</div>
     </section>
   );
 }
