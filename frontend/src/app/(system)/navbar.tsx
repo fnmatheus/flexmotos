@@ -10,10 +10,6 @@ export default function Navbar() {
   const [logout, setLogout] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    () => deleteCookie('authorization');
-  }, []);
-
   function handleLogout() {
     deleteCookie('authorization');
     router.push('/');
