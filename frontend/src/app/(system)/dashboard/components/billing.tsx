@@ -3,7 +3,6 @@ import { Chart, ArcElement, Tooltip } from 'chart.js';
 import {Doughnut} from 'react-chartjs-2';
 import { useEffect, useState } from 'react';
 import { getData, setGoalData } from '../utils/systemAxios';
-import { getCookie } from 'cookies-next';
 import Popup from '../../popup';
 
 interface IDoughnut {
@@ -18,25 +17,22 @@ interface IDoughnut {
 
 Chart.register(ArcElement, Tooltip);
 
-export default function Billing() {
+export default function Billing({token}: {token: string}) {
   const [daylyBilling, setDaylyBilling] = useState('0.00');
   const [monthlyBilling, setMonthlyBilling] = useState('0.00');
   const [goal, setGoal] = useState('0.00');
   const [goalPopup, setGoalPopup] = useState(false);
-  const [token, setToken] = useState('');
   const [data, setData] = useState<IDoughnut>();
 
   useEffect(() => {
     async function setData() {
-      const newToken = await getCookie('authorization');
-      const {today, goal, month} = await getData(newToken);
+      const {today, goal, month} = await getData(token);
       setGoal(goal.toFixed(2));
       setDaylyBilling(today.toFixed(2));
       setMonthlyBilling(month.toFixed(2));
-      if (typeof newToken === 'string') setToken(newToken);
     }
-    setData();
-  }, []);
+    if (token !== '') setData();
+  }, [token]);
 
   useEffect(() => {
     async function setNewData() {
