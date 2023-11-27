@@ -25,7 +25,7 @@ export default function Navbar() {
       {
         logout &&
         <Popup
-          text={'Tem certeza que deseja sair?'}
+          title={'Tem certeza que deseja sair?'}
           handleYes={handleLogout}
           handleNo={() => setLogout(false)}
         />

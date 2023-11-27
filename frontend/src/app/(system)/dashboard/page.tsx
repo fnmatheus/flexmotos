@@ -1,4 +1,4 @@
-import Billing from "./components/billing";
+import Billing from './components/billing';
 
 export default function Dashboard() {
   return (
