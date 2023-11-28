@@ -22,8 +22,8 @@ async function vehicleAddChecker(req, res, next) {
 
 async function vehicleStatusChecker(req, res, next) {
   try {
-    const {body} = req;
-    if (typeof body.status !== 'boolean') {
+    const {query} = req;
+    if (!query.status) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
@@ -34,8 +34,8 @@ async function vehicleStatusChecker(req, res, next) {
 
 async function vehicleModelChecker(req, res, next) {
   try {
-    const {body} = req;
-    if (typeof body.model !== 'string') {
+    const {query} = req;
+    if (!query.model) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
@@ -46,8 +46,8 @@ async function vehicleModelChecker(req, res, next) {
 
 async function vehiclePlateChecker(req, res, next) {
   try {
-    const {body} = req;
-    if (typeof body.plate !== 'string') {
+    const {query} = req;
+    if (!query.plate) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
@@ -97,11 +97,8 @@ async function rentVehicleChecker(req, res, next) {
 
 async function returnVehicleChecker(req, res, next) {
   try {
-    const {CPF, plate} = req.body;
-    const verifyType = (
-      typeof CPF === 'string' ||
-      typeof plate === 'string');
-    if (!verifyType) {
+    const {CPF, plate} = req.query;
+    if (!CPF || !plate) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();

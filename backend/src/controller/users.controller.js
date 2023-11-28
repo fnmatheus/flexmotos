@@ -20,7 +20,7 @@ async function signInController(req, res) {
 }
 
 async function removeController(req, res) {
-  const {name} = req.body;
+  const {name} = req.query;
   const {type, message} = await remove(name);
   if (type) return res.status(401).json(message);
   return res.status(200).json(message);

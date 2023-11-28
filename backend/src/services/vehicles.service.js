@@ -100,7 +100,7 @@ async function update({model, year, plate, RENAVAM, mileage, securityValue, rent
   }
 }
 
-async function getVehicleDetail(plate) {
+async function getVehicleDetails(plate) {
   try {
     const vehicle = await Vehicle.findOne({ plate });
     if (!vehicle) return { type: 'notFound', message: 'Vehicle not found' };
@@ -249,7 +249,7 @@ module.exports = {
   getByModel,
   remove,
   update,
-  getVehicleDetail,
+  getVehicleDetails,
   getAllIPVAsToPay,
   IPVAsYearlyUpdate,
   IPVAUpdate,
