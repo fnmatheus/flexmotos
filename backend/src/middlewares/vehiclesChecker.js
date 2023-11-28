@@ -22,8 +22,8 @@ async function vehicleAddChecker(req, res, next) {
 
 async function vehicleStatusChecker(req, res, next) {
   try {
-    const {body} = req;
-    if (typeof body.status !== 'boolean') {
+    const {query} = req;
+    if (!query.status) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();

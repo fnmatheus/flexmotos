@@ -15,7 +15,6 @@ const {
   rentVehicleController,
   returnVehicleController,
 } = require('../controller/vehicles.controller');
-const { checkToken } = require('../middlewares/tokenChecker');
 const {
   vehicleAddChecker,
   vehicleStatusChecker,

@@ -19,7 +19,6 @@ const {
   clientNameChecker,
   removeSecuritieChecker,
 } = require('../middlewares/clientsChecker');
-const { checkToken } = require('../middlewares/tokenChecker');
 const upload = require('../config/multer');
 
 const clientsRoutes = express.Router();
