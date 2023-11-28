@@ -78,9 +78,9 @@ async function addSecuritieChecker(req, res, next) {
 
 async function removeSecuritieChecker(req, res, next) {
   try {
-    const { body } = req;
-    const validation = (typeof body.plate === 'number' || typeof body.CPF === 'string');
-    if (!validation) {
+    const { query } = req;
+    const validation = (!query.plate || !query.CPF);
+    if (validation) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();

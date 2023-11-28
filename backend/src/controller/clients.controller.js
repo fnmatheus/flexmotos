@@ -19,7 +19,7 @@ async function addController(req, res) {
 }
 
 async function removeController(req, res) {
-  const {CPF} = req.body;
+  const {CPF} = req.query;
   const {type, message} = await remove(CPF);
   if (type === 'notFound') return res.status(404).json(message);
   if (type) return res.status(500).json(message);
@@ -80,7 +80,7 @@ async function getSecuritiesController(_req, res) {
 }
 
 async function removeSecuritieController(req, res) {
-  const {CPF, plate} = req.body;
+  const {CPF, plate} = req.query;
   const {type, message} = await removeSecuritie({CPF, plate});
   if (type === 'notFound') return res.status(404).json(message);
   if (type) return res.status(500).json(message);

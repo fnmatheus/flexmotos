@@ -25,7 +25,7 @@ const upload = require('../config/multer');
 const clientsRoutes = express.Router();
 
 clientsRoutes.post('/add', upload.single('file'), clientAddChecker, addController);
-clientsRoutes.delete('/remove', removeController);
+clientsRoutes.delete('/remove', clientCPFChecker, removeController);
 clientsRoutes.post('/update', upload.single('file'), clientBodyCPFChecker, updateController);
 clientsRoutes.get('/', getAllController);
 clientsRoutes.get('/client', clientCPFChecker, getDatailsController);
