@@ -21,7 +21,7 @@ async function getDashboardController(_req, res) {
 }
 
 async function getYearBillingController(req, res) {
-  const { value } = req.query;
+  const {value} = req.query;
   const {type, message} = await getYearBilling(Number(value));
   if (type) return res.status(500).json(message);
   res.status(200).json(message);

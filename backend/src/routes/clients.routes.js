@@ -27,10 +27,10 @@ clientsRoutes.post('/add', upload.single('file'), clientAddChecker, addControlle
 clientsRoutes.delete('/remove', clientCPFChecker, removeController);
 clientsRoutes.post('/update', upload.single('file'), clientCPFChecker, updateController);
 clientsRoutes.get('/', getAllController);
-clientsRoutes.get('/client', clientCPFChecker, getDatailsController);
+clientsRoutes.get('/client', getDatailsController);
 clientsRoutes.get('/status', clientStatusChecker, getByStatusController);
 clientsRoutes.get('/name', clientNameChecker, getByNameController);
-clientsRoutes.get('/download', clientCPFChecker, downloadProofController);
+clientsRoutes.get('/download', downloadProofController);
 clientsRoutes.get('/securities', getSecuritiesController);
 clientsRoutes.delete('/securities', removeSecuritieChecker, removeSecuritieController);
 

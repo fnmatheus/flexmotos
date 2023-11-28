@@ -43,7 +43,7 @@ async function getAllController(_req, res) {
 }
 
 async function getDatailsController(req, res) {
-  const {CPF} = req.body;
+  const {CPF} = req.query;
   const {type, message} = await getDatails(CPF);
   if (type === 'notFound') return res.status(404).json(message);
   if (type) return res.status(500).json(message);
@@ -51,21 +51,21 @@ async function getDatailsController(req, res) {
 }
 
 async function getByStatusController(req, res) {
-  const {status} = req.body;
-  const {type, message} = await getByStatus(status);
+  const {status} = req.query;
+  const {type, message} = await getByStatus(status === 'true');
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
 }
 
 async function getByNameController(req, res) {
-  const {name} = req.body;
+  const {name} = req.query;
   const {type, message} = await getByName(name);
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
 }
 
 async function downloadProofController(req, res) {
-  const {CPF} = req.body;
+  const {CPF} = req.query;
   const {type, message} = await downloadProof(CPF);
   if (type === 'notFound') return res.status(404).json(message);
   if (type) return res.status(500).json(message);

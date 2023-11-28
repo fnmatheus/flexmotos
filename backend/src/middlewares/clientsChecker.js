@@ -28,8 +28,8 @@ async function clientCPFChecker(req, res, next) {
 
 async function clientStatusChecker(req, res, next) {
   try {
-    const { body } = req;
-    if (!typeof body.status === 'boolean') {
+    const { query } = req;
+    if (!query.status) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
@@ -40,8 +40,8 @@ async function clientStatusChecker(req, res, next) {
 
 async function clientNameChecker(req, res, next) {
   try {
-    const { body } = req;
-    if (typeof body.name !== 'string') {
+    const { query } = req;
+    if (!query.name) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
