@@ -4,6 +4,7 @@ import {Doughnut} from 'react-chartjs-2';
 import { useEffect, useState } from 'react';
 import { getData, setGoalData } from '../utils/systemAxios';
 import Popup from '../../popup';
+import YearlyBilling from './yearlyBilling';
 
 interface IDoughnut {
   labels: string[],
@@ -23,15 +24,16 @@ export default function Billing({token}: {token: string}) {
   const [goal, setGoal] = useState('0.00');
   const [goalPopup, setGoalPopup] = useState(false);
   const [data, setData] = useState<IDoughnut>();
+  const [billingPopup, setBillingPopup] = useState(false);
 
   useEffect(() => {
-    async function setData() {
-      const {today, goal, month} = await getData(token);
+    async function setStates() {
+      const {today, goal, month} = await getData();
       setGoal(goal.toFixed(2));
       setDaylyBilling(today.toFixed(2));
       setMonthlyBilling(month.toFixed(2));
     }
-    if (token !== '') setData();
+    if (token !== '') setStates();
   }, [token]);
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export default function Billing({token}: {token: string}) {
 
   async function handleGoal(value?: number) {
     if (typeof value === 'number') {
-      await setGoalData({value, token});
+      await setGoalData(value);
       setGoal(value.toFixed(2));
       setGoalPopup(false);
       return;
@@ -89,7 +91,7 @@ export default function Billing({token}: {token: string}) {
         </table>
       </div>
       <div className="flex gap-2">
-        <button>
+        <button onClick={() => setBillingPopup(true)}>
           Faturamento anual
         </button>
         <button onClick={() => setGoalPopup(true)}>
@@ -103,6 +105,13 @@ export default function Billing({token}: {token: string}) {
           handleYes={handleGoal}
           handleNo={() => setGoalPopup(false)}
           hasInput={true}
+        />
+      }
+      {
+        billingPopup &&
+        <YearlyBilling
+          token={token}
+          handleClose={() => setBillingPopup(false)}
         />
       }
     </section>

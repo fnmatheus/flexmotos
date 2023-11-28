@@ -2,13 +2,23 @@
 import Link from 'next/link';
 import { deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getCookie } from 'cookies-next';
+import { setAxiosToken } from './utils/axios';
 
 import Popup from './popup';
 
 export default function Navbar() {
   const [logout, setLogout] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    async function setData() {
+      const newToken = await getCookie('authorization');
+      if (typeof newToken === 'string') setAxiosToken(newToken);
+    }
+    setData();
+  }, []);
 
   function handleLogout() {
     deleteCookie('authorization');
