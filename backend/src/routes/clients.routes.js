@@ -13,6 +13,7 @@ const {
 } = require('../controller/clients.controller');
 const {
   clientAddChecker,
+  clientBodyCPFChecker,
   clientCPFChecker,
   clientStatusChecker,
   clientNameChecker,
@@ -24,13 +25,13 @@ const upload = require('../config/multer');
 const clientsRoutes = express.Router();
 
 clientsRoutes.post('/add', upload.single('file'), clientAddChecker, addController);
-clientsRoutes.delete('/remove', clientCPFChecker, removeController);
-clientsRoutes.post('/update', upload.single('file'), clientCPFChecker, updateController);
+clientsRoutes.delete('/remove', removeController);
+clientsRoutes.post('/update', upload.single('file'), clientBodyCPFChecker, updateController);
 clientsRoutes.get('/', getAllController);
-clientsRoutes.get('/client', getDatailsController);
+clientsRoutes.get('/client', clientCPFChecker, getDatailsController);
 clientsRoutes.get('/status', clientStatusChecker, getByStatusController);
 clientsRoutes.get('/name', clientNameChecker, getByNameController);
-clientsRoutes.get('/download', downloadProofController);
+clientsRoutes.get('/download', clientCPFChecker, downloadProofController);
 clientsRoutes.get('/securities', getSecuritiesController);
 clientsRoutes.delete('/securities', removeSecuritieChecker, removeSecuritieController);
 

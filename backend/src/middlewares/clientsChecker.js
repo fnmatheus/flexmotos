@@ -14,10 +14,22 @@ async function clientAddChecker(req, res, next) {
   }
 }
 
-async function clientCPFChecker(req, res, next) {
+async function clientBodyCPFChecker(req, res, next) {
   try {
     const { body } = req;
     if (typeof body.CPF !== 'string') {
+      return res.status(406).json({ message: 'incorrect arguments' });
+    }
+    next();
+  } catch (error) {
+    return res.status(406).json({ message: 'incorrect arguments' });
+  }
+}
+
+async function clientCPFChecker(req, res, next) {
+  try {
+    const { query } = req;
+    if (!query.CPF) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
@@ -79,6 +91,7 @@ async function removeSecuritieChecker(req, res, next) {
 
 module.exports = {
   clientAddChecker,
+  clientBodyCPFChecker,
   clientCPFChecker,
   clientStatusChecker,
   clientNameChecker,
