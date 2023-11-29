@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { getCookie } from 'cookies-next';
 import Billing from './components/billing';
 import Securities from './components/securities';
+import IPVAsToPay from './components/IPVAsToPay';
 
 const Dashboard = () => {
   const [token, setToken] = useState('');
@@ -19,7 +20,7 @@ const Dashboard = () => {
     <section className="grid gap-2">
       <Billing token={token} />
       <Securities token={token} />
-      <div>IPVA</div>
+      <IPVAsToPay token={token} />
       <div>Oil</div>
       <div>Return</div>
     </section>

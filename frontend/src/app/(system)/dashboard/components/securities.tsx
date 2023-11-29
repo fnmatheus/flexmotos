@@ -42,7 +42,7 @@ const Securities: React.FC<IProps> = ({token}: IProps) => {
                     <p>{name}</p>
                     <p>{`R$ ${value}`}</p>
                     <button onClick={() => setPopup([CPF, securitiesInfo[0], name])}>
-                      Devolver
+                      DEVOLVER
                     </button>
                   </td>
                 </tr>
