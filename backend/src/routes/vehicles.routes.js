@@ -20,6 +20,7 @@ const {
   vehicleStatusChecker,
   vehicleModelChecker,
   vehiclePlateChecker,
+  vehicleBodyPlateChecker,
   vehicleUpdateChecker,
   rentVehicleChecker,
   returnVehicleChecker,
@@ -35,9 +36,9 @@ vehiclesRoutes.delete('/remove', vehiclePlateChecker, removeController);
 vehiclesRoutes.post('/update', vehicleUpdateChecker, updateController);
 vehiclesRoutes.get('/vehicle', vehiclePlateChecker, getVehicleDetailsController);
 vehiclesRoutes.get('/IPVA', getAllIPVAsToPayController);
-vehiclesRoutes.post('/IPVA', vehiclePlateChecker, IPVAUpdateController);
+vehiclesRoutes.post('/IPVA', vehicleBodyPlateChecker, IPVAUpdateController);
 vehiclesRoutes.get('/oil', getAllOilChangeController);
-vehiclesRoutes.post('/oil', vehiclePlateChecker, oilUpdateController);
+vehiclesRoutes.post('/oil', vehicleBodyPlateChecker, oilUpdateController);
 vehiclesRoutes.get('/return', getAllVehiclesToBeReturnedController);
 vehiclesRoutes.post('/rent', rentVehicleChecker, rentVehicleController);
 vehiclesRoutes.post('/return', returnVehicleChecker, returnVehicleController);

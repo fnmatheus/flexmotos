@@ -56,6 +56,18 @@ async function vehiclePlateChecker(req, res, next) {
   }
 }
 
+async function vehicleBodyPlateChecker(req, res, next) {
+  try {
+    const {body} = req;
+    if (typeof body.plate !== 'string') {
+      return res.status(406).json({ message: 'incorrect arguments' });
+    }
+    next();
+  } catch (error) {
+    return res.status(406).json({ message: 'incorrect arguments' });
+  }
+}
+
 async function vehicleUpdateChecker(req, res, next) {
   try {
     const {model, year, plate, RENAVAM, mileage, securityValue, rentValue} = req.body;
@@ -97,7 +109,7 @@ async function rentVehicleChecker(req, res, next) {
 
 async function returnVehicleChecker(req, res, next) {
   try {
-    const {CPF, plate} = req.query;
+    const {CPF, plate} = req.body;
     if (!CPF || !plate) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
@@ -112,6 +124,7 @@ module.exports = {
   vehicleStatusChecker,
   vehicleModelChecker,
   vehiclePlateChecker,
+  vehicleBodyPlateChecker,
   vehicleUpdateChecker,
   rentVehicleChecker,
   returnVehicleChecker,
