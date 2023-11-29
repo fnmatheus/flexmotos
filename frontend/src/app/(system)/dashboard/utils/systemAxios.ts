@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { instance } from '../../utils/axios';
 
 interface IGetData {

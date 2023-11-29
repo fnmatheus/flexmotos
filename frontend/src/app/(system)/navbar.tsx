@@ -1,9 +1,8 @@
 'use client'
 import Link from 'next/link';
-import { deleteCookie } from 'cookies-next';
+import { deleteCookie, getCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { getCookie } from 'cookies-next';
 import { setAxiosToken } from './utils/axios';
 
 import Popup from './popup';
