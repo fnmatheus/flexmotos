@@ -4,7 +4,7 @@ export interface IPopup {
   handleNo(): void,
   hasText?: boolean,
   text?: string,
-  hasInput?: boolean
+  hasInput?: boolean,
 }
 
 export interface IProps {

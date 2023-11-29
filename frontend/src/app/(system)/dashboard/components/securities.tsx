@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IProps } from '../../utils/interfaces';
-import { getSecurities } from '../utils/securitieAxios';
+import { getSecurities, deleteSecuritie } from '../utils/securitieAxios';
+import Popup from '../../popup';
 
 const Securities: React.FC<IProps> = ({token}: IProps) => {
   const [securities, setSecurities] = useState<string[][]>([]);
+  const [popup, setPopup] = useState<string[]>([]);
 
   useEffect(() => {
     async function getSecuritiesData() {
@@ -13,7 +15,13 @@ const Securities: React.FC<IProps> = ({token}: IProps) => {
       }
     }
     getSecuritiesData();
-  }, [token]);
+  }, [token, securities]);
+
+  const handleReturn = async (value: string[]) => {
+    const [CPF, plate] = value;
+    deleteSecuritie({CPF, plate});
+    setPopup([]);
+  }
 
   return (
     <div>
@@ -29,11 +37,13 @@ const Securities: React.FC<IProps> = ({token}: IProps) => {
               const [CPF, name, securitiesInfo] = securitie;
               const value = Number(securitiesInfo[1]).toFixed(2);
               return (
-                <tr key={`${CPF}${String(i)}`}>
+                <tr key={`${CPF} ${String(i)}`}>
                   <td className="flex gap-2">
                     <p>{name}</p>
                     <p>{`R$ ${value}`}</p>
-                    <button>Devolver</button>
+                    <button onClick={() => setPopup([CPF, securitiesInfo[0], name])}>
+                      Devolver
+                    </button>
                   </td>
                 </tr>
               );
@@ -41,6 +51,14 @@ const Securities: React.FC<IProps> = ({token}: IProps) => {
           }
         </tbody>
       </table>
+      {
+        popup.length > 0 &&
+        <Popup
+          title={`Devolveu o dinheiro do calção do ${popup[2]} com o veículo de placa ${popup[1]}?`}
+          handleYes={() => handleReturn(popup)}
+          handleNo={() => setPopup([])}
+        />
+      }
     </div>
   );
 }

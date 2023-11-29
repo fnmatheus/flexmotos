@@ -18,7 +18,7 @@ const Popup: React.FC<IPopup> = ({title, handleYes, handleNo, hasText, text, has
         { hasText && <p>{text}</p> }
         { hasInput && <input className="text-black" id='input' onChange={handleInput} type="text" /> }
         <div className='flex gap-2'>
-          <button onClick={() => handleYes(inputValue)}>
+          <button onClick={(e) => handleYes(inputValue)}>
             Yes
           </button>
           <button onClick={handleNo}>

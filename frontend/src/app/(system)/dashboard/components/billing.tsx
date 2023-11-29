@@ -33,11 +33,12 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
       }
     }
     if (token !== '') setStates();
-  }, [token]);
+  }, [token, setDaylyBilling]);
 
   useEffect(() => {
     async function setNewData() {
-      const remainder = Number(goal) - Number(daylyBilling) - Number(monthlyBilling);
+      const sumBilling = Number(daylyBilling) + Number(monthlyBilling);
+      const remainder = (sumBilling < Number(goal)) ? Number(goal) - sumBilling : 0;
   
       setData({
         labels: ['Restante', 'Hoje', 'Esse mês'],
@@ -52,7 +53,7 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
     setNewData();
   }, [daylyBilling, monthlyBilling, goal]);
 
-  async function handleGoal(value?: number) {
+  async function handleGoal(value: number) {
     if (typeof value === 'number') {
       await setGoalData(value);
       setGoal(value.toFixed(2));
