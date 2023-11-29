@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { IProps, ISecuritie } from '../../utils/interfaces';
+import { IProps } from '../../utils/interfaces';
 import { getSecurities } from '../utils/securitieAxios';
 
 const Securities: React.FC<IProps> = ({token}: IProps) => {
-  const [securities, setSecurities] = useState();
+  const [securities, setSecurities] = useState<string[][]>([]);
 
   useEffect(() => {
     async function getSecuritiesData() {
       if (token !== '') {
         const currentSecurities = await getSecurities();
-        console.log(currentSecurities);
+        setSecurities(currentSecurities);
       }
     }
     getSecuritiesData();
@@ -24,13 +24,21 @@ const Securities: React.FC<IProps> = ({token}: IProps) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="flex gap-2">
-              <p>Nome do cliente</p>
-              <p>R$ 9999999,99</p>
-              <button>Devolver</button>
-            </td>
-          </tr>
+          {
+            securities.map((securitie, i) => {
+              const [CPF, name, securitiesInfo] = securitie;
+              const value = Number(securitiesInfo[1]).toFixed(2);
+              return (
+                <tr key={`${CPF}${String(i)}`}>
+                  <td className="flex gap-2">
+                    <p>{name}</p>
+                    <p>{`R$ ${value}`}</p>
+                    <button>Devolver</button>
+                  </td>
+                </tr>
+              );
+            })
+          }
         </tbody>
       </table>
     </div>
