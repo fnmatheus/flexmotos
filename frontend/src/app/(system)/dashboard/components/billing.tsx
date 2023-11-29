@@ -5,20 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { getData, setGoalData } from '../utils/systemAxios';
 import Popup from '../../popup';
 import YearlyBilling from './yearlyBilling';
-
-interface IDoughnut {
-  labels: string[],
-  datasets: [{
-    label: string,
-    data: number[],
-    backgroundColor: string[],
-    borderColor: string[],
-  }]
-}
-
-interface IProps {
-  token: string,
-}
+import { IProps, IDoughnut } from '../../utils/interfaces';
 
 Chart.register(ArcElement, Tooltip);
 

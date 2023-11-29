@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { getCookie } from 'cookies-next';
 import Billing from './components/billing';
+import Securities from './components/securities';
 
 const Dashboard = () => {
   const [token, setToken] = useState('');
@@ -15,9 +16,9 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <section>
+    <section className="grid gap-2">
       <Billing token={token} />
-      <div>Securities</div>
+      <Securities token={token} />
       <div>IPVA</div>
       <div>Oil</div>
       <div>Return</div>

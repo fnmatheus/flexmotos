@@ -1,16 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import { getYearlyBilling } from '../utils/systemAxios';
-
-interface IYearlyBilling {
-  token: string,
-  handleClose(): void
-}
-
-interface IBillings {
-  years: string[],
-  billing: number[]
-}
+import { IYearlyBilling, IBillings } from '../../utils/interfaces';
 
 const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
