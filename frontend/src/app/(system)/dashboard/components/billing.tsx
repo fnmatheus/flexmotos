@@ -1,7 +1,7 @@
 'use client'
 import { Chart, ArcElement, Tooltip } from 'chart.js';
 import {Doughnut} from 'react-chartjs-2';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getData, setGoalData } from '../utils/systemAxios';
 import Popup from '../../popup';
 import YearlyBilling from './yearlyBilling';
@@ -16,9 +16,13 @@ interface IDoughnut {
   }]
 }
 
+interface IProps {
+  token: string,
+}
+
 Chart.register(ArcElement, Tooltip);
 
-export default function Billing({token}: {token: string}) {
+const Billing: React.FC<IProps> = ({token}: IProps) => {
   const [daylyBilling, setDaylyBilling] = useState('0.00');
   const [monthlyBilling, setMonthlyBilling] = useState('0.00');
   const [goal, setGoal] = useState('0.00');
@@ -133,3 +137,5 @@ export default function Billing({token}: {token: string}) {
     </section>
   );
 }
+
+export default Billing;
