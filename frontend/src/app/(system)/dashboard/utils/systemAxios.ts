@@ -1,23 +1,9 @@
 import { instance } from '../../utils/axios';
-
-interface IGetData {
-  data: {
-    today: number,
-    goal: number,
-    month: number
-  }
-}
-
-interface IGetYearlyBilling {
-  data: {
-    years: string[],
-    billing: number[]
-  }
-}
+import { IGetDataSystem, IGetYearlyBilling } from '../../utils/interfaces';
 
 export const getData = async () => {
   try {
-    const {data}: IGetData = await instance.get('http://localhost:3000/system/dashboard');
+    const {data}: IGetDataSystem = await instance.get('http://localhost:3000/system/dashboard');
     const {today, goal: currGoal, month} = data;
     return {today, currGoal, month};
   } catch (error) {

@@ -1,6 +1,11 @@
+import { useEffect, useState } from 'react';
 import { IProps } from '../../utils/interfaces';
 
 const Securities: React.FC<IProps> = ({token}: IProps) => {
+  const [securities, setSecurities] = useState();
+
+  useEffect(() => {}, [token]);
+
   return (
     <div>
       <table>

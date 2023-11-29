@@ -30,3 +30,18 @@ export interface IBillings {
   years: string[],
   billing: number[]
 }
+
+export interface IGetDataSystem {
+  data: {
+    today: number,
+    goal: number,
+    month: number
+  }
+}
+
+export interface IGetYearlyBilling {
+  data: {
+    years: string[],
+    billing: number[]
+  }
+}
