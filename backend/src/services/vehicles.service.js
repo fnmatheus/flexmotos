@@ -1,5 +1,5 @@
 const Vehicle = require('../database/schemas/Vehicle');
-const { updateClientToRent, updateClientToReturn } = require('./clients.service');
+const { updateClientToRent, updateClientToReturn, getDatails } = require('./clients.service');
 const { changeToday } = require('./system.service');
  
 async function add({category, model, year, plate, RENAVAM, IPVA, mileage, securityValue, rentValue}) {
@@ -205,8 +205,12 @@ async function amountsMonthlysUpdate() {
 async function rentVehicle({CPF, name, rentalDate, returnDate, plate, hasSecurite}) {
   try {
     const vehicle = await Vehicle.findOne({ plate });
+    const {message} = await getDatails(CPF);
+    const rentPlates = message.securities.map((securitie) => securitie[0]);
+    console.log(rentPlates.includes(plate));
     if (!vehicle) return { type: 'notFound', message: 'Vehicle not found' };
     if (vehicle.rent.status) return { type: 'rented', message: 'This vehicle is not avaliable' };
+    if (rentPlates.includes(plate)) return { type: 'invalidPlate', message: 'This plate has a securitie to return' };
     await updateClientToRent({CPF, model: vehicle.model, plate, rentalDate, rentValue: vehicle.rentValue, hasSecurite});
     await changeToday(vehicle.rentValue);
     await Vehicle.findOneAndUpdate({ plate }, {
