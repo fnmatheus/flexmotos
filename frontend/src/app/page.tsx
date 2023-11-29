@@ -3,6 +3,7 @@ import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { setCookie } from 'cookies-next';
+import { backendURL } from './(system)/utils/urls';
 
 const Home = () => {
   const [incorrectFields, setIncorrectFields] = useState(false);
@@ -18,7 +19,7 @@ const Home = () => {
     };
 
     try {
-      const { data } = await axios.post('http://localhost:3000/users/signin', payload);
+      const { data } = await axios.post(`${backendURL}/users/signin`, payload);
       if (data === 'Wrong Code' || data === 'User not Found' || data === 'Wrong Password') {
         setIncorrectFields(true);
         return;

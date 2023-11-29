@@ -45,3 +45,10 @@ export interface IGetYearlyBilling {
     billing: number[]
   }
 }
+
+export interface ISecuritie {
+    CPF: string,
+    name: string,
+    securities: string[],
+    _id: string
+}

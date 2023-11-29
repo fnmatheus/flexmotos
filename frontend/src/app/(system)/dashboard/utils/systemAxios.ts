@@ -1,9 +1,10 @@
 import { instance } from '../../utils/axios';
 import { IGetDataSystem, IGetYearlyBilling } from '../../utils/interfaces';
+import { backendURL } from '../../utils/urls';
 
 export const getData = async () => {
   try {
-    const {data}: IGetDataSystem = await instance.get('http://localhost:3000/system/dashboard');
+    const {data}: IGetDataSystem = await instance.get(`${backendURL}/system/dashboard`);
     const {today, goal: currGoal, month} = data;
     return {today, currGoal, month};
   } catch (error) {
@@ -16,7 +17,7 @@ export const setGoalData = async (value: number) => {
 }
 
 export const getYearlyBilling = async (value: number) => {
-  const {data}: IGetYearlyBilling = await instance.get('http://localhost:3000/system/billing', {
+  const {data}: IGetYearlyBilling = await instance.get(`${backendURL}/system/billing`, {
       params: {
         value
       },

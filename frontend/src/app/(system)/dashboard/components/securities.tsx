@@ -1,10 +1,19 @@
 import { useEffect, useState } from 'react';
-import { IProps } from '../../utils/interfaces';
+import { IProps, ISecuritie } from '../../utils/interfaces';
+import { getSecurities } from '../utils/securitieAxios';
 
 const Securities: React.FC<IProps> = ({token}: IProps) => {
   const [securities, setSecurities] = useState();
 
-  useEffect(() => {}, [token]);
+  useEffect(() => {
+    async function getSecuritiesData() {
+      if (token !== '') {
+        const currentSecurities = await getSecurities();
+        console.log(currentSecurities);
+      }
+    }
+    getSecuritiesData();
+  }, [token]);
 
   return (
     <div>
