@@ -54,7 +54,7 @@ const Securities: React.FC<IProps> = ({token}: IProps) => {
       {
         popup.length > 0 &&
         <Popup
-          title={`Devolveu o dinheiro do calção do ${popup[2]} com o veículo de placa ${popup[1]}?`}
+          title={`Confirmar devolução do calção de ${popup[2]} com o veículo de placa ${popup[1]}?`}
           handleYes={() => handleReturn(popup)}
           handleNo={() => setPopup([])}
         />
