@@ -11,7 +11,7 @@ interface IPopup {
   hasInput?: boolean
 }
 
-export default function Popup({title, handleYes, handleNo, hasText, text, hasInput}: IPopup) {
+const Popup: React.FC<IPopup> = ({title, handleYes, handleNo, hasText, text, hasInput}: IPopup) => {
   const [inputValue, setInputValue] = useState(0);
   
   async function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
@@ -38,3 +38,5 @@ export default function Popup({title, handleYes, handleNo, hasText, text, hasInp
     </div>
   );
 }
+
+export default Popup;

@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getYearlyBilling } from '../utils/systemAxios';
 
 interface IYearlyBilling {
@@ -14,7 +14,7 @@ interface IBillings {
 
 const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
-export default function YearlyBilling({token, handleClose}: IYearlyBilling) {
+const YearlyBilling: React.FC<IYearlyBilling> = ({token, handleClose}: IYearlyBilling) => {
   const [billings, setBillings] = useState<IBillings>();
 
   useEffect(() => {
@@ -59,3 +59,5 @@ export default function YearlyBilling({token, handleClose}: IYearlyBilling) {
     </div>
   );
 }
+
+export default YearlyBilling;

@@ -22,7 +22,7 @@ interface IProps {
 
 Chart.register(ArcElement, Tooltip);
 
-export default function Billing({token}: IProps): React.FunctionComponentElement<IProps> {
+const Billing: React.FC<IProps> = ({token}: IProps) => {
   const [daylyBilling, setDaylyBilling] = useState('0.00');
   const [monthlyBilling, setMonthlyBilling] = useState('0.00');
   const [goal, setGoal] = useState('0.00');
@@ -137,3 +137,5 @@ export default function Billing({token}: IProps): React.FunctionComponentElement
     </section>
   );
 }
+
+export default Billing;
