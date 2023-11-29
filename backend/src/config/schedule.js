@@ -4,7 +4,7 @@ const { IPVAsYearlyUpdate, oilChangeWeeklyUpdate, amountsMonthlysUpdate } = requ
 
 const scheduler = {
   dailyUpdate: function() {
-    schedule.scheduleJob('0 0 4 * * *', () => dailyBillingUpdate());
+    schedule.scheduleJob('0 10 3 * * *', () => dailyBillingUpdate());
   },
   weeklyUpdate: function() {
     schedule.scheduleJob('0 0 0 * * 0', () => oilChangeWeeklyUpdate());
