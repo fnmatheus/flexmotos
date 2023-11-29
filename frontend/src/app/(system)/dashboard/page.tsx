@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getCookie } from 'cookies-next';
 import Billing from './components/billing';
 
-export default function Dashboard() {
+const Dashboard = () => {
   const [token, setToken] = useState('');
 
   useEffect(() => {
@@ -24,3 +24,5 @@ export default function Dashboard() {
     </section>
   );
 }
+
+export default Dashboard;

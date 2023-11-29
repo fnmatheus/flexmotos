@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { setCookie } from 'cookies-next';
 
-export default function Home() {
+const Home = () => {
   const [incorrectFields, setIncorrectFields] = useState(false);
   const router = useRouter();
 
@@ -51,3 +51,5 @@ export default function Home() {
     </main>
   )
 }
+
+export default Home;

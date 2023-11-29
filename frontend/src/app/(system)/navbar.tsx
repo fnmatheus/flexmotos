@@ -7,7 +7,7 @@ import { setAxiosToken } from './utils/axios';
 
 import Popup from './popup';
 
-export default function Navbar() {
+const Navbar = () => {
   const [logout, setLogout] = useState(false);
   const router = useRouter();
 
@@ -42,3 +42,5 @@ export default function Navbar() {
     </section>
   );
 }
+
+export default Navbar;
