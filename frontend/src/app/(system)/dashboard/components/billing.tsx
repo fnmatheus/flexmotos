@@ -25,13 +25,21 @@ export default function Billing({token}: {token: string}) {
   const [goalPopup, setGoalPopup] = useState(false);
   const [data, setData] = useState<IDoughnut>();
   const [billingPopup, setBillingPopup] = useState(false);
+  const [invalidUser, setInvalidUser] = useState(true);
 
   useEffect(() => {
     async function setStates() {
-      const {today, goal, month} = await getData();
-      setGoal(goal.toFixed(2));
-      setDaylyBilling(today.toFixed(2));
-      setMonthlyBilling(month.toFixed(2));
+      const response = await getData();
+      if (response) {
+        const {today, currGoal, month} = response;
+        setGoal(currGoal.toFixed(2));
+        setDaylyBilling(today.toFixed(2));
+        setMonthlyBilling(month.toFixed(2));
+        setInvalidUser(false);
+      }
+      else {
+        setInvalidUser(true);
+      }
     }
     if (token !== '') setStates();
   }, [token]);
@@ -65,54 +73,62 @@ export default function Billing({token}: {token: string}) {
   
   return (
     <section>
-      <div className='w-20 h-20'>
-        {
-          data &&
-          <Doughnut
-            data={data}
-          />
-        }
-      </div>
-      <h2>{`Meta mensal R$ ${goal}`}</h2>
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Hoje</th>
-              <th>Esse mês</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{`R$ ${daylyBilling}`}</td>
-              <td>{`R$ ${monthlyBilling}`}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div className="flex gap-2">
-        <button onClick={() => setBillingPopup(true)}>
-          Faturamento anual
-        </button>
-        <button onClick={() => setGoalPopup(true)}>
-          Definir meta mensal
-        </button>
-      </div>
       {
-        goalPopup &&
-        <Popup
-          title="Alterar meta mensal"
-          handleYes={handleGoal}
-          handleNo={() => setGoalPopup(false)}
-          hasInput={true}
-        />
+        invalidUser && <h2>Usuário sem permissão</h2>
       }
       {
-        billingPopup &&
-        <YearlyBilling
-          token={token}
-          handleClose={() => setBillingPopup(false)}
-        />
+        !invalidUser &&
+        <div>
+          <div className='w-20 h-20'>
+            {
+              data &&
+              <Doughnut
+                data={data}
+              />
+            }
+          </div>
+          <h2>{`Meta mensal R$ ${goal}`}</h2>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Hoje</th>
+                  <th>Esse mês</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{`R$ ${daylyBilling}`}</td>
+                  <td>{`R$ ${monthlyBilling}`}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="flex gap-2">
+            <button onClick={() => setBillingPopup(true)}>
+              Faturamento anual
+            </button>
+            <button onClick={() => setGoalPopup(true)}>
+              Definir meta mensal
+            </button>
+          </div>
+          {
+            goalPopup &&
+            <Popup
+              title="Alterar meta mensal"
+              handleYes={handleGoal}
+              handleNo={() => setGoalPopup(false)}
+              hasInput={true}
+            />
+          }
+          {
+            billingPopup &&
+            <YearlyBilling
+              token={token}
+              handleClose={() => setBillingPopup(false)}
+            />
+          }
+        </div>
       }
     </section>
   );

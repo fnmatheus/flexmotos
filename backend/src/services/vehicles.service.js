@@ -1,6 +1,7 @@
 const Vehicle = require('../database/schemas/Vehicle');
-const { updateClientToRent, updateClientToReturn } = require('../services/clients.service');
-
+const { updateClientToRent, updateClientToReturn } = require('./clients.service');
+const { changeToday } = require('./system.service');
+ 
 async function add({category, model, year, plate, RENAVAM, IPVA, mileage, securityValue, rentValue}) {
   try {
     await Vehicle.create({
@@ -207,6 +208,7 @@ async function rentVehicle({CPF, name, rentalDate, returnDate, plate, hasSecurit
     if (!vehicle) return { type: 'notFound', message: 'Vehicle not found' };
     if (vehicle.rent.status) return { type: 'rented', message: 'This vehicle is not avaliable' };
     await updateClientToRent({CPF, model: vehicle.model, plate, rentalDate, rentValue: vehicle.rentValue, hasSecurite});
+    await changeToday(vehicle.rentValue);
     await Vehicle.findOneAndUpdate({ plate }, {
       rent: {
         status: true,
