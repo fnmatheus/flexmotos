@@ -8,7 +8,6 @@ export const getSecurities = async () => {
     const values = client.securities.map((value) => [`R$ ${Number(value[1]).toFixed(2)}`, client.name, client.CPF, value[0]]);
     return values;
   }).reduce((acc, client) => [...acc, ...client], []);
-  console.log(securities);
   
   return securities;
 }

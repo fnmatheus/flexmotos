@@ -16,7 +16,7 @@ const OilChanges: React.FC<IProps> = ({token}: IProps) => {
       }
     }
     getOilChanges();
-  }, [token, vehicles]);
+  }, [token, popup]);
 
   async function handleChange(vehicle: string[]) {
     const [plate] = vehicle;
@@ -25,41 +25,6 @@ const OilChanges: React.FC<IProps> = ({token}: IProps) => {
   }
 
   return (
-    // <div>
-    //   <table>
-    //     <thead>
-    //       <tr>
-    //         <th>Troca de óleo</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {
-    //         vehicles.map((vehicle) => {
-    //           const [plate, model] = vehicle;
-    //           return (
-    //             <tr key={plate}>
-    //               <td className="flex gap-2">
-    //                 <p>{model}</p>
-    //                 <p>{plate}</p>
-    //                 <button onClick={() => setPopup(vehicle)}>
-    //                   TROCAR
-    //                 </button>
-    //               </td>
-    //             </tr>
-    //           );
-    //         })
-    //       }
-    //     </tbody>
-    //   </table>
-    //   {
-    //     popup.length > 0 &&
-    //     <Popup
-    //       title={`Trocou o óleo do veículo ${popup[0]}`}
-    //       handleYes={() => handleChange(popup)}
-    //       handleNo={() => setPopup([])}
-    //     />
-    //   }
-    // </div>
     <DashboardTable
       tableTitle='Troca de óleo'
       vehicles={vehicles}

@@ -16,7 +16,7 @@ const IPVAsToPay: React.FC<IProps> = ({token}: IProps) => {
       }
     }
     getIPVAsData();
-  }, [token, vehicles]);
+  }, [token, popup]);
 
   async function handlePayIPVA(vehicle: string[]) {
     const [plate] = vehicle;
@@ -25,48 +25,6 @@ const IPVAsToPay: React.FC<IProps> = ({token}: IProps) => {
   }
 
   return (
-    // <div>
-    //   <table>
-    //     <thead>
-    //       <tr>
-    //         <th>IPVAs à pagar</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {
-    //         vehicles.map((IPVA) => {
-    //           const [plate, model] = IPVA;
-    //           return (
-    //             <tr key={plate}>
-    //               <td className="flex gap-2">
-    //                 <p>{model}</p>
-    //                 <p>{plate}</p>
-    //                 <button onClick={() => setPopup(IPVA)}>
-    //                   PAGAR
-    //                 </button>
-    //               </td>
-    //             </tr>
-    //           )
-    //         })
-    //       }
-    //     </tbody>
-    //   </table>
-    //   {
-    //     popup.length > 0 &&
-    //     <Popup
-    //       title={`Pagar IPVA do veículo ${popup[0]}`}
-    //       text={`
-    //         Utilize o RENAVAM para consultar e pagar o IPVA
-    //         do veículo escolhido no site do DETRAN
-
-    //         RENAVAM: ${popup[2]}
-    //       `}
-    //       hasText={true}
-    //       handleYes={() => handlePayIPVA(popup)}
-    //       handleNo={() => setPopup([])}
-    //     />
-    //   }
-    // </div>
     <DashboardTable
       tableTitle='IPVAs à pagar'
       vehicles={vehicles}
