@@ -4,11 +4,11 @@ export interface IPopup {
   handleNo(): void,
   hasText?: boolean,
   text?: string,
-  hasInput?: boolean,
+  hasInput?: boolean
 }
 
 export interface IProps {
-  token: string,
+  token: string
 }
 
 export interface IDoughnut {
@@ -17,7 +17,7 @@ export interface IDoughnut {
     label: string,
     data: number[],
     backgroundColor: string[],
-    borderColor: string[],
+    borderColor: string[]
   }]
 }
 
@@ -56,5 +56,10 @@ export interface ISecuritie {
 export interface IIPVAs {
   model: string,
   plate: string,
-  RENAVAM: string,
+  RENAVAM: string
+}
+
+export interface IChanges {
+  model: string,
+  plate: string
 }
