@@ -5,7 +5,7 @@ const {
   getByModel,
   remove,
   update,
-  getVehicleDetail,
+  getVehicleDetails,
   getAllIPVAsToPay,
   IPVAUpdate,
   getAllOilChange,
@@ -29,14 +29,14 @@ async function getAllController(_req, res) {
 }
 
 async function getByStatusController(req, res) {
-  const {status} = req.body;
-  const {type, message} = await getByStatus(status);
+  const {status} = req.query;
+  const {type, message} = await getByStatus(status === 'true');
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
 }
 
 async function getByModelController(req, res) {
-  const {model} = req.body;
+  const {model} = req.query;
   const {type, message} = await getByModel(model);
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
@@ -58,9 +58,9 @@ async function updateController(req, res) {
   return res.status(200).json(message);
 }
 
-async function getVehicleDetailController(req, res) {
-  const {plate} = req.body;
-  const {type, message} = await getVehicleDetail(plate);
+async function getVehicleDetailsController(req, res) {
+  const {plate} = req.query;
+  const {type, message} = await getVehicleDetails(plate);
   if (type === 'notFound') return res.status(404).json(message);
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
@@ -121,7 +121,7 @@ module.exports = {
   getByModelController,
   removeController,
   updateController,
-  getVehicleDetailController,
+  getVehicleDetailsController,
   getAllIPVAsToPayController,
   IPVAUpdateController,
   getAllOilChangeController,

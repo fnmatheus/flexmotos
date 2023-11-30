@@ -1,16 +1,24 @@
-interface IPopup {
-  text: string,
-  handleYes(): void,
-  handleNo(): void 
-}
+'use client'
+import React, { useState } from 'react';
+import { IPopup } from './utils/interfaces';
 
-export default function Popup({text, handleYes, handleNo}: IPopup) {
+const Popup: React.FC<IPopup> = ({title, handleYes, handleNo, hasText, text, hasInput}: IPopup) => {
+  const [inputValue, setInputValue] = useState(0);
+  
+  async function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
+    event.preventDefault();
+    const value = Number(event.target.value);
+    if (value > 0) setInputValue(value);
+  }
+
   return (
     <div>
       <div>
-        <p>{text}</p>
+        <h2>{title}</h2>
+        { hasText && <p>{text}</p> }
+        { hasInput && <input className="text-black" id='input' onChange={handleInput} type="text" /> }
         <div className='flex gap-2'>
-          <button onClick={handleYes}>
+          <button onClick={(e) => handleYes(inputValue)}>
             Yes
           </button>
           <button onClick={handleNo}>
@@ -21,3 +29,5 @@ export default function Popup({text, handleYes, handleNo}: IPopup) {
     </div>
   );
 }
+
+export default Popup;

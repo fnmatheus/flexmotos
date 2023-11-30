@@ -1,14 +1,23 @@
 'use client'
 import Link from 'next/link';
-import { deleteCookie } from 'cookies-next';
+import { deleteCookie, getCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { setAxiosToken } from './utils/axios';
 
 import Popup from './popup';
 
-export default function Navbar() {
+const Navbar = () => {
   const [logout, setLogout] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    async function setData() {
+      const newToken = await getCookie('authorization');
+      if (typeof newToken === 'string') setAxiosToken(newToken);
+    }
+    setData();
+  }, []);
 
   function handleLogout() {
     deleteCookie('authorization');
@@ -25,7 +34,7 @@ export default function Navbar() {
       {
         logout &&
         <Popup
-          text={'Tem certeza que deseja sair?'}
+          title={'Tem certeza que deseja sair?'}
           handleYes={handleLogout}
           handleNo={() => setLogout(false)}
         />
@@ -33,3 +42,5 @@ export default function Navbar() {
     </section>
   );
 }
+
+export default Navbar;

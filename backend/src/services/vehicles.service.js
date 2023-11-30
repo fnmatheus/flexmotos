@@ -1,6 +1,7 @@
 const Vehicle = require('../database/schemas/Vehicle');
-const { updateClientToRent, updateClientToReturn } = require('../services/clients.service');
-
+const { updateClientToRent, updateClientToReturn, getDatails } = require('./clients.service');
+const { changeToday } = require('./system.service');
+ 
 async function add({category, model, year, plate, RENAVAM, IPVA, mileage, securityValue, rentValue}) {
   try {
     await Vehicle.create({
@@ -100,7 +101,7 @@ async function update({model, year, plate, RENAVAM, mileage, securityValue, rent
   }
 }
 
-async function getVehicleDetail(plate) {
+async function getVehicleDetails(plate) {
   try {
     const vehicle = await Vehicle.findOne({ plate });
     if (!vehicle) return { type: 'notFound', message: 'Vehicle not found' };
@@ -112,11 +113,12 @@ async function getVehicleDetail(plate) {
 
 async function getAllIPVAsToPay() {
   try {
-    const vehicles = await Vehicle.find({}, 'model plate IPVA');
+    const vehicles = await Vehicle.find({}, 'model plate IPVA RENAVAM');
     const vehiclesInfo = vehicles.filter((vehicle) => !vehicle.IPVA).map((vehicle) =>{
       return {
         model: vehicle.model,
         plate: vehicle.plate,
+        RENAVAM: vehicle.RENAVAM
       }
     });
     return { type: null, message: vehiclesInfo };
@@ -204,9 +206,14 @@ async function amountsMonthlysUpdate() {
 async function rentVehicle({CPF, name, rentalDate, returnDate, plate, hasSecurite}) {
   try {
     const vehicle = await Vehicle.findOne({ plate });
+    const {message} = await getDatails(CPF);
+    const rentPlates = message.securities.map((securitie) => securitie[0]);
+    console.log(rentPlates.includes(plate));
     if (!vehicle) return { type: 'notFound', message: 'Vehicle not found' };
     if (vehicle.rent.status) return { type: 'rented', message: 'This vehicle is not avaliable' };
+    if (rentPlates.includes(plate)) return { type: 'invalidPlate', message: 'This plate has a securitie to return' };
     await updateClientToRent({CPF, model: vehicle.model, plate, rentalDate, rentValue: vehicle.rentValue, hasSecurite});
+    await changeToday(vehicle.rentValue);
     await Vehicle.findOneAndUpdate({ plate }, {
       rent: {
         status: true,
@@ -249,7 +256,7 @@ module.exports = {
   getByModel,
   remove,
   update,
-  getVehicleDetail,
+  getVehicleDetails,
   getAllIPVAsToPay,
   IPVAsYearlyUpdate,
   IPVAUpdate,

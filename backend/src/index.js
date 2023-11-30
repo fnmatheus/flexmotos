@@ -6,8 +6,8 @@ const usersRoutes = require('./routes/users.routes');
 const systemRoutes = require('./routes/system.routes');
 const clientsRoutes = require('./routes/clients.routes');
 const vehiclesRoutes = require('./routes/vehicles.routes');
-const schedules = require('./config/schedule');
 const { checkToken } = require('./middlewares/tokenChecker');
+const schedule = require('./config/schedule');
 
 const app = express();
 
@@ -32,9 +32,11 @@ mongoose
 .connect(process.env.MONGODB_URI)
 .then(() => {
   app.listen(process.env.PORT, () => {
-    console.log(`Database connected! Listen on ${process.env.PORT}`);
+    console.log(`Database connected! Listen on ${3000}`);
+    schedule.dailyUpdate();
+    schedule.weeklyUpdate();
+    schedule.monthlyUpdate();
+    schedule.yearlyUpdate();
   })
 })
 .catch((err) => console.log(err));
-
-schedules();

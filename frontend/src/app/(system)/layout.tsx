@@ -1,11 +1,11 @@
 import React from 'react';
 import Navbar from './navbar';
 
-export default function systemLayout({
+const systemLayout = ({
   children,
 }: {
   children: React.ReactNode
-}) {
+}) => {
   return (
     <section>
       <div>
@@ -15,3 +15,5 @@ export default function systemLayout({
     </section>
   )
 }
+
+export default systemLayout;

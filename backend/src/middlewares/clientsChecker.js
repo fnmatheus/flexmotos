@@ -14,7 +14,7 @@ async function clientAddChecker(req, res, next) {
   }
 }
 
-async function clientCPFChecker(req, res, next) {
+async function clientBodyCPFChecker(req, res, next) {
   try {
     const { body } = req;
     if (typeof body.CPF !== 'string') {
@@ -26,10 +26,22 @@ async function clientCPFChecker(req, res, next) {
   }
 }
 
+async function clientCPFChecker(req, res, next) {
+  try {
+    const { query } = req;
+    if (!query.CPF) {
+      return res.status(406).json({ message: 'incorrect arguments' });
+    }
+    next();
+  } catch (error) {
+    return res.status(406).json({ message: 'incorrect arguments' });
+  }
+}
+
 async function clientStatusChecker(req, res, next) {
   try {
-    const { body } = req;
-    if (!typeof body.status === 'boolean') {
+    const { query } = req;
+    if (!query.status) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
@@ -40,8 +52,8 @@ async function clientStatusChecker(req, res, next) {
 
 async function clientNameChecker(req, res, next) {
   try {
-    const { body } = req;
-    if (typeof body.name !== 'string') {
+    const { query } = req;
+    if (!query.name) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
@@ -66,9 +78,9 @@ async function addSecuritieChecker(req, res, next) {
 
 async function removeSecuritieChecker(req, res, next) {
   try {
-    const { body } = req;
-    const validation = (typeof body.plate === 'number' || typeof body.CPF === 'string');
-    if (!validation) {
+    const { query } = req;
+    const validation = (!query.plate || !query.CPF);
+    if (validation) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();
@@ -79,6 +91,7 @@ async function removeSecuritieChecker(req, res, next) {
 
 module.exports = {
   clientAddChecker,
+  clientBodyCPFChecker,
   clientCPFChecker,
   clientStatusChecker,
   clientNameChecker,

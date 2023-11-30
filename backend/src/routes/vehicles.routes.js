@@ -6,7 +6,7 @@ const {
   getByModelController,
   removeController,
   updateController,
-  getVehicleDetailController,
+  getVehicleDetailsController,
   getAllIPVAsToPayController,
   IPVAUpdateController,
   getAllOilChangeController,
@@ -15,12 +15,12 @@ const {
   rentVehicleController,
   returnVehicleController,
 } = require('../controller/vehicles.controller');
-const { checkToken } = require('../middlewares/tokenChecker');
 const {
   vehicleAddChecker,
   vehicleStatusChecker,
   vehicleModelChecker,
   vehiclePlateChecker,
+  vehicleBodyPlateChecker,
   vehicleUpdateChecker,
   rentVehicleChecker,
   returnVehicleChecker,
@@ -34,11 +34,11 @@ vehiclesRoutes.get('/status', vehicleStatusChecker, getByStatusController);
 vehiclesRoutes.get('/model', vehicleModelChecker, getByModelController);
 vehiclesRoutes.delete('/remove', vehiclePlateChecker, removeController);
 vehiclesRoutes.post('/update', vehicleUpdateChecker, updateController);
-vehiclesRoutes.get('/vehicle', vehiclePlateChecker, getVehicleDetailController);
+vehiclesRoutes.get('/vehicle', vehiclePlateChecker, getVehicleDetailsController);
 vehiclesRoutes.get('/IPVA', getAllIPVAsToPayController);
-vehiclesRoutes.post('/IPVA', vehiclePlateChecker, IPVAUpdateController);
+vehiclesRoutes.post('/IPVA', vehicleBodyPlateChecker, IPVAUpdateController);
 vehiclesRoutes.get('/oil', getAllOilChangeController);
-vehiclesRoutes.post('/oil', vehiclePlateChecker, oilUpdateController);
+vehiclesRoutes.post('/oil', vehicleBodyPlateChecker, oilUpdateController);
 vehiclesRoutes.get('/return', getAllVehiclesToBeReturnedController);
 vehiclesRoutes.post('/rent', rentVehicleChecker, rentVehicleController);
 vehiclesRoutes.post('/return', returnVehicleChecker, returnVehicleController);

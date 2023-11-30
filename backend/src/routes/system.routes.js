@@ -13,6 +13,6 @@ const systemRoutes = express.Router();
 systemRoutes.post('/today', checkToken, valueParamChecker, changeTodayController);
 systemRoutes.post('/goal', checkRole, valueParamChecker, setGoalController);
 systemRoutes.get('/dashboard', checkRole, getDashboardController);
-systemRoutes.get('/billing', checkRole, valueParamChecker, getYearBillingController);
+systemRoutes.get('/billing', checkRole, getYearBillingController);
 
 module.exports = systemRoutes;
