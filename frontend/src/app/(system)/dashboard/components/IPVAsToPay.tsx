@@ -4,18 +4,18 @@ import { getIPVAs, payIPVA } from '../utils/IPVAsAxios';
 import Popup from '../../popup';
 
 const IPVAsToPay: React.FC<IProps> = ({token}: IProps) => {
-  const [IPVAs, setIPVAs] = useState<string[][]>([]);
+  const [vehicles, setVehicles] = useState<string[][]>([]);
   const [popup, setPopup] = useState<string[]>([]);
 
   useEffect(() => {
     async function getIPVAsData() {
       if (token !== '') {
         const data: string[][] = await getIPVAs();
-        setIPVAs(data);
+        setVehicles(data);
       }
     }
     getIPVAsData();
-  }, [token, IPVAs]);
+  }, [token, vehicles]);
 
   async function handlePayIPVA(vehicle: string[]) {
     const [plate] = vehicle;
@@ -33,7 +33,7 @@ const IPVAsToPay: React.FC<IProps> = ({token}: IProps) => {
         </thead>
         <tbody>
           {
-            IPVAs.map((IPVA) => {
+            vehicles.map((IPVA) => {
               const [plate, model] = IPVA;
               return (
                 <tr key={plate}>

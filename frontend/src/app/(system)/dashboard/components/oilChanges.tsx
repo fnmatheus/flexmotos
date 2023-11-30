@@ -4,18 +4,18 @@ import { changeOil, getChanges } from '../utils/oilAxios';
 import Popup from '../../popup';
 
 const OilChanges: React.FC<IProps> = ({token}: IProps) => {
-  const [changes, setChanges] = useState<string[][]>([]);
+  const [vehicles, setVehicles] = useState<string[][]>([]);
   const [popup, setPopup] = useState<string[]>([]);
 
   useEffect(() => {
     async function getOilChanges() {
       if (token !== '') {
-        const data = await getChanges();
-        setChanges(data);
+        const data: string[][] = await getChanges();
+        setVehicles(data);
       }
     }
     getOilChanges();
-  }, [token, changes]);
+  }, [token, vehicles]);
 
   async function handleChange(vehicle: string[]) {
     const [plate] = vehicle;
@@ -33,7 +33,7 @@ const OilChanges: React.FC<IProps> = ({token}: IProps) => {
         </thead>
         <tbody>
           {
-            changes.map((vehicle) => {
+            vehicles.map((vehicle) => {
               const [plate, model] = vehicle;
               return (
                 <tr key={plate}>
