@@ -52,3 +52,9 @@ export interface ISecuritie {
     securities: string[],
     _id: string
 }
+
+export interface IIPVAs {
+  model: string,
+  plate: string,
+  RENAVAM: string,
+}

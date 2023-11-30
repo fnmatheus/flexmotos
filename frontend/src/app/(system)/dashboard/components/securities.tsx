@@ -17,8 +17,8 @@ const Securities: React.FC<IProps> = ({token}: IProps) => {
     getSecuritiesData();
   }, [token, securities]);
 
-  const handleReturn = async (value: string[]) => {
-    const [CPF, plate] = value;
+  const handleReturn = async (vehicle: string[]) => {
+    const [CPF, plate] = vehicle;
     deleteSecuritie({CPF, plate});
     setPopup([]);
   }

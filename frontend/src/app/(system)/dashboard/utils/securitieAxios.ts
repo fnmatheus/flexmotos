@@ -13,7 +13,6 @@ export const getSecurities = async () => {
 }
 
 export const deleteSecuritie = async ({CPF, plate}: {CPF: string, plate: string}) => {
-  console.log(CPF);
   await instance.delete(`${backendURL}/clients/securities`, {
     params: {
       CPF,

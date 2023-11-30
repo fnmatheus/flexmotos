@@ -113,11 +113,12 @@ async function getVehicleDetails(plate) {
 
 async function getAllIPVAsToPay() {
   try {
-    const vehicles = await Vehicle.find({}, 'model plate IPVA');
+    const vehicles = await Vehicle.find({}, 'model plate IPVA RENAVAM');
     const vehiclesInfo = vehicles.filter((vehicle) => !vehicle.IPVA).map((vehicle) =>{
       return {
         model: vehicle.model,
         plate: vehicle.plate,
+        RENAVAM: vehicle.RENAVAM
       }
     });
     return { type: null, message: vehiclesInfo };
