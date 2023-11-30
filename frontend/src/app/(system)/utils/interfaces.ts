@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface IPopup {
   title: string,
   handleYes(value?: number): void,
@@ -89,4 +91,11 @@ export interface IDashboardTable {
   popuptext: string,
   handleYes(): void,
   handleNo(): void
+}
+
+export interface IPageHeader {
+  textButton: string,
+  handleInputFilter(event: React.ChangeEvent<HTMLInputElement>): void,
+  handleSelectFilter(event: React.ChangeEvent<HTMLSelectElement>): void,
+  options: string[][]
 }

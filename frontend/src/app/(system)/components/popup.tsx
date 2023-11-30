@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import { IPopup } from './utils/interfaces';
+import { IPopup } from '../utils/interfaces';
 
 const Popup: React.FC<IPopup> = ({title, handleYes, handleNo, hasText, text, hasInput}: IPopup) => {
   const [inputValue, setInputValue] = useState(0);

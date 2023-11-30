@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from 'react';
 import { getYearlyBilling } from '../utils/systemAxios';
 import { IYearlyBilling, IBillings } from '../../utils/interfaces';
@@ -17,9 +17,8 @@ const YearlyBilling: React.FC<IYearlyBilling> = ({token, handleClose}: IYearlyBi
     getBillings();
   }, [token]);
 
-  async function handleYear(e: React.ChangeEvent<HTMLSelectElement>) {
-    console.log(e.target.value);
-    const selectedYear = Number(e.target.value);
+  async function handleYear(event: React.ChangeEvent<HTMLSelectElement>) {
+    const selectedYear = Number(event.target.value);
     const newBillings = await getYearlyBilling(selectedYear);
     setBillings(newBillings);
   }
