@@ -63,3 +63,16 @@ export interface IChanges {
   model: string,
   plate: string
 }
+
+export interface IRentedVehicles {
+  category: string,
+  plate: string,
+  model: string,
+  status: boolean
+}
+
+export interface IVehicliesDetails {
+  rent: {
+    returnDate: string
+  }
+}

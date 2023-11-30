@@ -5,7 +5,7 @@ import Billing from './components/billing';
 import Securities from './components/securities';
 import IPVAsToPay from './components/IPVAsToPay';
 import OilChanges from './components/oilChanges';
-import RentedVehicles from './components/rentedVehicles';
+import RentVehicles from './components/rentVehicles';
 
 const Dashboard = () => {
   const [token, setToken] = useState('');
@@ -24,7 +24,7 @@ const Dashboard = () => {
       <Securities token={token} />
       <IPVAsToPay token={token} />
       <OilChanges token={token} />
-      <RentedVehicles token={token} />
+      <RentVehicles token={token} />
     </section>
   );
 }
