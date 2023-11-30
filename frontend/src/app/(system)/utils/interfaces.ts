@@ -76,3 +76,17 @@ export interface IVehicliesDetails {
     returnDate: string
   }
 }
+
+export interface IDashboardTable {
+  tableTitle: string,
+  vehicles: string[][],
+  hasButton?: boolean,
+  buttonText?: string,
+  handleButton(vahicle: string[]): void,
+  hasThirdText?: boolean,
+  hasPopup?: boolean,
+  popup: string[],
+  popuptext: string,
+  handleYes(): void,
+  handleNo(): void
+}
