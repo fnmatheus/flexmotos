@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IProps } from '../../utils/interfaces';
 import { getSecurities, deleteSecuritie } from '../utils/securitieAxios';
-// import Popup from '../../popup';
 import DashboardTable from './dashboardTable';
 
 const Securities: React.FC<IProps> = ({token}: IProps) => {

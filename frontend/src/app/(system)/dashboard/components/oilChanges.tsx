@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IProps } from '../../utils/interfaces';
 import { changeOil, getChanges } from '../utils/oilAxios';
-// import Popup from '../../popup';
 import DashboardTable from './dashboardTable';
 
 const OilChanges: React.FC<IProps> = ({token}: IProps) => {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IProps } from '../../utils/interfaces';
 import { getIPVAs, payIPVA } from '../utils/IPVAsAxios';
-// import Popup from '../../popup';
 import DashboardTable from './dashboardTable';
 
 const IPVAsToPay: React.FC<IProps> = ({token}: IProps) => {
