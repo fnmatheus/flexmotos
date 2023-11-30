@@ -4,6 +4,7 @@ import { getCookie } from 'cookies-next';
 import Billing from './components/billing';
 import Securities from './components/securities';
 import IPVAsToPay from './components/IPVAsToPay';
+import OilChanges from './components/oilChanges';
 
 const Dashboard = () => {
   const [token, setToken] = useState('');
@@ -21,7 +22,7 @@ const Dashboard = () => {
       <Billing token={token} />
       <Securities token={token} />
       <IPVAsToPay token={token} />
-      <div>Oil</div>
+      <OilChanges token={token} />
       <div>Return</div>
     </section>
   );
