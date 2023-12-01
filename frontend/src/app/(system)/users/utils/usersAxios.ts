@@ -35,6 +35,12 @@ export const filterUsersByCategory = async (category: string) => {
   return users;
 }
 
+export const getUserByName = async (name: string) => {
+  const {data}: {data: IUser[]} = await instance.get(`${backendURL}/users/name/${name}`);
+  const user = [data[0].name, data[0].category];
+  return user;
+}
+
 export const addUser = async (payload: IUser) => {
   try {
     await instance.post(`${backendURL}/users/signup`, payload);

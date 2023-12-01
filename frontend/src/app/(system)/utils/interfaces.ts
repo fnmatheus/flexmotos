@@ -104,7 +104,7 @@ export interface IPageHeader {
 export interface IPageTable {
   tableHeads: string[],
   tableBody: string[][],
-  handleEdit(item: string[]): void,
+  handleEdit(item: string): void,
   handleRemove(value: string): void,
   popup: string,
   popupText: string,

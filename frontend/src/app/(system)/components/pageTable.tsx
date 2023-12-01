@@ -25,7 +25,7 @@ const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, han
                   {
                     item[2] !== 'super' &&
                     <td className="flex gap-2">
-                      <button onClick={() => handleEdit([item[1], item[2]])}>
+                      <button onClick={() => handleEdit(item[1])}>
                         edit
                       </button>
                       <button onClick={() => handleRemove(item[1])}>

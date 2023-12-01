@@ -40,6 +40,10 @@ const Clients = () => {
     console.log(event.target.value);
   }
 
+  async function handleSetEditPopup(CPF: string) {
+    setEditPopup([]);
+  }
+
   async function handleConfirmRemove(CPF: string) {
     console.log(CPF);
   }
@@ -56,10 +60,10 @@ const Clients = () => {
       <PageTable
         tableHeads={tableHeads}
         tableBody={filteredClients}
-        handleEdit={([]) => setEditPopup([])}
+        handleEdit={(CPF) => handleSetEditPopup(CPF)}
         handleRemove={(name) => setPopup(name)}
         popup={popup}
-        popupText='Tem certeza que deseja excluir o cliente com CPF:'
+        popupText='Tem certeza que deseja excluir o cliente:'
         handleConfirmRemove={(CPF) => handleConfirmRemove(CPF)}
         handleDeclineRemove={() => setPopup('')}
       />

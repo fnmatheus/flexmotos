@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PageHeader from '../components/pageHeader';
 import { options, tableHeads } from './utils/variables';
-import { getUsers, removeUser, filterUsersByCategory, addUser, updateUser } from './utils/usersAxios';
+import { getUsers, removeUser, filterUsersByCategory, addUser, updateUser, getUserByName } from './utils/usersAxios';
 import PageTable from '../components/pageTable';
 import UsersPopup from './components/usersPopup';
 import { IUser } from '../utils/interfaces';
@@ -64,6 +64,11 @@ const Users = () => {
     setUsers(newUsers);
     setAddPopup(false);
   }
+  
+  async function handleSetEditPopup(name: string) {
+    const data = await getUserByName(name);
+    setEditPopup(data);
+  }
 
   async function handleEditUser({name, password, category}: IUser) {
     const newUsers = await updateUser({name, password, category});
@@ -88,7 +93,7 @@ const Users = () => {
       <PageTable
         tableHeads={tableHeads}
         tableBody={filteredUsers}
-        handleEdit={([name, category]) => setEditPopup([name, category])}
+        handleEdit={(name) => handleSetEditPopup(name)}
         handleRemove={(name) => setPopup(name)}
         popup={popup}
         popupText='Tem certeza que deseja excluir o usuário:'
