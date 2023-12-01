@@ -6,6 +6,7 @@ import { getUsers, removeUser, filterUsersByCategory, addUser, updateUser } from
 import PageTable from '../components/pageTable';
 import UsersPopup from './components/usersPopup';
 import { IUser } from '../utils/interfaces';
+import { getCookie } from 'cookies-next';
 
 const Users = () => {
   const [users, setUsers] = useState<string[][]>([]);
@@ -15,11 +16,12 @@ const Users = () => {
   const [editPopup, setEditPopup] = useState<string[]>([]);
 
   useEffect(() => {
-    async function getUsersData() {
+    async function getToken() {
+      await getCookie('authorization');
       const data = await getUsers();
       setUsers(data);
     }
-    getUsersData();
+    getToken();
   }, []);
 
   useEffect(() => {
@@ -89,6 +91,7 @@ const Users = () => {
         handleEdit={([name, category]) => setEditPopup([name, category])}
         handleRemove={(name) => setPopup(name)}
         popup={popup}
+        popupText='Tem certeza que deseja excluir o usuário:'
         handleConfirmRemove={(name) => handleConfirmRemove(name)}
         handleDeclineRemove={() => setPopup('')}
       />

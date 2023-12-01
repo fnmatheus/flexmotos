@@ -107,6 +107,7 @@ export interface IPageTable {
   handleEdit(item: string[]): void,
   handleRemove(value: string): void,
   popup: string,
+  popupText: string,
   handleConfirmRemove(value: string): void,
   handleDeclineRemove(): void
 }
@@ -132,4 +133,11 @@ export interface IUsersPopup {
   startName: string,
   readonlyName: boolean,
   startCategory: string 
+}
+
+export interface IClients {
+  CPF: string,
+  lastVehicle: string[],
+  name: string,
+  status: boolean
 }

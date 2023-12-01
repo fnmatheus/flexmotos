@@ -2,7 +2,7 @@ import React from 'react';
 import Popup from './popup';
 import { IPageTable } from '../utils/interfaces';
 
-const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, handleRemove, popup, handleConfirmRemove, handleDeclineRemove}: IPageTable) => {
+const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, handleRemove, popup, popupText, handleConfirmRemove, handleDeclineRemove}: IPageTable) => {
   return (
     <div>
       <table>
@@ -42,7 +42,7 @@ const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, han
       {
         popup !== '' &&
         <Popup
-          title={`Tem certeza que deseja excluir o usuário ${popup}?`}
+          title={`${popupText} ${popup}?`}
           handleYes={() => handleConfirmRemove(popup)}
           handleNo={handleDeclineRemove}
         />
