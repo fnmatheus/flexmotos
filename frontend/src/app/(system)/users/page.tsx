@@ -1,10 +1,23 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PageHeader from '../components/pageHeader';
 import { options, tableHeads } from './utils/variables';
+import { getUsers, removeUser } from './utils/usersAxios';
+import Popup from '../components/popup';
+import PageTable from '../components/pageTable';
 
 const Users = () => {
-  useEffect(() => {}, [])
+  const [users, setUsers] = useState<string[][]>([]);
+  const [popup, setPopup] = useState<string>('');
+  const [editPopup, setEditPopup] = useState<string[]>([]);
+
+  useEffect(() => {
+    async function getUsersData() {
+      const data = await getUsers();
+      setUsers(data);
+    }
+    getUsersData();
+  }, [popup])
 
   async function handleSelectFilter(event: React.ChangeEvent<HTMLSelectElement>) {
     console.log(event.target.value);
@@ -12,6 +25,11 @@ const Users = () => {
 
   async function handleInputFilter(event: React.ChangeEvent<HTMLInputElement>) {
     console.log(event.target.value);
+  }
+
+  async function handleConfirmRemove(name: string) {
+    await removeUser(name);
+    setPopup('');
   }
 
   return (
@@ -22,17 +40,15 @@ const Users = () => {
         handleSelectFilter={handleSelectFilter}
         options={options}
       />
-      <table>
-        <thead>
-          {
-            tableHeads.map((text) => <td key={text}>
-              <th>{text}</th>
-            </td>)
-          }
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+      <PageTable
+        tableHeads={tableHeads}
+        tableBody={users}
+        handleEdit={([name, category]) => setEditPopup([name, category])}
+        handleRemove={(name) => setPopup(name)}
+        popup={popup}
+        handleConfirmRemove={(name) => handleConfirmRemove(name)}
+        handleDeclineRemove={() => setPopup('')}
+      />
     </section>
   );
 }

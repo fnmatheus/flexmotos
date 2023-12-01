@@ -99,3 +99,20 @@ export interface IPageHeader {
   handleSelectFilter(event: React.ChangeEvent<HTMLSelectElement>): void,
   options: string[][]
 }
+
+export interface IPageTable {
+  tableHeads: string[],
+  tableBody: string[][],
+  handleEdit(item: string[]): void,
+  handleRemove(value: string): void,
+  popup: string,
+  handleConfirmRemove(value: string): void,
+  handleDeclineRemove(): void
+}
+
+export interface IUsers {
+  category: string,
+  code: number,
+  lastTime: string,
+  name: string
+}
