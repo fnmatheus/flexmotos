@@ -109,7 +109,12 @@ export interface IPageTable {
   popup: string[],
   popupText: string,
   handleConfirmRemove(value: string): void,
-  handleDeclineRemove(): void
+  handleDeclineRemove(): void,
+  hasDetails?: boolean,
+  handleDetails?(value: string): void,
+  hasRentAndReturn?: boolean,
+  handleRent?(value: string[]): void,
+  handleReturn?(value: string[]): void
 }
 
 export interface IUsers {
