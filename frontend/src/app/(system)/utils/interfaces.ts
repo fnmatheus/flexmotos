@@ -95,6 +95,7 @@ export interface IDashboardTable {
 
 export interface IPageHeader {
   textButton: string,
+  handleAdd(): void,
   handleInputFilter(event: React.ChangeEvent<HTMLInputElement>): void,
   handleSelectFilter(event: React.ChangeEvent<HTMLSelectElement>): void,
   options: string[][]
@@ -115,4 +116,18 @@ export interface IUsers {
   code: number,
   lastTime: string,
   name: string
+}
+
+export interface IHandleAddUser {
+  name: string,
+  password: string,
+  category: string
+}
+
+export interface IUsersPopup {
+  title: string,
+  options: string[][],
+  handleYes(item: IHandleAddUser): void,
+  handleNo(): void,
+  startCategory: string 
 }
