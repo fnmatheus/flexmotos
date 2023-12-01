@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import PageHeader from '../components/pageHeader';
 import { options, tableHeads } from './utils/variables';
-import { getUsers, removeUser, filterUsersByCategory, addUser } from './utils/usersAxios';
+import { getUsers, removeUser, filterUsersByCategory, addUser, updateUser } from './utils/usersAxios';
 import PageTable from '../components/pageTable';
 import UsersPopup from './components/usersPopup';
-import { IAddUser } from '../utils/interfaces';
+import { IUser } from '../utils/interfaces';
 
 const Users = () => {
   const [users, setUsers] = useState<string[][]>([]);
@@ -40,11 +40,16 @@ const Users = () => {
 
   async function handleConfirmRemove(name: string) {
     const newUsers = await removeUser(name);
+    if (!newUsers) {
+      alert('Usuário não possui permissão para deletar outros usuários!');
+      setPopup('');
+      return;
+    }
     setUsers(newUsers);
     setPopup('');
   }
 
-  async function handleAddUser({name, password, category}: IAddUser) {
+  async function handleAddUser({name, password, category}: IUser) {
     if (!name || !password) {
       alert('Preencha os campos incompletos!');
       return;
@@ -56,6 +61,17 @@ const Users = () => {
     }
     setUsers(newUsers);
     setAddPopup(false);
+  }
+
+  async function handleEditUser({name, password, category}: IUser) {
+    const newUsers = await updateUser({name, password, category});
+    if (!newUsers) {
+      alert('Usuário não possui permissão para alterar usuários!');
+      setEditPopup([]);
+      return;
+    }
+    setUsers(newUsers);
+    setEditPopup([]);
   }
 
   return (
@@ -79,11 +95,25 @@ const Users = () => {
       {
         addPopup &&
         <UsersPopup
-          title='Novo usuário'
+          title="Novo usuário"
           options={options}
           handleYes={handleAddUser}
           handleNo={() => setAddPopup(false)}
-          startCategory='user'
+          startName=''
+          readonlyName={false}
+          startCategory="user"
+        />
+      }
+      {
+        editPopup.length > 1 &&
+        <UsersPopup
+          title="Alterar usuário"
+          options={options}
+          handleYes={handleEditUser}
+          handleNo={() => setEditPopup([])}
+          startName={editPopup[0]}
+          readonlyName
+          startCategory={editPopup[1]}
         />
       }
     </section>

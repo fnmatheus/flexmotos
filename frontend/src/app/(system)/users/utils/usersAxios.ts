@@ -1,5 +1,5 @@
 import { instance } from '../../utils/axios';
-import { IAddUser, IUsers } from '../../utils/interfaces';
+import { IUser, IUsers } from '../../utils/interfaces';
 import { backendURL } from '../../utils/urls';
 
 export const getUsers = async () => {
@@ -12,13 +12,17 @@ export const getUsers = async () => {
 }
 
 export const removeUser = async (name: string) => {
-  await instance.delete(`${backendURL}/users/remove`, {
-    params: {
-      name
-    }
-  });
-  const newUsers = await getUsers();
-  return newUsers;
+  try {
+    await instance.delete(`${backendURL}/users/remove`, {
+      params: {
+        name
+      }
+    });
+    const newUsers = await getUsers();
+    return newUsers;
+  } catch (error) {
+    return null;
+  }
 }
 
 export const filterUsersByCategory = async (category: string) => {
@@ -31,9 +35,19 @@ export const filterUsersByCategory = async (category: string) => {
   return users;
 }
 
-export const addUser = async (payload: IAddUser) => {
+export const addUser = async (payload: IUser) => {
   try {
     await instance.post(`${backendURL}/users/signup`, payload);
+    const newUsers = await getUsers();
+    return newUsers;
+  } catch (error) {
+    return null;
+  }
+}
+
+export const updateUser =async (payload: IUser) => {
+  try {
+    await instance.post(`${backendURL}/users/update`, payload);
     const newUsers = await getUsers();
     return newUsers;
   } catch (error) {

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { IUsersPopup } from '../../utils/interfaces';
 
-const UsersPopup: React.FC<IUsersPopup> = ({title, options, handleYes, handleNo, startCategory}: IUsersPopup) => {
-  const [name, setName] = useState('');
+const UsersPopup: React.FC<IUsersPopup> = ({title, options, handleYes, handleNo, startName, readonlyName, startCategory}: IUsersPopup) => {
+  const [name, setName] = useState(startName);
   const [password, setPassword] = useState('');
   const [category, setCategory] = useState(startCategory);
 
@@ -26,7 +26,7 @@ const UsersPopup: React.FC<IUsersPopup> = ({title, options, handleYes, handleNo,
       <div>
         <div className="flex gap-2">
           <h2>{title}</h2>
-          <input onChange={handleName} className="text-black" type="text" />
+          <input readOnly={readonlyName} value={name} onChange={handleName} className="text-black" type="text" />
           <input onChange={handlePassword} className="text-black" type="text" />
           <select value={category} onChange={handleCategory} className="text-black">
             {
