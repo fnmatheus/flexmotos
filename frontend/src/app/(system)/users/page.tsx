@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PageHeader from '../components/pageHeader';
 import { options, tableHeads } from './utils/variables';
-import { getUsers, removeUser } from './utils/usersAxios';
+import { getUsers, removeUser, filterUsersByCategory } from './utils/usersAxios';
 import PageTable from '../components/pageTable';
 
 const Users = () => {
@@ -19,7 +19,9 @@ const Users = () => {
   }, [popup])
 
   async function handleSelectFilter(event: React.ChangeEvent<HTMLSelectElement>) {
-    console.log(event.target.value);
+    const category = (event.target.value);
+    const data = await filterUsersByCategory(category);
+    setUsers(data);
   }
 
   async function handleInputFilter(event: React.ChangeEvent<HTMLInputElement>) {
