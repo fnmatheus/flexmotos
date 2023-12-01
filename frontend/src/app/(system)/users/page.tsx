@@ -3,13 +3,12 @@ import React, { useEffect, useState } from 'react';
 import PageHeader from '../components/pageHeader';
 import { options, tableHeads } from './utils/variables';
 import { getUsers, removeUser } from './utils/usersAxios';
-import Popup from '../components/popup';
 import PageTable from '../components/pageTable';
 
 const Users = () => {
   const [users, setUsers] = useState<string[][]>([]);
   const [popup, setPopup] = useState<string>('');
-  const [editPopup, setEditPopup] = useState<string[]>([]);
+  const [_editPopup, setEditPopup] = useState<string[]>([]);
 
   useEffect(() => {
     async function getUsersData() {
