@@ -39,7 +39,7 @@ const Home = () => {
         <form className="flex gap-2 text-black" onSubmit={handleSubmit}>
           <input id="code" type="text" />
           <input id="username" type="text" />
-          <input id="password" type="password" name="" />
+          <input id="password" type="password" />
           <button className="bg-white">Entrar</button>
           {
             incorrectFields &&

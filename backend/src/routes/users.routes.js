@@ -13,7 +13,7 @@ const { checkRole, checkToken } = require('../middlewares/tokenChecker');
 
 const usersRoutes = express.Router();
 
-usersRoutes.post('/signup', signUpChecker, signUpController);
+usersRoutes.post('/signup', checkRole, signUpChecker, signUpController);
 usersRoutes.post('/signin', signInChecker, signInController);
 usersRoutes.delete('/remove', checkRole, removeController);
 usersRoutes.post('/update', checkRole, updateChecker, updateCotroller);

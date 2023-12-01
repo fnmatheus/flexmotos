@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { setAxiosToken } from './utils/axios';
 
-import Popup from './popup';
+import Popup from './components/popup';
 
 const Navbar = () => {
   const [logout, setLogout] = useState(false);

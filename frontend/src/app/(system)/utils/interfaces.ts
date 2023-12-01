@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface IPopup {
   title: string,
   handleYes(value?: number): void,
@@ -89,4 +91,45 @@ export interface IDashboardTable {
   popuptext: string,
   handleYes(): void,
   handleNo(): void
+}
+
+export interface IPageHeader {
+  textButton: string,
+  handleAdd(): void,
+  handleInputFilter(event: React.ChangeEvent<HTMLInputElement>): void,
+  handleSelectFilter(event: React.ChangeEvent<HTMLSelectElement>): void,
+  options: string[][]
+}
+
+export interface IPageTable {
+  tableHeads: string[],
+  tableBody: string[][],
+  handleEdit(item: string[]): void,
+  handleRemove(value: string): void,
+  popup: string,
+  handleConfirmRemove(value: string): void,
+  handleDeclineRemove(): void
+}
+
+export interface IUsers {
+  category: string,
+  code: number,
+  lastTime: string,
+  name: string
+}
+
+export interface IUser {
+  name: string,
+  password: string,
+  category: string
+}
+
+export interface IUsersPopup {
+  title: string,
+  options: string[][],
+  handleYes(item?: IUser): void,
+  handleNo(): void,
+  startName: string,
+  readonlyName: boolean,
+  startCategory: string 
 }

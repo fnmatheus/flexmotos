@@ -3,7 +3,7 @@ import { Chart, ArcElement, Tooltip } from 'chart.js';
 import {Doughnut} from 'react-chartjs-2';
 import React, { useEffect, useState } from 'react';
 import { getData, setGoalData } from '../utils/systemAxios';
-import Popup from '../../popup';
+import Popup from '../../components/popup';
 import YearlyBilling from './yearlyBilling';
 import { IProps, IDoughnut } from '../../utils/interfaces';
 
