@@ -9,7 +9,7 @@ import { filterClientsByStatus, getClients, removeClient } from './utils/clients
 const Clients = () => {
   const [clients, setClients] = useState<string[][]>([]);
   const [filteredClients, setFilteredClients] = useState<string[][]>([]);
-  const [popup, setPopup] = useState<string>('');
+  const [popup, setPopup] = useState<string[]>(['', '']);
   const [addPopup, setAddPopup] = useState(false);
   const [editPopup, setEditPopup] = useState<string[]>([]);
 
@@ -41,7 +41,7 @@ const Clients = () => {
   async function handleConfirmRemove(CPF: string) {
     const newClients = await removeClient(CPF);
     setClients(newClients);
-    setPopup('');
+    setPopup(['']);
   }
   
   async function handleSetEditPopup(CPF: string) {
@@ -61,11 +61,11 @@ const Clients = () => {
         tableHeads={tableHeads}
         tableBody={filteredClients}
         handleEdit={(CPF) => handleSetEditPopup(CPF)}
-        handleRemove={(name) => setPopup(name)}
+        handleRemove={([CPF, name]) => setPopup([CPF, name])}
         popup={popup}
         popupText='Tem certeza que deseja excluir o cliente:'
         handleConfirmRemove={(CPF) => handleConfirmRemove(CPF)}
-        handleDeclineRemove={() => setPopup('')}
+        handleDeclineRemove={() => setPopup([''])}
       />
       {
         addPopup &&

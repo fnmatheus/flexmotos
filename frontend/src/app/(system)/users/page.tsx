@@ -11,7 +11,7 @@ import { getCookie } from 'cookies-next';
 const Users = () => {
   const [users, setUsers] = useState<string[][]>([]);
   const [filteredUsers, setFilteredUsers] = useState<string[][]>([]);
-  const [popup, setPopup] = useState<string>('');
+  const [popup, setPopup] = useState<string[]>(['']);
   const [addPopup, setAddPopup] = useState(false);
   const [editPopup, setEditPopup] = useState<string[]>([]);
 
@@ -44,11 +44,11 @@ const Users = () => {
     const newUsers = await removeUser(name);
     if (!newUsers) {
       alert('Usuário não possui permissão para deletar outros usuários!');
-      setPopup('');
+      setPopup(['']);
       return;
     }
     setUsers(newUsers);
-    setPopup('');
+    setPopup(['']);
   }
 
   async function handleAddUser({name, password, category}: IUser) {
@@ -94,11 +94,11 @@ const Users = () => {
         tableHeads={tableHeads}
         tableBody={filteredUsers}
         handleEdit={(name) => handleSetEditPopup(name)}
-        handleRemove={(name) => setPopup(name)}
+        handleRemove={([name]) => setPopup([name, name])}
         popup={popup}
         popupText='Tem certeza que deseja excluir o usuário:'
         handleConfirmRemove={(name) => handleConfirmRemove(name)}
-        handleDeclineRemove={() => setPopup('')}
+        handleDeclineRemove={() => setPopup([''])}
       />
       {
         addPopup &&

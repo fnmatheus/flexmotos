@@ -105,8 +105,8 @@ export interface IPageTable {
   tableHeads: string[],
   tableBody: string[][],
   handleEdit(item: string): void,
-  handleRemove(value: string): void,
-  popup: string,
+  handleRemove(value: string[]): void,
+  popup: string[],
   popupText: string,
   handleConfirmRemove(value: string): void,
   handleDeclineRemove(): void

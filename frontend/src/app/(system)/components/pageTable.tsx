@@ -28,7 +28,7 @@ const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, han
                       <button onClick={() => handleEdit(item[1])}>
                         edit
                       </button>
-                      <button onClick={() => handleRemove(item[1])}>
+                      <button onClick={() => handleRemove([item[1], item[0]])}>
                         remove
                       </button>
                     </td>
@@ -40,10 +40,10 @@ const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, han
         </tbody>
       </table>
       {
-        popup !== '' &&
+        popup[0] !== '' &&
         <Popup
-          title={`${popupText} ${popup}?`}
-          handleYes={() => handleConfirmRemove(popup)}
+          title={`${popupText} ${popup[1]}?`}
+          handleYes={() => handleConfirmRemove(popup[0])}
           handleNo={handleDeclineRemove}
         />
       }
