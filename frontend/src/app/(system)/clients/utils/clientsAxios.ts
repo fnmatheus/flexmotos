@@ -12,6 +12,16 @@ export const getClients = async () => {
   return clients;
 }
 
+export const removeClient = async (CPF: string) => {
+  await instance.delete(`${backendURL}/clients/remove`, {
+    params: {
+      CPF
+    }
+  });
+  const clients = await getClients();
+  return clients;
+}
+
 export const filterClientsByStatus = async (category: string) => {
   const url = (category !== '') ? `${backendURL}/clients/status` : `${backendURL}/clients`;
   const params = (category !== '') ? {params: { status: category }} : {};

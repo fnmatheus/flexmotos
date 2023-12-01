@@ -4,7 +4,7 @@ import PageHeader from '../components/pageHeader';
 import PageTable from '../components/pageTable';
 import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
-import { filterClientsByStatus, getClients } from './utils/clientsAxios';
+import { filterClientsByStatus, getClients, removeClient } from './utils/clientsAxios';
 
 const Clients = () => {
   const [clients, setClients] = useState<string[][]>([]);
@@ -37,13 +37,15 @@ const Clients = () => {
     const filter = clients.filter((client) => client[0].includes(name));
     setFilteredClients(filter);
   }
-
+  
+  async function handleConfirmRemove(CPF: string) {
+    const newClients = await removeClient(CPF);
+    setClients(newClients);
+    setPopup('');
+  }
+  
   async function handleSetEditPopup(CPF: string) {
     setEditPopup([CPF, CPF]);
-  }
-
-  async function handleConfirmRemove(CPF: string) {
-    console.log(CPF);
   }
 
   return (
