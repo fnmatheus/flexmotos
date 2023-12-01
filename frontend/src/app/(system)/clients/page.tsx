@@ -4,7 +4,7 @@ import PageHeader from '../components/pageHeader';
 import PageTable from '../components/pageTable';
 import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
-import { getClients } from './utils/clientsAxios';
+import { filterClientsByStatus, getClients } from './utils/clientsAxios';
 
 const Clients = () => {
   const [clients, setClients] = useState<string[][]>([]);
@@ -27,17 +27,15 @@ const Clients = () => {
   }, [popup, clients]);
 
   async function handleSelectFilter(event: React.ChangeEvent<HTMLSelectElement>) {
-    // const category = (event.target.value);
-    // const data = await filterUsersByCategory(category);
-    // setUsers(data);
-    console.log(event.target.value);
+    const category = (event.target.value);
+    const data = await filterClientsByStatus(category);
+    setClients(data);
   }
 
   async function handleInputFilter(event: React.ChangeEvent<HTMLInputElement>) {
-    // const name = event.target.value;
-    // const filter = users.filter((user) => user[1].includes(name));
-    // setFilteredUsers(filter);
-    console.log(event.target.value);
+    const name = event.target.value;
+    const filter = clients.filter((client) => client[0].includes(name));
+    setFilteredClients(filter);
   }
 
   async function handleSetEditPopup(CPF: string) {
