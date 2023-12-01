@@ -6,7 +6,7 @@ const PageHeader: React.FC<IPageHeader> = ({textButton, handleInputFilter, handl
     <div className="flex gap-12">
       <button>{textButton}</button>
       <div className="flex gap-2">
-        <input onChange={handleInputFilter} type="text" name="" id="" />
+        <input className="text-black" onChange={handleInputFilter} type="text" name="" id="" />
         <select onChange={handleSelectFilter} className="text-black" name="years" id="years">
           {
             options.map((option) => {

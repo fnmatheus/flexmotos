@@ -7,6 +7,7 @@ import PageTable from '../components/pageTable';
 
 const Users = () => {
   const [users, setUsers] = useState<string[][]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<string[][]>([]);
   const [popup, setPopup] = useState<string>('');
   const [_editPopup, setEditPopup] = useState<string[]>([]);
 
@@ -16,7 +17,11 @@ const Users = () => {
       setUsers(data);
     }
     getUsersData();
-  }, [popup])
+  }, []);
+
+  useEffect(() => {
+    setFilteredUsers(users);
+  }, [popup, users]);
 
   async function handleSelectFilter(event: React.ChangeEvent<HTMLSelectElement>) {
     const category = (event.target.value);
@@ -25,7 +30,9 @@ const Users = () => {
   }
 
   async function handleInputFilter(event: React.ChangeEvent<HTMLInputElement>) {
-    console.log(event.target.value);
+    const name = event.target.value;
+    const filter = users.filter((user) => user[1].includes(name));
+    setFilteredUsers(filter);
   }
 
   async function handleConfirmRemove(name: string) {
@@ -43,7 +50,7 @@ const Users = () => {
       />
       <PageTable
         tableHeads={tableHeads}
-        tableBody={users}
+        tableBody={filteredUsers}
         handleEdit={([name, category]) => setEditPopup([name, category])}
         handleRemove={(name) => setPopup(name)}
         popup={popup}
