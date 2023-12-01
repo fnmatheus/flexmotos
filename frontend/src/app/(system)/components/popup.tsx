@@ -14,17 +14,20 @@ const Popup: React.FC<IPopup> = ({title, handleYes, handleNo, hasText, text, has
   return (
     <div>
       <div>
-        <h2>{title}</h2>
+        { title && <h2>{title}</h2> }
         { hasText && <p>{text}</p> }
         { hasInput && <input className="text-black" id='input' onChange={handleInput} type="text" /> }
-        <div className='flex gap-2'>
-          <button onClick={(e) => handleYes(inputValue)}>
-            Yes
-          </button>
-          <button onClick={handleNo}>
-            No
-          </button>
-        </div>
+        {
+          handleYes && handleNo &&
+          <div className='flex gap-2'>
+            <button onClick={(e) => handleYes(inputValue)}>
+              Yes
+            </button>
+            <button onClick={handleNo}>
+              No
+            </button>
+          </div>
+        }
       </div>
     </div>
   );

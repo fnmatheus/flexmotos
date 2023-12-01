@@ -23,7 +23,7 @@ const DashboardTable: React.FC<IDashboardTable> = (
                     <p>{model}</p>
                     <p>{plate}</p>
                     {
-                      hasButton &&
+                      hasButton && handleButton &&
                       <button onClick={() => handleButton(vehicle)}>
                         {buttonText}
                       </button>
@@ -40,7 +40,7 @@ const DashboardTable: React.FC<IDashboardTable> = (
         </tbody>
       </table>
       {
-        hasPopup && popup.length > 0 &&
+        hasPopup && popup && popup.length > 0 &&
         <Popup
           title={popuptext}
           handleYes={handleYes}

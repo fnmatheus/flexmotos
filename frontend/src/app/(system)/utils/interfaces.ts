@@ -1,9 +1,9 @@
 import React from 'react';
 
 export interface IPopup {
-  title: string,
-  handleYes(value?: number): void,
-  handleNo(): void,
+  title?: string,
+  handleYes?(value?: number): void,
+  handleNo?(): void,
   hasText?: boolean,
   text?: string,
   hasInput?: boolean
@@ -84,13 +84,13 @@ export interface IDashboardTable {
   vehicles: string[][],
   hasButton?: boolean,
   buttonText?: string,
-  handleButton(vahicle: string[]): void,
+  handleButton?(vahicle: string[]): void,
   hasThirdText?: boolean,
   hasPopup?: boolean,
-  popup: string[],
-  popuptext: string,
-  handleYes(): void,
-  handleNo(): void
+  popup?: string[],
+  popuptext?: string,
+  handleYes?(): void,
+  handleNo?(): void
 }
 
 export interface IPageHeader {
