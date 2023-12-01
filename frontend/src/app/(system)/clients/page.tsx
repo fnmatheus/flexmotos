@@ -5,6 +5,8 @@ import PageTable from '../components/pageTable';
 import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
 import { filterClientsByStatus, getClients, removeClient } from './utils/clientsAxios';
+import ClientsPopup from './components/clientsPopup';
+import ClientDetailsPopup from './components/clientDetailsPopup';
 
 const Clients = () => {
   const [clients, setClients] = useState<string[][]>([]);
@@ -76,15 +78,15 @@ const Clients = () => {
       />
       {
         addPopup &&
-        <div>Add Popup</div>
+        <ClientsPopup />
       }
       {
         editPopup.length > 1 &&
-        <div>Edit Popup</div>
+        <ClientsPopup />
       }
       {
         detailsPopup.length > 1 &&
-        <div>Details Popup</div>
+        <ClientDetailsPopup />
       }
     </section>
   );
