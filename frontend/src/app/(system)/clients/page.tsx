@@ -12,6 +12,7 @@ const Clients = () => {
   const [popup, setPopup] = useState<string[]>(['', '']);
   const [addPopup, setAddPopup] = useState(false);
   const [editPopup, setEditPopup] = useState<string[]>([]);
+  const [detailsPopup, setDetailsPopup] = useState<string[]>([]);
 
   useEffect(() => {
     async function getToken() {
@@ -48,6 +49,10 @@ const Clients = () => {
     setEditPopup([CPF, CPF]);
   }
 
+  async function handleDetails(CPF: string) {
+    setDetailsPopup([CPF, CPF]);
+  }
+
   return (
     <section>
       <PageHeader
@@ -66,6 +71,8 @@ const Clients = () => {
         popupText='Tem certeza que deseja excluir o cliente:'
         handleConfirmRemove={(CPF) => handleConfirmRemove(CPF)}
         handleDeclineRemove={() => setPopup([''])}
+        hasDetails
+        handleDetails={(CPF) => handleDetails(CPF)}
       />
       {
         addPopup &&
@@ -74,6 +81,10 @@ const Clients = () => {
       {
         editPopup.length > 1 &&
         <div>Edit Popup</div>
+      }
+      {
+        detailsPopup.length > 1 &&
+        <div>Details Popup</div>
       }
     </section>
   );
