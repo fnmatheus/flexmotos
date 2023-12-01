@@ -10,8 +10,8 @@ const Clients = () => {
   const [clients, setClients] = useState<string[][]>([]);
   const [filteredClients, setFilteredClients] = useState<string[][]>([]);
   const [popup, setPopup] = useState<string>('');
-  const [editPopup, setEditPopup] = useState<string[]>([]);
   const [addPopup, setAddPopup] = useState(false);
+  const [editPopup, setEditPopup] = useState<string[]>([]);
 
   useEffect(() => {
     async function getToken() {
@@ -39,7 +39,7 @@ const Clients = () => {
   }
 
   async function handleSetEditPopup(CPF: string) {
-    setEditPopup([]);
+    setEditPopup([CPF, CPF]);
   }
 
   async function handleConfirmRemove(CPF: string) {
@@ -65,6 +65,14 @@ const Clients = () => {
         handleConfirmRemove={(CPF) => handleConfirmRemove(CPF)}
         handleDeclineRemove={() => setPopup('')}
       />
+      {
+        addPopup &&
+        <div>Add Popup</div>
+      }
+      {
+        editPopup.length > 1 &&
+        <div>Edit Popup</div>
+      }
     </section>
   );
 }
