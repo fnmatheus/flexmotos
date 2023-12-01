@@ -118,7 +118,7 @@ export interface IUsers {
   name: string
 }
 
-export interface IHandleAddUser {
+export interface IAddUser {
   name: string,
   password: string,
   category: string
@@ -127,7 +127,7 @@ export interface IHandleAddUser {
 export interface IUsersPopup {
   title: string,
   options: string[][],
-  handleYes(item: IHandleAddUser): void,
+  handleYes(item: IAddUser): void,
   handleNo(): void,
   startCategory: string 
 }

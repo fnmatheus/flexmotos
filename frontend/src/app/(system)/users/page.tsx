@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import PageHeader from '../components/pageHeader';
 import { options, tableHeads } from './utils/variables';
-import { getUsers, removeUser, filterUsersByCategory } from './utils/usersAxios';
+import { getUsers, removeUser, filterUsersByCategory, addUser } from './utils/usersAxios';
 import PageTable from '../components/pageTable';
 import UsersPopup from './components/usersPopup';
-import { IHandleAddUser } from '../utils/interfaces';
+import { IAddUser } from '../utils/interfaces';
 
 const Users = () => {
   const [users, setUsers] = useState<string[][]>([]);
@@ -39,16 +39,23 @@ const Users = () => {
   }
 
   async function handleConfirmRemove(name: string) {
-    await removeUser(name);
+    const newUsers = await removeUser(name);
+    setUsers(newUsers);
     setPopup('');
   }
 
-  async function handleAddUser({name, password, category}: IHandleAddUser) {
+  async function handleAddUser({name, password, category}: IAddUser) {
     if (!name || !password) {
       alert('Preencha os campos incompletos!');
       return;
     }
-    console.log(name, password, category);
+    const newUsers = await addUser({name, password, category});
+    if (!newUsers) {
+      alert('Usuário já cadastrado com o mesmo nome ou este usuário não possui permissão para cadastrar novos usuários!');
+      return;
+    }
+    setUsers(newUsers);
+    setAddPopup(false);
   }
 
   return (
