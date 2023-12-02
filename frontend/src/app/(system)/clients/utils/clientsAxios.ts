@@ -1,6 +1,6 @@
 import { instance } from '../../utils/axios';
 import { backendURL } from '../../utils/urls';
-import { IClients } from '../../utils/interfaces';
+import { IClient, IClients } from '../../utils/interfaces';
 
 export const getClients = async () => {
   const {data}: {data: IClients[]} = await instance.get(`${backendURL}/clients`);
@@ -36,7 +36,6 @@ export const filterClientsByStatus = async (category: string) => {
 
 export const addNewClient = async (client: (string | File)[]) => {
   const formData = new FormData();
-  console.log(client)
   const [name, birth, cpf, cnh, phone, address, file] = client;
   formData.append('name', name);
   formData.append('birth', birth);
@@ -52,4 +51,15 @@ export const addNewClient = async (client: (string | File)[]) => {
   } catch (error) {
     return null;
   }
+}
+
+
+export const getClientDetails = async (CPF: string) => {
+  const {data}: {data: IClient} = await instance.get(`${backendURL}/clients/client`, {
+    params: {
+      CPF
+    }
+  });
+  console.log(data);
+  return data;
 }

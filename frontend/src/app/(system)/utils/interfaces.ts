@@ -158,3 +158,13 @@ export interface IClientsPopup {
   clientPhone?: string,
   clientAdress?: string,
 }
+
+export interface IClient {
+  name: string,
+  birth: string,
+  CPF: string,
+  CNH: string,
+  phone: string,
+  address: string,
+  file: File
+}

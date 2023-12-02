@@ -61,16 +61,16 @@ const ClientsPopup: React.FC<IClientsPopup> = (
       <form onSubmit={formsSubmit}>
         <h2>{title}</h2>
         <div className="flex gap-2 text-black flex-wrap">
-          <input onChange={handleName} type="text" required />
+          <input onChange={handleName} type="text" value={name} required />
           <input onChange={handleBirth} type="date" value={
             (birth)
               ? birth.split('/').reverse().join('-')
               : ''
           } required />
-          <input onChange={handleCPF} type="text" required pattern="\d\d\d.\d\d\d.\d\d\d-\d\d" />
-          <input onChange={handleCNH} type="text" required pattern="\d+" />
-          <input onChange={handlePhone} type="text" required pattern="\d\d \d\d\d\d\d-\d\d\d\d|\d\d \d\d\d\d-\d\d\d\d" />
-          <input onChange={handleAdress} type="text" required />
+          <input onChange={handleCPF} type="text" value={cpf} required pattern="\d\d\d.\d\d\d.\d\d\d-\d\d" />
+          <input onChange={handleCNH} type="text" value={cnh} required pattern="\d+" />
+          <input onChange={handlePhone} type="text" value={phone} required pattern="\d\d \d\d\d\d\d-\d\d\d\d|\d\d \d\d\d\d-\d\d\d\d" />
+          <input onChange={handleAdress} type="text" value={address} required />
           <input onChange={handleFile} type="file" accept=".doc,.docx,.pdf,.jpg,.png" />
         </div>
         <div className="flex gap-2">

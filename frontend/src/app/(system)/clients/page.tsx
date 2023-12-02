@@ -4,9 +4,10 @@ import PageHeader from '../components/pageHeader';
 import PageTable from '../components/pageTable';
 import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
-import { addNewClient, filterClientsByStatus, getClients, removeClient } from './utils/clientsAxios';
+import { addNewClient, filterClientsByStatus, getClientDetails, getClients, removeClient } from './utils/clientsAxios';
 import ClientsPopup from './components/clientsPopup';
 import ClientDetailsPopup from './components/clientDetailsPopup';
+import { IClient } from '../utils/interfaces';
 
 const Clients = () => {
   const [clients, setClients] = useState<string[][]>([]);
@@ -57,8 +58,10 @@ const Clients = () => {
     setAddPopup(false);
   }
 
-  async function handleSetEditPopup(CPF: string) {
-    setEditPopup([CPF, CPF]);
+  async function handleSetEditPopup(clientCPF: string) {
+    const clientDetails: IClient = await getClientDetails(clientCPF);
+    const {name, birth, CPF, CNH, phone, address} = clientDetails;
+    setEditPopup([name, birth, CPF, CNH, phone, address]);
   }
 
   async function handleEditClient(client: string[]) {
@@ -97,6 +100,12 @@ const Clients = () => {
           title="Adicionar cliente"
           handleYes={(client) => handleAddClient(client)}
           handleNo={() => setAddPopup(false)}
+          clientName=''
+          clientBirth=''
+          clientCPF=''
+          clientCNH=''
+          clientPhone=''
+          clientAdress=''
         />
       }
       {
@@ -105,7 +114,12 @@ const Clients = () => {
           title="Alterar cliente"
           handleYes={([]) => handleEditClient([])}
           handleNo={() => setEditPopup([])}
-          clientName=''
+          clientName={editPopup[0]}
+          clientBirth={editPopup[1]}
+          clientCPF={editPopup[2]}
+          clientCNH={editPopup[3]}
+          clientPhone={editPopup[4]}
+          clientAdress={editPopup[5]}
         />
       }
       {
