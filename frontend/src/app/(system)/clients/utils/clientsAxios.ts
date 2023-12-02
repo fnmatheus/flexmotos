@@ -33,3 +33,23 @@ export const filterClientsByStatus = async (category: string) => {
   });
   return clients;
 }
+
+export const addNewClient = async (client: (string | File)[]) => {
+  const formData = new FormData();
+  console.log(client)
+  const [name, birth, cpf, cnh, phone, address, file] = client;
+  formData.append('name', name);
+  formData.append('birth', birth);
+  formData.append('CPF', cpf);
+  formData.append('CNH', cnh);
+  formData.append('phone', phone);
+  formData.append('address', address);
+  formData.append('file', file);
+  try {
+    await instance.post(`${backendURL}/clients/add`, formData);
+    const newClients = await getClients();
+    return newClients;
+  } catch (error) {
+    return null;
+  }
+}

@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { IClientsPopup } from '../../utils/interfaces';
 
-const ClientsPopup: React.FC<IClientsPopup> = ({title, handleYes, handleNo}: IClientsPopup) => {
-  const [name, setName] = useState<string>('');
-  const [birth, setBirth] = useState<string>('');
-  const [cpf, setCpf] = useState<string>('');
-  const [cnh, setCnh] = useState<string>('');
-  const [phone, setPhone] = useState<string>('');
-  const [adress, setAdress] = useState<string>('');
-  const [file, setFile] = useState<File | null>(null);
+const ClientsPopup: React.FC<IClientsPopup> = (
+  {title, handleYes, handleNo, clientName, clientBirth, clientCPF, clientCNH, clientPhone, clientAdress}: IClientsPopup
+) => {
+  const [name, setName] = useState<string | undefined>(clientName);
+  const [birth, setBirth] = useState<string | undefined>(clientBirth);
+  const [cpf, setCpf] = useState<string | undefined>(clientCPF);
+  const [cnh, setCnh] = useState<string | undefined>(clientCNH);
+  const [phone, setPhone] = useState<string | undefined>(clientPhone);
+  const [address, setAddress] = useState<string | undefined>(clientAdress);
+  const [file, setFile] = useState<File | undefined>(undefined);
 
   async function handleName(event: React.ChangeEvent<HTMLInputElement>) {
     const value: string = event.target.value;
@@ -16,7 +18,7 @@ const ClientsPopup: React.FC<IClientsPopup> = ({title, handleYes, handleNo}: ICl
   }
 
   async function handleBirth(event: React.ChangeEvent<HTMLInputElement>) {
-    const value: string = new Date(event.target.value).toLocaleDateString('en-GB');
+    const value: string = new Date(event.target.value).toLocaleDateString('en-GB', {timeZone: "UTC"});
     setBirth(value);
   }
 
@@ -37,7 +39,7 @@ const ClientsPopup: React.FC<IClientsPopup> = ({title, handleYes, handleNo}: ICl
 
   async function handleAdress(event: React.ChangeEvent<HTMLInputElement>) {
     const value: string = event.target.value;
-    setAdress(value);
+    setAddress(value);
   }
 
   async function handleFile(event: React.ChangeEvent<HTMLInputElement>) {
@@ -45,31 +47,41 @@ const ClientsPopup: React.FC<IClientsPopup> = ({title, handleYes, handleNo}: ICl
     if (files) setFile(files[0]);
   }
 
+  async function formsSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (name && birth && cpf && cnh && phone && address && file) {
+      const client = [name, birth, cpf, cnh, phone, address, file];
+      handleYes([...client]);
+    }
+    else alert('faltou selecionar um comprovante de residência!');
+  }
+
   return (
     <div>
-      <div>
+      <form onSubmit={formsSubmit}>
         <h2>{title}</h2>
         <div className="flex gap-2 text-black flex-wrap">
-          <input onChange={handleName} type="text" id="name" />
-          <input onChange={handleBirth} type="date" id="birth" />
-          <input onChange={handleCPF} type="text" id="CPF" />
-          <input onChange={handleCNH} type="text" id="CNH" />
-          <input onChange={handlePhone} type="text" id="phone" />
-          <input onChange={handleAdress} type="text" id="address" />
-          <input onChange={handleFile} type="file" id="file" accept=".doc,.docx,.pdf,.jpg,.png" />
+          <input onChange={handleName} type="text" required />
+          <input onChange={handleBirth} type="date" value={birth} required />
+          <input onChange={handleCPF} type="text" required pattern="\d\d\d.\d\d\d.\d\d\d-\d\d" />
+          <input onChange={handleCNH} type="text" required pattern="\d+" />
+          <input onChange={handlePhone} type="text" required pattern="\d\d \d\d\d\d\d-\d\d\d\d|\d\d \d\d\d\d-\d\d\d\d" />
+          <input onChange={handleAdress} type="text" required />
+          <input onChange={handleFile} type="file" accept=".doc,.docx,.pdf,.jpg,.png" />
         </div>
         <div className="flex gap-2">
-          <button onClick={() => {
-            const client = [name, birth, cpf, cnh, phone, adress, file];
-            handleYes([...client]);
-          }}>
+          <button type="submit">
             Yes
           </button>
-          <button onClick={() => handleNo()}>
+          <button onClick={(event) => {
+            event.preventDefault();
+            handleNo();
+            }
+          }>
             No
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

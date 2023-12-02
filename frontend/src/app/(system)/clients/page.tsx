@@ -4,7 +4,7 @@ import PageHeader from '../components/pageHeader';
 import PageTable from '../components/pageTable';
 import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
-import { filterClientsByStatus, getClients, removeClient } from './utils/clientsAxios';
+import { addNewClient, filterClientsByStatus, getClients, removeClient } from './utils/clientsAxios';
 import ClientsPopup from './components/clientsPopup';
 import ClientDetailsPopup from './components/clientDetailsPopup';
 
@@ -47,9 +47,14 @@ const Clients = () => {
     setPopup(['']);
   }
   
-  async function handleAddClient(client: (string | File | null)[]) {
-    console.log(client);
-    // setAddPopup(false);
+  async function handleAddClient(client: (string | File)[]) {
+    const newClients = await addNewClient(client);
+    if (!newClients) {
+      alert('Campos inválidos!');
+      return;
+    }
+    setClients(newClients);
+    setAddPopup(false);
   }
 
   async function handleSetEditPopup(CPF: string) {
@@ -100,6 +105,7 @@ const Clients = () => {
           title="Alterar cliente"
           handleYes={([]) => handleEditClient([])}
           handleNo={() => setEditPopup([])}
+          clientName=''
         />
       }
       {

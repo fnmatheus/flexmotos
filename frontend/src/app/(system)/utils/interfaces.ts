@@ -149,6 +149,12 @@ export interface IClients {
 
 export interface IClientsPopup {
   title: string,
-  handleYes(value: (string | File | null)[]): void,
-  handleNo(): void
+  handleYes(value: (string | File)[]): void,
+  handleNo(): void,
+  clientName?: string,
+  clientBirth?: string,
+  clientCPF?: string,
+  clientCNH?: string,
+  clientPhone?: string,
+  clientAdress?: string,
 }

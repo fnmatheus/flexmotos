@@ -3,7 +3,7 @@ async function clientAddChecker(req, res, next) {
     const values = ['name', 'birth', 'CPF', 'CNH', 'phone', 'address'];
     const { body } = req;
     const testValues = values.reduce((acc, value) => {
-      if (acc) return typeof body[value] === 'string';
+      if (acc) return (typeof body[value] === 'string' && body[value] !== '');
     }, true);
     if (!testValues || req.file === undefined) {
       return res.status(406).json({ message: 'incorrect arguments' });
