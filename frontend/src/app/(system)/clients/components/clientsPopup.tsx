@@ -62,7 +62,11 @@ const ClientsPopup: React.FC<IClientsPopup> = (
         <h2>{title}</h2>
         <div className="flex gap-2 text-black flex-wrap">
           <input onChange={handleName} type="text" required />
-          <input onChange={handleBirth} type="date" value={birth} required />
+          <input onChange={handleBirth} type="date" value={
+            (birth)
+              ? birth.split('/').reverse().join('-')
+              : ''
+          } required />
           <input onChange={handleCPF} type="text" required pattern="\d\d\d.\d\d\d.\d\d\d-\d\d" />
           <input onChange={handleCNH} type="text" required pattern="\d+" />
           <input onChange={handlePhone} type="text" required pattern="\d\d \d\d\d\d\d-\d\d\d\d|\d\d \d\d\d\d-\d\d\d\d" />
