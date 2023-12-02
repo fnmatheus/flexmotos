@@ -146,3 +146,9 @@ export interface IClients {
   name: string,
   status: boolean
 }
+
+export interface IClientsPopup {
+  title: string,
+  handleYes(value: (string | File | null)[]): void,
+  handleNo(): void
+}

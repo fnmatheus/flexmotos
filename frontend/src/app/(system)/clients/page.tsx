@@ -47,8 +47,18 @@ const Clients = () => {
     setPopup(['']);
   }
   
+  async function handleAddClient(client: (string | File | null)[]) {
+    console.log(client);
+    // setAddPopup(false);
+  }
+
   async function handleSetEditPopup(CPF: string) {
     setEditPopup([CPF, CPF]);
+  }
+
+  async function handleEditClient(client: string[]) {
+    console.log(client);
+    setEditPopup([]);
   }
 
   async function handleDetails(CPF: string) {
@@ -78,11 +88,19 @@ const Clients = () => {
       />
       {
         addPopup &&
-        <ClientsPopup />
+        <ClientsPopup
+          title="Adicionar cliente"
+          handleYes={(client) => handleAddClient(client)}
+          handleNo={() => setAddPopup(false)}
+        />
       }
       {
         editPopup.length > 1 &&
-        <ClientsPopup />
+        <ClientsPopup
+          title="Alterar cliente"
+          handleYes={([]) => handleEditClient([])}
+          handleNo={() => setEditPopup([])}
+        />
       }
       {
         detailsPopup.length > 1 &&
