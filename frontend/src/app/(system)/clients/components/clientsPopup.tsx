@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IClientsPopup } from '../../utils/interfaces';
 
 const ClientsPopup: React.FC<IClientsPopup> = (
-  {title, handleYes, handleNo, clientName, clientBirth, clientCPF, clientCNH, clientPhone, clientAdress}: IClientsPopup
+  {title, handleYes, handleNo, clientName, clientBirth, clientCPF, clientCNH, clientPhone, clientAdress, editMode}: IClientsPopup
 ) => {
   const [name, setName] = useState<string | undefined>(clientName);
   const [birth, setBirth] = useState<string | undefined>(clientBirth);
@@ -49,11 +49,8 @@ const ClientsPopup: React.FC<IClientsPopup> = (
 
   async function formsSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (name && birth && cpf && cnh && phone && address && file) {
-      const client = [name, birth, cpf, cnh, phone, address, file];
-      handleYes([...client]);
-    }
-    else alert('faltou selecionar um comprovante de residência!');
+    const client = [name, birth, cpf, cnh, phone, address, file];
+    handleYes([...client]);
   }
 
   return (
@@ -67,8 +64,8 @@ const ClientsPopup: React.FC<IClientsPopup> = (
               ? birth.split('/').reverse().join('-')
               : ''
           } required />
-          <input onChange={handleCPF} type="text" value={cpf} required pattern="\d\d\d.\d\d\d.\d\d\d-\d\d" />
-          <input onChange={handleCNH} type="text" value={cnh} required pattern="\d+" />
+          <input onChange={handleCPF} type="text" readOnly={editMode} value={cpf} required pattern="\d\d\d.\d\d\d.\d\d\d-\d\d" />
+          <input onChange={handleCNH} type="text" readOnly={editMode} value={cnh} required pattern="\d+" />
           <input onChange={handlePhone} type="text" value={phone} required pattern="\d\d \d\d\d\d\d-\d\d\d\d|\d\d \d\d\d\d-\d\d\d\d" />
           <input onChange={handleAdress} type="text" value={address} required />
           <input onChange={handleFile} type="file" accept=".doc,.docx,.pdf,.jpg,.png" />

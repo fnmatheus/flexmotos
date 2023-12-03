@@ -4,7 +4,7 @@ import PageHeader from '../components/pageHeader';
 import PageTable from '../components/pageTable';
 import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
-import { addNewClient, filterClientsByStatus, getClientDetails, getClients, removeClient } from './utils/clientsAxios';
+import { addNewClient, filterClientsByStatus, getClientDetails, getClients, removeClient, updateClient } from './utils/clientsAxios';
 import ClientsPopup from './components/clientsPopup';
 import ClientDetailsPopup from './components/clientDetailsPopup';
 import { IClient } from '../utils/interfaces';
@@ -15,7 +15,7 @@ const Clients = () => {
   const [popup, setPopup] = useState<string[]>(['', '']);
   const [addPopup, setAddPopup] = useState(false);
   const [editPopup, setEditPopup] = useState<string[]>([]);
-  const [detailsPopup, setDetailsPopup] = useState<string[]>([]);
+  const [detailsPopup, setDetailsPopup] = useState<string>('');
 
   useEffect(() => {
     async function getToken() {
@@ -48,7 +48,7 @@ const Clients = () => {
     setPopup(['']);
   }
   
-  async function handleAddClient(client: (string | File)[]) {
+  async function handleAddClient(client: (string | File | undefined)[]) {
     const newClients = await addNewClient(client);
     if (!newClients) {
       alert('Campos inválidos!');
@@ -64,13 +64,18 @@ const Clients = () => {
     setEditPopup([name, birth, CPF, CNH, phone, address]);
   }
 
-  async function handleEditClient(client: string[]) {
-    console.log(client);
+  async function handleEditClient(client: (string | File | undefined)[]) {
+    const newClients = await updateClient(client);
+    if (!newClients) {
+      alert('Campos inválidos!');
+      return;
+    }
+    setClients(newClients);
     setEditPopup([]);
   }
 
   async function handleDetails(CPF: string) {
-    setDetailsPopup([CPF, CPF]);
+    setDetailsPopup(CPF);
   }
 
   return (
@@ -109,10 +114,10 @@ const Clients = () => {
         />
       }
       {
-        editPopup.length > 1 &&
+        editPopup.length > 0 &&
         <ClientsPopup
           title="Alterar cliente"
-          handleYes={([]) => handleEditClient([])}
+          handleYes={(client) => handleEditClient(client)}
           handleNo={() => setEditPopup([])}
           clientName={editPopup[0]}
           clientBirth={editPopup[1]}
@@ -120,11 +125,15 @@ const Clients = () => {
           clientCNH={editPopup[3]}
           clientPhone={editPopup[4]}
           clientAdress={editPopup[5]}
+          editMode
         />
       }
       {
-        detailsPopup.length > 1 &&
-        <ClientDetailsPopup />
+        detailsPopup !== '' &&
+        <ClientDetailsPopup
+          detailsCpf={detailsPopup}
+          handleClose={() => setDetailsPopup('')}
+        />
       }
     </section>
   );

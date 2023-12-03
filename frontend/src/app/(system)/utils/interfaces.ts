@@ -149,7 +149,7 @@ export interface IClients {
 
 export interface IClientsPopup {
   title: string,
-  handleYes(value: (string | File)[]): void,
+  handleYes(value: (string | File | undefined)[]): void,
   handleNo(): void,
   clientName?: string,
   clientBirth?: string,
@@ -157,6 +157,7 @@ export interface IClientsPopup {
   clientCNH?: string,
   clientPhone?: string,
   clientAdress?: string,
+  editMode?: boolean
 }
 
 export interface IClient {
@@ -167,4 +168,9 @@ export interface IClient {
   phone: string,
   address: string,
   file: File
+}
+
+export interface IClientDetailsPopup {
+  detailsCpf: string,
+  handleClose(): void
 }
