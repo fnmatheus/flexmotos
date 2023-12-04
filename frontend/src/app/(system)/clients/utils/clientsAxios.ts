@@ -1,7 +1,6 @@
 import { instance } from '../../utils/axios';
 import { backendURL } from '../../utils/urls';
 import { IClient, IClients } from '../../utils/interfaces';
-import fileDownload from 'js-file-download';
 
 export const getClients = async () => {
   const {data}: {data: IClients[]} = await instance.get(`${backendURL}/clients`);
