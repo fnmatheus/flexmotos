@@ -43,7 +43,7 @@ async function getByModelController(req, res) {
 }
 
 async function removeController(req, res) {
-  const {plate} = req.body;
+  const {plate} = req.query;
   const {type, message} = await remove(plate);
   if (type === 'notFound') return res.status(404).json(message);
   if (type) return res.status(500).json(message);

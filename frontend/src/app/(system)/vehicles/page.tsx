@@ -4,7 +4,7 @@ import PageHeader from '../components/pageHeader';
 import PageTable from '../components/pageTable';
 import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
-import { filterVehicleByStatus, getVehicles } from './utils/vehiclesAxios';
+import { filterVehicleByStatus, getVehicles, removeVehicle } from './utils/vehiclesAxios';
 
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState<string[][]>([]);
@@ -15,7 +15,6 @@ const Vehicles = () => {
     async function getVehiclesData() {
       await getCookie('authorization');
       const data = await getVehicles();
-      console.log(data);
       setVehicles(data);
     }
     getVehiclesData()
@@ -37,6 +36,12 @@ const Vehicles = () => {
     setFilteredVehicles(filter);
   }
 
+  async function handleConfirmRemove(plate: string) {
+    const newVehicles = await removeVehicle(plate);
+    setVehicles(newVehicles);
+    setPopup(['', '']);
+  }
+
   return (
     <section>
       <PageHeader
@@ -53,7 +58,7 @@ const Vehicles = () => {
         handleRemove={([plate]) => setPopup([plate, plate])}
         popup={popup}
         popupText="Tem certeza que deseja excluir o veículo de placa:"
-        handleConfirmRemove={() => {}}
+        handleConfirmRemove={(plate) => handleConfirmRemove(plate)}
         handleDeclineRemove={() => {setPopup(['', ''])}}
         hasDetails
         handleDetails={() => {}}

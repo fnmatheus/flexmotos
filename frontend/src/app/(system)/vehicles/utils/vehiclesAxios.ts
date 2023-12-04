@@ -13,6 +13,16 @@ export const getVehicles = async () => {
   return vehicles;
 }
 
+export const removeVehicle = async (plate: string) => {
+  await instance.delete(`${backendURL}/vehicles/remove`, {
+    params: {
+      plate
+    }
+  });
+  const vehicles = await getVehicles();
+  return vehicles;
+}
+
 export const filterVehicleByStatus = async (status: string) => {
   const url = (status !== '') ? `${backendURL}/vehicles/status` : `${backendURL}/vehicles`;
   const params = (status !== '') ? {params: { status: status }} : {};
