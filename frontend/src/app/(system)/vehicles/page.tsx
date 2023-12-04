@@ -5,11 +5,13 @@ import PageTable from '../components/pageTable';
 import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
 import { filterVehicleByStatus, getVehicles, removeVehicle } from './utils/vehiclesAxios';
+import VehiclesPopup from './components/vehiclesPopup';
 
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState<string[][]>([]);
   const [filteredVehicles, setFilteredVehicles] = useState<string[][]>([]);
   const [popup, setPopup] = useState<string[]>(['', '']);
+  const [addPopup, setAddPopup] = useState<boolean>(false);
 
   useEffect(() => {
     async function getVehiclesData() {
@@ -46,7 +48,7 @@ const Vehicles = () => {
     <section>
       <PageHeader
         textButton="Adicionar novo veículo"
-        handleAdd={() => {}}
+        handleAdd={() => setAddPopup(true)}
         handleInputFilter={handleInputFilter}
         handleSelectFilter={handleSelectFilter}
         options={options}
@@ -66,6 +68,13 @@ const Vehicles = () => {
         handleRent={() => {}}
         handleReturn={() => {}}
       />
+      {
+        addPopup &&
+        <VehiclesPopup
+          title='Adicionar veículo'
+          handleNo={() => setAddPopup(false)}
+        />
+      }
     </section>
   );
 }

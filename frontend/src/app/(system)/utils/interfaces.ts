@@ -171,8 +171,13 @@ export interface IVehicles {
   status: boolean
 }
 
-export interface IVehicliesDetails {
+export interface IVehiclesDetails {
   rent: {
     returnDate: string
   }
+}
+
+export interface IVehiclesPopup {
+  title: string,
+  handleNo(): void
 }
