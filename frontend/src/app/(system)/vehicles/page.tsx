@@ -4,7 +4,7 @@ import PageHeader from '../components/pageHeader';
 import PageTable from '../components/pageTable';
 import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
-import { getVehicles } from './utils/vehiclesAxios';
+import { filterVehicleByStatus, getVehicles } from './utils/vehiclesAxios';
 
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState<string[][]>([]);
@@ -25,13 +25,25 @@ const Vehicles = () => {
     setFilteredVehicles(vehicles);
   }, [vehicles]);
 
+  async function handleSelectFilter(event: React.ChangeEvent<HTMLSelectElement>) {
+    const category = (event.target.value);
+    const data = await filterVehicleByStatus(category);
+    setVehicles(data);
+  }
+
+  async function handleInputFilter(event: React.ChangeEvent<HTMLInputElement>) {
+    const name = event.target.value;
+    const filter = vehicles.filter((vehicle) => vehicle[0].includes(name));
+    setFilteredVehicles(filter);
+  }
+
   return (
     <section>
       <PageHeader
         textButton="Adicionar novo veículo"
         handleAdd={() => {}}
-        handleInputFilter={() => {}}
-        handleSelectFilter={() => {}}
+        handleInputFilter={handleInputFilter}
+        handleSelectFilter={handleSelectFilter}
         options={options}
       />
       <PageTable
@@ -40,7 +52,7 @@ const Vehicles = () => {
         handleEdit={() => {}}
         handleRemove={() => {}}
         popup={popup}
-        popupText=""
+        popupText="Tem certeza que deseja excluir o veículo de placa:"
         handleConfirmRemove={() => {}}
         handleDeclineRemove={() => {}}
       />

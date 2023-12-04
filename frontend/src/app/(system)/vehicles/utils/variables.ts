@@ -1,3 +1,3 @@
-export const options = [['todos', ''], ['disponíveis', 'true'], ['alugados', 'false']];
+export const options = [['todos', ''], ['disponíveis', 'false'], ['alugados', 'true']];
 
-export const tableHeads = ['Categoria', 'Placa', 'Modelo', 'Status'];
+export const tableHeads = ['Modelo', 'Placa', 'Categoria', 'Status'];
