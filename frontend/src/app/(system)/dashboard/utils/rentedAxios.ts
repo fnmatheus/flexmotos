@@ -1,9 +1,9 @@
 import { instance } from '../../utils/axios';
 import { backendURL } from '../../utils/urls';
-import { IRentedVehicles, IVehicliesDetails } from '../../utils/interfaces';
+import { IVehicles, IVehicliesDetails } from '../../utils/interfaces';
 
 export const getVehicles = async () => {
-  const {data}: {data: IRentedVehicles[]} = await instance.get(`${backendURL}/vehicles/status`, {
+  const {data}: {data: IVehicles[]} = await instance.get(`${backendURL}/vehicles/status`, {
     params: {
       status: true,
     }

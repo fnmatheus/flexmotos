@@ -66,19 +66,6 @@ export interface IChanges {
   plate: string
 }
 
-export interface IRentedVehicles {
-  category: string,
-  plate: string,
-  model: string,
-  status: boolean
-}
-
-export interface IVehicliesDetails {
-  rent: {
-    returnDate: string
-  }
-}
-
 export interface IDashboardTable {
   tableTitle: string,
   vehicles: string[][],
@@ -175,4 +162,17 @@ export interface IClient {
 export interface IClientDetailsPopup {
   detailsCpf: string,
   handleClose(): void
+}
+
+export interface IVehicles {
+  category: string,
+  plate: string,
+  model: string,
+  status: boolean
+}
+
+export interface IVehicliesDetails {
+  rent: {
+    returnDate: string
+  }
 }
