@@ -43,7 +43,7 @@ async function getByStatus(status) {
     const vehicles = await Vehicle.find({});
     const vehiclesInfo = vehicles.filter((vehicle) => vehicle.rent.status === status).map((vehicle) =>{
       return {
-        category: vehicle.category,
+        rentValue: vehicle.rentValue,
         plate: vehicle.plate,
         model: vehicle.model,
         status: vehicle.rent.status,
@@ -60,7 +60,7 @@ async function getByModel(model) {
     const vehicles = await Vehicle.find({model: { "$regex": model, "$options": "i" }}, 'category plate model rent');
     const vehiclesInfo = vehicles.map((vehicle) =>{
       return {
-        category: vehicle.category,
+        rentValue: vehicle.rentValue,
         plate: vehicle.plate,
         model: vehicle.model,
         status: vehicle.rent.status,
