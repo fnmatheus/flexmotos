@@ -20,11 +20,6 @@ const RentVehicles: React.FC<IProps> = ({token}: IProps) => {
     <DashboardTable
       tableTitle='Veículos para devolução'
       vehicles={vehicles}
-      handleButton={() => {}}
-      popup={[]}
-      popuptext=''
-      handleYes={() => {}}
-      handleNo={() => {}}
       hasThirdText
     />
   );

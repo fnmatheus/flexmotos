@@ -2,7 +2,7 @@ import React from 'react';
 import Popup from './popup';
 import { IPageTable } from '../utils/interfaces';
 
-const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, handleRemove, popup, handleConfirmRemove, handleDeclineRemove}: IPageTable) => {
+const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, handleRemove, popup, popupText, handleConfirmRemove, handleDeclineRemove, hasDetails, handleDetails, hasRentAndReturn, handleRent, handleReturn}: IPageTable) => {
   return (
     <div>
       <table>
@@ -25,10 +25,26 @@ const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, han
                   {
                     item[2] !== 'super' &&
                     <td className="flex gap-2">
-                      <button onClick={() => handleEdit([item[1], item[2]])}>
+                      {
+                        hasRentAndReturn && handleRent && handleReturn &&
+                        ((item[2] !== 'Alugado')
+                          ? <button onClick={() => handleRent(item)}>
+                            Alugar
+                          </button>
+                          : <button onClick={() => handleReturn(item)}>
+                            Devolver
+                          </button>)
+                      }
+                      {
+                        hasDetails && handleDetails &&
+                        <button onClick={() => handleDetails(item[1])}>
+                          Detalhes
+                        </button>
+                      }
+                      <button onClick={() => handleEdit(item[1])}>
                         edit
                       </button>
-                      <button onClick={() => handleRemove(item[1])}>
+                      <button onClick={() => handleRemove([item[1], item[0]])}>
                         remove
                       </button>
                     </td>
@@ -40,10 +56,10 @@ const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, han
         </tbody>
       </table>
       {
-        popup !== '' &&
+        popup[0] !== '' &&
         <Popup
-          title={`Tem certeza que deseja excluir o usuário ${popup}?`}
-          handleYes={() => handleConfirmRemove(popup)}
+          title={`${popupText} ${popup[1]}?`}
+          handleYes={() => handleConfirmRemove(popup[0])}
           handleNo={handleDeclineRemove}
         />
       }

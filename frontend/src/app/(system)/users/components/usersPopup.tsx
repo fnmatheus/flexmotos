@@ -30,7 +30,7 @@ const UsersPopup: React.FC<IUsersPopup> = ({title, options, handleYes, handleNo,
           <input onChange={handlePassword} className="text-black" type="text" />
           <select value={category} onChange={handleCategory} className="text-black">
             {
-              options.filter((_option, i) => i !== 0).map((option) => <option key={option[1]} value={option[1]}>
+              options.filter((_option, i) => i !== 0 && i !== 3).map((option) => <option key={option[1]} value={option[1]}>
                   {option[0]}
                 </option>
               )

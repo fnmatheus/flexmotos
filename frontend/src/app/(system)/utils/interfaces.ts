@@ -1,9 +1,9 @@
 import React from 'react';
 
 export interface IPopup {
-  title: string,
-  handleYes(value?: number): void,
-  handleNo(): void,
+  title?: string,
+  handleYes?(value?: number): void,
+  handleNo?(): void,
   hasText?: boolean,
   text?: string,
   hasInput?: boolean
@@ -84,13 +84,13 @@ export interface IDashboardTable {
   vehicles: string[][],
   hasButton?: boolean,
   buttonText?: string,
-  handleButton(vahicle: string[]): void,
+  handleButton?(vahicle: string[]): void,
   hasThirdText?: boolean,
   hasPopup?: boolean,
-  popup: string[],
-  popuptext: string,
-  handleYes(): void,
-  handleNo(): void
+  popup?: string[],
+  popuptext?: string,
+  handleYes?(): void,
+  handleNo?(): void
 }
 
 export interface IPageHeader {
@@ -104,11 +104,17 @@ export interface IPageHeader {
 export interface IPageTable {
   tableHeads: string[],
   tableBody: string[][],
-  handleEdit(item: string[]): void,
-  handleRemove(value: string): void,
-  popup: string,
+  handleEdit(item: string): void,
+  handleRemove(value: string[]): void,
+  popup: string[],
+  popupText: string,
   handleConfirmRemove(value: string): void,
-  handleDeclineRemove(): void
+  handleDeclineRemove(): void,
+  hasDetails?: boolean,
+  handleDetails?(value: string): void,
+  hasRentAndReturn?: boolean,
+  handleRent?(value: string[]): void,
+  handleReturn?(value: string[]): void
 }
 
 export interface IUsers {
@@ -132,4 +138,41 @@ export interface IUsersPopup {
   startName: string,
   readonlyName: boolean,
   startCategory: string 
+}
+
+export interface IClients {
+  CPF: string,
+  lastVehicle: string[],
+  name: string,
+  status: boolean
+}
+
+export interface IClientsPopup {
+  title: string,
+  handleYes(value: (string | File | undefined)[]): void,
+  handleNo(): void,
+  clientName?: string,
+  clientBirth?: string,
+  clientCPF?: string,
+  clientCNH?: string,
+  clientPhone?: string,
+  clientAdress?: string,
+  editMode?: boolean
+}
+
+export interface IClient {
+  name: string,
+  birth: string,
+  CPF: string,
+  CNH: string,
+  phone: string,
+  address: string,
+  file: File,
+  history: string[][],
+  securities: string[][]
+}
+
+export interface IClientDetailsPopup {
+  detailsCpf: string,
+  handleClose(): void
 }
