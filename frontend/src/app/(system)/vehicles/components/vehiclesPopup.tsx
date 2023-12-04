@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IVehiclesPopup } from '../../utils/interfaces';
 import { categories, ipvaOptions } from '../utils/variables';
 
-const VehiclesPopup: React.FC<IVehiclesPopup> = ({title, handleNo}: IVehiclesPopup) => {
+const VehiclesPopup: React.FC<IVehiclesPopup> = ({title, handleNo, vehicleCategory, vehicleModel}: IVehiclesPopup) => {
+  const [category, setCategory] = useState<string>(categories[0]);
+  const [model, setModel] = useState<string>('');
+  const [year, setYear] = useState<string>('');
+  const [plate, setPlate] = useState<string>('');
+  const [renavam, setRenavam] = useState<string>('');
+  const [ipva, setIpva] = useState<string>(ipvaOptions[0][1]);
+  const [mileage, setMileage] = useState<string>('');
+  const [securitieValue, setSecuritieValue] = useState<string>('');
+  const [rentValue, setRentValue] = useState<string>('');
+
   return (
     <div>
       <form>
