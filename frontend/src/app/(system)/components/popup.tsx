@@ -11,24 +11,26 @@ const Popup: React.FC<IPopup> = ({title, handleYes, handleNo, hasText, text, has
     if (value > 0) setInputValue(value);
   }
 
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    handleYes(inputValue);
+  }
+
   return (
     <div>
-      <div>
+      <form onSubmit={handleSubmit}>
         { title && <h2>{title}</h2> }
         { hasText && <p>{text}</p> }
-        { hasInput && <input className="text-black" id='input' onChange={handleInput} type="text" /> }
-        {
-          handleYes && handleNo &&
-          <div className='flex gap-2'>
-            <button onClick={(e) => handleYes(inputValue)}>
-              Yes
-            </button>
-            <button onClick={handleNo}>
-              No
-            </button>
-          </div>
-        }
-      </div>
+        { hasInput && <input className="text-black" id='input' onChange={handleInput} type="text" required pattern="\d+.\d\d" /> }
+        <div className='flex gap-2'>
+          <button type="submit">
+            Yes
+          </button>
+          <button onClick={handleNo}>
+            No
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

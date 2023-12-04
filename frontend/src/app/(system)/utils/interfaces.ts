@@ -2,7 +2,7 @@ import React from 'react';
 
 export interface IPopup {
   title?: string,
-  handleYes?(value?: number): void,
+  handleYes(value?: number): void,
   handleNo?(): void,
   hasText?: boolean,
   text?: string,
