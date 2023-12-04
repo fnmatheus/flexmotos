@@ -167,7 +167,9 @@ export interface IClient {
   CNH: string,
   phone: string,
   address: string,
-  file: File
+  file: File,
+  history: string[][],
+  securities: string[][]
 }
 
 export interface IClientDetailsPopup {

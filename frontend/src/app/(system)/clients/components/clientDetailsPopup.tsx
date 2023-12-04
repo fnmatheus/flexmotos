@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IClientDetailsPopup } from '../../utils/interfaces';
-import { getClientDetails } from '../utils/clientsAxios';
+import { clientDownload, getClientDetails } from '../utils/clientsAxios';
 
 const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleClose}: IClientDetailsPopup) => {
   const [name, setName] = useState<string>('');
@@ -9,6 +9,8 @@ const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleCl
   const [cnh, setCnh] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [address, setAddress] = useState<string>('');
+  const [history, setHistory] = useState<string[][]>([]);
+  const [securities, setSecurities] = useState<string[][]>([]);
 
   useEffect(() => {
     async function getDetails() {
@@ -19,9 +21,15 @@ const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleCl
       setCnh(client.CNH);
       setPhone(client.phone);
       setAddress(client.address);
+      setHistory(client.history);
+      setSecurities(client.securities);
     }
     getDetails();
   }, [detailsCpf]);
+
+  async function handleDownload(cpf: string) {
+    await clientDownload(cpf);
+  }
 
   return (
     <div>
@@ -40,7 +48,7 @@ const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleCl
             <p>{cnh}</p>
             <p>{phone}</p>
             <p>{address}</p>
-            <button>
+            <button onClick={() => handleDownload(cpf)}>
               Baixar comprovante
             </button>
           </div>
@@ -51,6 +59,20 @@ const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleCl
                   <th>Histórico de aluguel</th>
                 </tr>
               </thead>
+              <tbody>
+                {
+                  history.map((item) => {
+                    const [model, plate, rentalDate] = item;
+                    return (<tr key={plate}>
+                      <td className="flex gap-2">
+                        <p>{model}</p>
+                        <p>{plate}</p>
+                        <p>{rentalDate}</p>
+                      </td>
+                    </tr>);
+                  })
+                }
+              </tbody>
             </table>
             <table>
               <thead>
@@ -58,6 +80,20 @@ const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleCl
                   <th>Cauções</th>
                 </tr>
               </thead>
+              <tbody>
+                {
+                  securities.map((securitie) => {
+                    const [plate, value] = securitie;
+                    const securitieValue = `R$ ${Number(value).toFixed(2)}`
+                    return (<tr key={plate}>
+                      <td className="flex gap-2">
+                        <p>{plate}</p>
+                        <p>{securitieValue}</p>
+                      </td>
+                    </tr>);
+                  })
+                }
+              </tbody>
             </table>
           </div>
         </div>

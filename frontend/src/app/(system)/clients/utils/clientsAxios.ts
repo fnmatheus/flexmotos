@@ -1,6 +1,7 @@
 import { instance } from '../../utils/axios';
 import { backendURL } from '../../utils/urls';
 import { IClient, IClients } from '../../utils/interfaces';
+import fileDownload from 'js-file-download';
 
 export const getClients = async () => {
   const {data}: {data: IClients[]} = await instance.get(`${backendURL}/clients`);
@@ -85,5 +86,26 @@ export const updateClient = async (client: (string | File | undefined)[]) => {
     return newClients;
   } catch (error) {
     return null;
+  }
+}
+
+export const clientDownload =async (CPF: string) => {
+  try {
+    const response = await instance.get(`${backendURL}/clients/download`, {
+      params: {
+        CPF
+      },
+      responseType: 'blob'
+    });
+    const href = window.URL.createObjectURL(response.data);
+    const anchorElement = document.createElement('a');
+    anchorElement.href = href;
+    anchorElement.download = 'download';
+    document.body.appendChild(anchorElement);
+    anchorElement.click();
+    document.body.removeChild(anchorElement);
+    window.URL.revokeObjectURL(href);
+  } catch (error) {
+    alert('Erro ao tentar baixar o arquivo!');
   }
 }
