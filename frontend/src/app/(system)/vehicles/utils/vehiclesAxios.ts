@@ -8,7 +8,8 @@ export const getVehicles = async () => {
     const status = (vehicle.status)
       ? 'Alugado'
       : 'Disponível';
-    return [vehicle.model, vehicle.plate, vehicle.category, status];
+    const rentValue = `R$ ${Number(vehicle.rentValue).toFixed(2)}`
+    return [vehicle.model, vehicle.plate, rentValue, status];
   });
   return vehicles;
 }
@@ -31,7 +32,8 @@ export const filterVehicleByStatus = async (status: string) => {
     const status = (vehicle.status)
       ? 'Alugado'
       : 'Disponível';
-    return [vehicle.model, vehicle.plate, vehicle.category, status];
+      const rentValue = `R$ ${Number(vehicle.rentValue).toFixed(2)}`
+      return [vehicle.model, vehicle.plate, rentValue, status];
   });
   return vehicles;
 }

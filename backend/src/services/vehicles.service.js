@@ -23,10 +23,10 @@ async function add({category, model, year, plate, RENAVAM, IPVA, mileage, securi
 
 async function getAll() {
   try {
-    const vehicles = await Vehicle.find({}, 'category plate model rent');
+    const vehicles = await Vehicle.find({}, 'rentValue plate model rent');
     const vehiclesInfo = vehicles.map((vehicle) => {
       return {
-        category: vehicle.category,
+        rentValue: vehicle.rentValue,
         plate: vehicle.plate,
         model: vehicle.model,
         status: vehicle.rent.status,

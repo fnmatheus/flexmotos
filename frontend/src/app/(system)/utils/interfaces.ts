@@ -165,7 +165,7 @@ export interface IClientDetailsPopup {
 }
 
 export interface IVehicles {
-  category: string,
+  rentValue: string,
   plate: string,
   model: string,
   status: boolean
