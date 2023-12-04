@@ -50,11 +50,16 @@ const Vehicles = () => {
         tableHeads={tableHeads}
         tableBody={filteredVehicles}
         handleEdit={() => {}}
-        handleRemove={() => {}}
+        handleRemove={([plate]) => setPopup([plate, plate])}
         popup={popup}
         popupText="Tem certeza que deseja excluir o veículo de placa:"
         handleConfirmRemove={() => {}}
-        handleDeclineRemove={() => {}}
+        handleDeclineRemove={() => {setPopup(['', ''])}}
+        hasDetails
+        handleDetails={() => {}}
+        hasRentAndReturn
+        handleRent={() => {}}
+        handleReturn={() => {}}
       />
     </section>
   );
