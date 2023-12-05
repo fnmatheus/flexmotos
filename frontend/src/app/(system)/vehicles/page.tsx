@@ -4,8 +4,9 @@ import PageHeader from '../components/pageHeader';
 import PageTable from '../components/pageTable';
 import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
-import { filterVehicleByStatus, getVehicles, removeVehicle } from './utils/vehiclesAxios';
+import { addVehicle, filterVehicleByStatus, getVehicles, removeVehicle } from './utils/vehiclesAxios';
 import VehiclesPopup from './components/vehiclesPopup';
+import { IVehicle } from '../utils/interfaces';
 
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState<string[][]>([]);
@@ -44,6 +45,12 @@ const Vehicles = () => {
     setPopup(['', '']);
   }
 
+  async function handleAddSubmit(vehicle: IVehicle) {
+    const newVehicles = await addVehicle(vehicle);
+    setVehicles(newVehicles);
+    setAddPopup(false);
+  }
+
   return (
     <section>
       <PageHeader
@@ -72,7 +79,17 @@ const Vehicles = () => {
         addPopup &&
         <VehiclesPopup
           title='Adicionar veículo'
+          handleYes={(vehicle) => handleAddSubmit(vehicle)}
           handleNo={() => setAddPopup(false)}
+          vehicleCategory="moto"
+          vehicleModel=""
+          vehicleYear=""
+          vehiclePlate=""
+          vehicleRenavam=""
+          vehicleIpva="false"
+          vehicleMileage=""
+          vehiclSecuriteValue=""
+          vehicleRentValue=""
         />
       }
     </section>

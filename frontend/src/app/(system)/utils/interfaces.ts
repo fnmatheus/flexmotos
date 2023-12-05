@@ -179,5 +179,27 @@ export interface IVehiclesDetails {
 
 export interface IVehiclesPopup {
   title: string,
-  handleNo(): void
+  handleYes(vehicle: IVehicle): void,
+  handleNo(): void,
+  vehicleCategory: string,
+  vehicleModel: string,
+  vehicleYear: string,
+  vehiclePlate: string,
+  vehicleRenavam: string,
+  vehicleIpva: string,
+  vehicleMileage: string,
+  vehiclSecuriteValue: string,
+  vehicleRentValue: string
+}
+
+export interface IVehicle {
+  category: string,
+  model: string,
+  year: string,
+  plate: string,
+  RENAVAM: string,
+  IPVA: string,
+  mileage: string,
+  securitieValue: string,
+  rentValue: string
 }

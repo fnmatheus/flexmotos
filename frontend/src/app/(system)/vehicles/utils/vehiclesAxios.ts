@@ -1,5 +1,5 @@
 import { instance } from '../../utils/axios';
-import { IVehicles } from '../../utils/interfaces';
+import { IVehicle, IVehicles } from '../../utils/interfaces';
 import { backendURL } from '../../utils/urls';
 
 export const getVehicles = async () => {
@@ -35,5 +35,11 @@ export const filterVehicleByStatus = async (status: string) => {
       const rentValue = `R$ ${Number(vehicle.rentValue).toFixed(2)}`
       return [vehicle.model, vehicle.plate, rentValue, status];
   });
+  return vehicles;
+}
+
+export const addVehicle = async (vehicle: IVehicle) => {
+  await instance.post(`${backendURL}/vehicles/add`, vehicle);
+  const vehicles = await getVehicles();
   return vehicles;
 }
