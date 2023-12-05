@@ -147,7 +147,7 @@ async function removeSecuritie({CPF, plate}) {
   }
 }
 
-async function updateClientToRent({CPF, model, plate, rentalDate, securityValue, hasSecurite}) {
+async function updateClientToRent({CPF, model, plate, rentalDate, securityValue, hasSecurity}) {
   const client = await Client.findOne({ CPF });
   await Client.findOneAndUpdate({ CPF }, {
     status: true,
@@ -155,7 +155,7 @@ async function updateClientToRent({CPF, model, plate, rentalDate, securityValue,
       ...client.history,
       [model, plate, rentalDate],
     ],
-    securities: (!hasSecurite) ? [...client.securities] : [
+    securities: (!hasSecurity) ? [...client.securities] : [
       ...client.securities,
       [plate, securityValue],
     ],

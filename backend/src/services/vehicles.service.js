@@ -203,7 +203,7 @@ async function amountsMonthlysUpdate() {
   }
 }
 
-async function rentVehicle({CPF, name, rentalDate, returnDate, plate, hasSecurite, rentValue, securityValue}) {
+async function rentVehicle({CPF, name, rentalDate, returnDate, plate, hasSecurity, rentValue, securityValue}) {
   try {
     const vehicle = await Vehicle.findOne({ plate });
     const {message} = await getDatails(CPF);
@@ -211,7 +211,7 @@ async function rentVehicle({CPF, name, rentalDate, returnDate, plate, hasSecurit
     if (!vehicle) return { type: 'notFound', message: 'Vehicle not found' };
     if (vehicle.rent.status) return { type: 'rented', message: 'This vehicle is not avaliable' };
     if (rentPlates.includes(plate)) return { type: 'invalidPlate', message: 'This plate has a securitie to return' };
-    await updateClientToRent({CPF, model: vehicle.model, plate, rentalDate, securityValue, hasSecurite});
+    await updateClientToRent({CPF, model: vehicle.model, plate, rentalDate, securityValue, hasSecurity});
     await changeToday(rentValue);
     await Vehicle.findOneAndUpdate({ plate }, {
       rent: {

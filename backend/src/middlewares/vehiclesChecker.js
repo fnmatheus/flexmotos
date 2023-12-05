@@ -90,14 +90,14 @@ async function vehicleUpdateChecker(req, res, next) {
 
 async function rentVehicleChecker(req, res, next) {
   try {
-    const {CPF, name, rentalDate, returnDate, plate, hasSecurite, rentValue, securityValue} = req.body;
+    const {CPF, name, rentalDate, returnDate, plate, hasSecurity, rentValue, securityValue} = req.body;
     const verifyType = (
       typeof CPF === 'string' ||
       typeof name === 'string' ||
       typeof rentalDate === 'string' ||
       typeof returnDate === 'string' ||
       typeof plate === 'string' ||
-      typeof hasSecurite === 'boolean' ||
+      typeof hasSecurity === 'boolean' ||
       typeof rentValue > 0 ||
       typeof securityValue > 0
     );

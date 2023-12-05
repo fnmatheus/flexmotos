@@ -6,10 +6,11 @@ import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
 import { addVehicle, filterVehicleByStatus, getVehicleDetails, getVehicles, removeVehicle, returnVehicle, updateVehicle } from './utils/vehiclesAxios';
 import VehiclesPopup from './components/vehiclesPopup';
-import { IVehicle } from '../utils/interfaces';
+import { IRent, IVehicle } from '../utils/interfaces';
 import VehicleDetailsPopup from './components/vehicleDetailsPopup';
 import Popup from '../components/popup';
 import RentPopup from './components/rentPopup';
+import ConfirmRentPopup from './components/confirmRentPopup';
 
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState<string[][]>([]);
@@ -20,6 +21,7 @@ const Vehicles = () => {
   const [detailsPopup, setDetailsPopup] = useState<string>('');
   const [returnPopup, setReturnPopup] = useState<string>('');
   const [rentPopup, setRentPopup] = useState<string>('');
+  const [confirmRentPopup, setConfirmRentPopup] = useState<IRent | null>(null);
 
   useEffect(() => {
     async function getVehiclesData() {
@@ -83,6 +85,11 @@ const Vehicles = () => {
     const newVehicles = await returnVehicle(plate);
     setVehicles(newVehicles);
     setReturnPopup('');
+  }
+
+  async function handleRentSubmit(info: IRent) {
+    setConfirmRentPopup(info);
+    setRentPopup('');
   }
 
   return (
@@ -164,6 +171,18 @@ const Vehicles = () => {
         <RentPopup
           plate={rentPopup}
           handleNo={() => setRentPopup('')}
+          handleYes={(info) => handleRentSubmit(info)}
+        />
+      }
+      {
+        confirmRentPopup &&
+        <ConfirmRentPopup
+          CPF={confirmRentPopup.CPF}
+          name={confirmRentPopup.name}
+          plate={confirmRentPopup.plate}
+          rentalDate={confirmRentPopup.rentalDate}
+          returnDate={confirmRentPopup.returnDate}
+          security={confirmRentPopup.security}
         />
       }
     </section>

@@ -225,7 +225,22 @@ export interface IVehicleDetailsPopup {
   handleClose(): void
 }
 
+export interface IRent {
+  CPF: string,
+  name: string,
+  plate: string,
+  rentalDate: string,
+  returnDate: string,
+  security: string
+}
+
 export interface IRentPopup {
   plate: string,
+  handleNo(): void,
+  handleYes(info: IRent): void
+}
+
+export interface IConfirmRent extends IRent {
+  handleYes(info: IRent): void,
   handleNo(): void
 }
