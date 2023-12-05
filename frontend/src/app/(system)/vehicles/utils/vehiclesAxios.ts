@@ -58,3 +58,14 @@ export const updateVehicle = async (vehicle: IVehicle) => {
   const vehicles = await getVehicles();
   return vehicles;
 }
+
+export const returnVehicle = async (plate: string) => {
+  const vehicle = await getVehicleDetails(plate);
+  const {CPF} = vehicle.rent;
+  await instance.post(`${backendURL}/vehicles/return`, {
+    CPF,
+    plate
+  });
+  const vehicles = await getVehicles();
+  return vehicles;
+}

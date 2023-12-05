@@ -4,10 +4,11 @@ import PageHeader from '../components/pageHeader';
 import PageTable from '../components/pageTable';
 import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
-import { addVehicle, filterVehicleByStatus, getVehicleDetails, getVehicles, removeVehicle, updateVehicle } from './utils/vehiclesAxios';
+import { addVehicle, filterVehicleByStatus, getVehicleDetails, getVehicles, removeVehicle, returnVehicle, updateVehicle } from './utils/vehiclesAxios';
 import VehiclesPopup from './components/vehiclesPopup';
 import { IVehicle } from '../utils/interfaces';
 import VehicleDetailsPopup from './components/vehicleDetailsPopup';
+import Popup from '../components/popup';
 
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState<string[][]>([]);
@@ -16,6 +17,7 @@ const Vehicles = () => {
   const [addPopup, setAddPopup] = useState<boolean>(false);
   const [editPopup, setEditPopup] = useState<IVehicle | null>(null);
   const [detailsPopup, setDetailsPopup] = useState<string>('');
+  const [returnPopup, setReturnPopup] = useState<string>('');
 
   useEffect(() => {
     async function getVehiclesData() {
@@ -75,6 +77,12 @@ const Vehicles = () => {
     setEditPopup(null);
   }
 
+  async function handleReturn(plate: string) {
+    const newVehicles = await returnVehicle(plate);
+    setVehicles(newVehicles);
+    setReturnPopup('');
+  }
+
   return (
     <section>
       <PageHeader
@@ -97,7 +105,7 @@ const Vehicles = () => {
         handleDetails={(plate) => setDetailsPopup(plate)}
         hasRentAndReturn
         handleRent={() => {}}
-        handleReturn={() => {}}
+        handleReturn={(plate) => setReturnPopup(plate)}
       />
       {
         addPopup &&
@@ -139,6 +147,14 @@ const Vehicles = () => {
         <VehicleDetailsPopup
           plate={detailsPopup}
           handleClose={() => setDetailsPopup('')}
+        />
+      }
+      {
+        returnPopup !== '' &&
+        <Popup
+          title={`Tem certeza que deseja devolver o veículo: ${returnPopup}?`}
+          handleYes={() => handleReturn(returnPopup)}
+          handleNo={() => setReturnPopup('')}
         />
       }
     </section>

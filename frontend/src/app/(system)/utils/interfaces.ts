@@ -101,7 +101,7 @@ export interface IPageTable {
   handleDetails?(value: string): void,
   hasRentAndReturn?: boolean,
   handleRent?(value: string[]): void,
-  handleReturn?(value: string[]): void
+  handleReturn?(value: string): void
 }
 
 export interface IUsers {

@@ -31,7 +31,7 @@ const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, han
                           ? <button onClick={() => handleRent(item)}>
                             Alugar
                           </button>
-                          : <button onClick={() => handleReturn(item)}>
+                          : <button onClick={() => handleReturn(item[1])}>
                             Devolver
                           </button>)
                       }
