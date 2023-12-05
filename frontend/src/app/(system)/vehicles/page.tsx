@@ -9,6 +9,7 @@ import VehiclesPopup from './components/vehiclesPopup';
 import { IVehicle } from '../utils/interfaces';
 import VehicleDetailsPopup from './components/vehicleDetailsPopup';
 import Popup from '../components/popup';
+import RentPopup from './components/rentPopup';
 
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState<string[][]>([]);
@@ -18,6 +19,7 @@ const Vehicles = () => {
   const [editPopup, setEditPopup] = useState<IVehicle | null>(null);
   const [detailsPopup, setDetailsPopup] = useState<string>('');
   const [returnPopup, setReturnPopup] = useState<string>('');
+  const [rentPopup, setRentPopup] = useState<string>('');
 
   useEffect(() => {
     async function getVehiclesData() {
@@ -104,7 +106,7 @@ const Vehicles = () => {
         hasDetails
         handleDetails={(plate) => setDetailsPopup(plate)}
         hasRentAndReturn
-        handleRent={() => {}}
+        handleRent={(plate) => setRentPopup(plate)}
         handleReturn={(plate) => setReturnPopup(plate)}
       />
       {
@@ -155,6 +157,13 @@ const Vehicles = () => {
           title={`Tem certeza que deseja devolver o veículo: ${returnPopup}?`}
           handleYes={() => handleReturn(returnPopup)}
           handleNo={() => setReturnPopup('')}
+        />
+      }
+      {
+        rentPopup !== '' &&
+        <RentPopup
+          plate={rentPopup}
+          handleNo={() => setRentPopup('')}
         />
       }
     </section>

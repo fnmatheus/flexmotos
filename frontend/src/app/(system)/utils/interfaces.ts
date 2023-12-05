@@ -100,7 +100,7 @@ export interface IPageTable {
   hasDetails?: boolean,
   handleDetails?(value: string): void,
   hasRentAndReturn?: boolean,
-  handleRent?(value: string[]): void,
+  handleRent?(value: string): void,
   handleReturn?(value: string): void
 }
 
@@ -223,4 +223,9 @@ export interface IVehicle {
 export interface IVehicleDetailsPopup {
   plate: string,
   handleClose(): void
+}
+
+export interface IRentPopup {
+  plate: string,
+  handleNo(): void
 }

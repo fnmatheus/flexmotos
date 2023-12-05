@@ -28,7 +28,7 @@ const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, han
                       {
                         hasRentAndReturn && handleRent && handleReturn &&
                         ((item[3] !== 'Alugado')
-                          ? <button onClick={() => handleRent(item)}>
+                          ? <button onClick={() => handleRent(item[1])}>
                             Alugar
                           </button>
                           : <button onClick={() => handleReturn(item[1])}>
