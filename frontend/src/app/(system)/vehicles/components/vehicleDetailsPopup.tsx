@@ -20,9 +20,23 @@ const VehicleDetailsPopup: React.FC<IVehicleDetailsPopup> = ({plate, handleClose
   useEffect(() => {
     async function getVehicle() {
       const vehicle = await getVehicleDetails(plate);
-      console.log(vehicle);
+      setCategory(vehicle.category);
+      setModel(vehicle.model);
+      setYear(vehicle.year);
+      setRenavam(vehicle.RENAVAM);
+      const ipvaValue = (vehicle.IPVA) ? 'Pago' : 'Não pago';
+      setIpva(ipvaValue);
+      setMileage(`${vehicle.mileage.toFixed(2)} Km`);
+      const statusValue = (vehicle.rent.status) ? 'Alugado' : 'Disponível';
+      setStatus(statusValue);
+      setClient(`${vehicle.rent.CPF} ${vehicle.rent.name}`);
+      setRentalDate(vehicle.rent.rentalDate);
+      setReturnDate(vehicle.rent.returnDate);
+      setSecurityValue(`R$ ${vehicle.securityValue.toFixed(2)}`);
+      setRentValue(`R$ ${vehicle.rentValue.toFixed(2)}`);
+      setAmount(`R$ ${vehicle.amount.toFixed(2)}`);
     }
-    getVehicle()
+    getVehicle();
   }, [plate]);
 
   return (
@@ -35,7 +49,21 @@ const VehicleDetailsPopup: React.FC<IVehicleDetailsPopup> = ({plate, handleClose
         </div>
         <div>
           <h2>Informações do veículo</h2>
-          <div></div>
+          <div>
+            <p>{category}</p>
+            <p>{model}</p>
+            <p>{year}</p>
+            <p>{renavam}</p>
+            <p>{ipva}</p>
+            <p>{mileage}</p>
+            <p>{status}</p>
+            <p>{client}</p>
+            <p>{rentalDate}</p>
+            <p>{returnDate}</p>
+            <p>{securityValue}</p>
+            <p>{rentValue}</p>
+            <p>{amount}</p>
+          </div>
         </div>
       </div>
     </div>

@@ -147,7 +147,7 @@ async function removeSecuritie({CPF, plate}) {
   }
 }
 
-async function updateClientToRent({CPF, model, plate, rentalDate, rentValue, hasSecurite}) {
+async function updateClientToRent({CPF, model, plate, rentalDate, securityValue, hasSecurite}) {
   const client = await Client.findOne({ CPF });
   await Client.findOneAndUpdate({ CPF }, {
     status: true,
@@ -157,7 +157,7 @@ async function updateClientToRent({CPF, model, plate, rentalDate, rentValue, has
     ],
     securities: (!hasSecurite) ? [...client.securities] : [
       ...client.securities,
-      [plate, rentValue],
+      [plate, securityValue],
     ],
   });
   console.log('Client has been updated');

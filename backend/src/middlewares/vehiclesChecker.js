@@ -90,14 +90,17 @@ async function vehicleUpdateChecker(req, res, next) {
 
 async function rentVehicleChecker(req, res, next) {
   try {
-    const {CPF, name, rentalDate, returnDate, plate, hasSecurite} = req.body;
+    const {CPF, name, rentalDate, returnDate, plate, hasSecurite, rentValue, securityValue} = req.body;
     const verifyType = (
       typeof CPF === 'string' ||
       typeof name === 'string' ||
       typeof rentalDate === 'string' ||
       typeof returnDate === 'string' ||
       typeof plate === 'string' ||
-      typeof hasSecurite === 'boolean');
+      typeof hasSecurite === 'boolean' ||
+      typeof rentValue > 0 ||
+      typeof securityValue > 0
+    );
     if (!verifyType) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
