@@ -3,7 +3,7 @@ import { IConfirmRent } from '../../utils/interfaces';
 import { getVehicleDetails } from '../utils/vehiclesAxios';
 import dateDifference from '../../utils/dateDifference';
 
-const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate, returnDate, security}: IConfirmRent) => {
+const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate, returnDate, security, handleYes, handleNo}: IConfirmRent) => {
   const [hasSecurity, setHasSecurity] = useState<boolean>(true);
   const [rentValue, setRentValue] = useState<string>('');
   const [securityValue, setSecurityValue] = useState<string>('0');
@@ -13,8 +13,8 @@ const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate,
       const securityValue = (security === 'true') ? true : false;
       setHasSecurity(securityValue);
       const vehicle = await getVehicleDetails(plate);
-      const difference = dateDifference(rentalDate, returnDate)
-      setRentValue((vehicle.rentValue * difference).toFixed(2));
+      const days = dateDifference(rentalDate, returnDate)
+      setRentValue((vehicle.rentValue * days).toFixed(2));
       if (securityValue) {
         setSecurityValue(vehicle.securityValue.toFixed(2));
         return;
@@ -36,6 +36,7 @@ const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate,
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    handleYes({CPF, name, rentalDate, returnDate, plate, hasSecurity, rentValue: Number(rentValue), securityValue: Number(securityValue)});
   }
 
   return (
@@ -57,7 +58,7 @@ const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate,
           <button type="submit">
             Yes
           </button>
-          <button>
+          <button onClick={handleNo}>
             No
           </button>
         </div>

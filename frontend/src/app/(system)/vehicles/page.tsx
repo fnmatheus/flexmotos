@@ -4,7 +4,7 @@ import PageHeader from '../components/pageHeader';
 import PageTable from '../components/pageTable';
 import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
-import { addVehicle, filterVehicleByStatus, getVehicleDetails, getVehicles, removeVehicle, returnVehicle, updateVehicle } from './utils/vehiclesAxios';
+import { addVehicle, filterVehicleByStatus, getVehicleDetails, getVehicles, removeVehicle, rentVehicle, returnVehicle, updateVehicle } from './utils/vehiclesAxios';
 import VehiclesPopup from './components/vehiclesPopup';
 import { IRent, IVehicle } from '../utils/interfaces';
 import VehicleDetailsPopup from './components/vehicleDetailsPopup';
@@ -90,6 +90,15 @@ const Vehicles = () => {
   async function handleRentSubmit(info: IRent) {
     setConfirmRentPopup(info);
     setRentPopup('');
+  }
+
+  async function handleConfirmRentSubmit(info: IRent) {
+    const newVehicles = await rentVehicle(info);
+    if (newVehicles) {
+      setVehicles(newVehicles);
+      setConfirmRentPopup(null);
+    }
+    alert('Precisa devolver o caução para o cliente para alugar novamente!');
   }
 
   return (
@@ -183,6 +192,8 @@ const Vehicles = () => {
           rentalDate={confirmRentPopup.rentalDate}
           returnDate={confirmRentPopup.returnDate}
           security={confirmRentPopup.security}
+          handleYes={(info) => handleConfirmRentSubmit(info)}
+          handleNo={() => setConfirmRentPopup(null)}
         />
       }
     </section>

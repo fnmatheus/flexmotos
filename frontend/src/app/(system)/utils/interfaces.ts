@@ -231,7 +231,10 @@ export interface IRent {
   plate: string,
   rentalDate: string,
   returnDate: string,
-  security: string
+  security?: string,
+  hasSecurity?: boolean,
+  rentValue?: number,
+  securityValue?: number
 }
 
 export interface IRentPopup {

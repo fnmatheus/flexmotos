@@ -1,5 +1,5 @@
 import { instance } from '../../utils/axios';
-import { IVehicle, IVehicles, IVehicleDetails } from '../../utils/interfaces';
+import { IVehicle, IVehicles, IVehicleDetails, IRent } from '../../utils/interfaces';
 import { backendURL } from '../../utils/urls';
 
 export const getVehicles = async () => {
@@ -68,4 +68,14 @@ export const returnVehicle = async (plate: string) => {
   });
   const vehicles = await getVehicles();
   return vehicles;
+}
+
+export const rentVehicle = async (info: IRent) => {
+  try {
+    await instance.post(`${backendURL}/vehicles/rent`, info);
+    const vehicles = await getVehicles();
+    return vehicles;
+  } catch (error) {
+    return null;
+  }
 }
