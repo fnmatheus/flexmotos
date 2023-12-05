@@ -18,12 +18,12 @@ const Clients = () => {
   const [detailsPopup, setDetailsPopup] = useState<string>('');
 
   useEffect(() => {
-    async function getToken() {
+    async function getClientsData() {
       await getCookie('authorization');
       const data = await getClients();
       setClients(data);
     }
-    getToken();
+    getClientsData();
   }, []);
 
   useEffect(() => {

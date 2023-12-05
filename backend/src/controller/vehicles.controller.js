@@ -43,7 +43,7 @@ async function getByModelController(req, res) {
 }
 
 async function removeController(req, res) {
-  const {plate} = req.body;
+  const {plate} = req.query;
   const {type, message} = await remove(plate);
   if (type === 'notFound') return res.status(404).json(message);
   if (type) return res.status(500).json(message);
@@ -99,8 +99,8 @@ async function getAllVehiclesToBeReturnedController(_req, res) {
 }
 
 async function rentVehicleController(req, res) {
-  const {CPF, name, rentalDate, returnDate, plate, hasSecurite} = req.body;
-  const {type, message} = await rentVehicle({CPF, name, rentalDate, returnDate, plate, hasSecurite});
+  const {CPF, name, rentalDate, returnDate, plate, hasSecurity, rentValue, securityValue} = req.body;
+  const {type, message} = await rentVehicle({CPF, name, rentalDate, returnDate, plate, hasSecurity, rentValue, securityValue});
   if (type === 'notFound') return res.status(404).json(message);
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);

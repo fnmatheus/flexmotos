@@ -2,7 +2,7 @@ import React from 'react';
 
 export interface IPopup {
   title?: string,
-  handleYes?(value?: number): void,
+  handleYes(value?: number): void,
   handleNo?(): void,
   hasText?: boolean,
   text?: string,
@@ -66,19 +66,6 @@ export interface IChanges {
   plate: string
 }
 
-export interface IRentedVehicles {
-  category: string,
-  plate: string,
-  model: string,
-  status: boolean
-}
-
-export interface IVehicliesDetails {
-  rent: {
-    returnDate: string
-  }
-}
-
 export interface IDashboardTable {
   tableTitle: string,
   vehicles: string[][],
@@ -113,8 +100,8 @@ export interface IPageTable {
   hasDetails?: boolean,
   handleDetails?(value: string): void,
   hasRentAndReturn?: boolean,
-  handleRent?(value: string[]): void,
-  handleReturn?(value: string[]): void
+  handleRent?(value: string): void,
+  handleReturn?(value: string): void
 }
 
 export interface IUsers {
@@ -175,4 +162,88 @@ export interface IClient {
 export interface IClientDetailsPopup {
   detailsCpf: string,
   handleClose(): void
+}
+
+export interface IVehicles {
+  rentValue: string,
+  plate: string,
+  model: string,
+  status: boolean
+}
+
+export interface IVehicleDetails {
+  category: string,
+  model: string
+  year: string,
+  plate: string
+  RENAVAM: string,
+  IPVA: boolean,
+  mileage: number,
+  rent: {
+    status: boolean,
+    CPF: string,
+    name: string,
+    rentalDate: string,
+    returnDate: string
+  },
+  securityValue: number,
+  rentValue: number,
+  oil: boolean,
+  amount: number
+}
+
+export interface IVehiclesPopup {
+  title: string,
+  handleYes(vehicle: IVehicle): void,
+  handleNo(): void,
+  vehicleCategory: string,
+  vehicleModel: string,
+  vehicleYear: string,
+  vehiclePlate: string,
+  vehicleRenavam: string,
+  vehicleIpva: string,
+  vehicleMileage: string,
+  vehiclSecuriteValue: string,
+  vehicleRentValue: string,
+  editMode?: boolean
+}
+
+export interface IVehicle {
+  category: string,
+  model: string,
+  year: string,
+  plate: string,
+  RENAVAM: string,
+  IPVA: string,
+  mileage: string,
+  securityValue: string,
+  rentValue: string
+}
+
+export interface IVehicleDetailsPopup {
+  plate: string,
+  handleClose(): void
+}
+
+export interface IRent {
+  CPF: string,
+  name: string,
+  plate: string,
+  rentalDate: string,
+  returnDate: string,
+  security?: string,
+  hasSecurity?: boolean,
+  rentValue?: number,
+  securityValue?: number
+}
+
+export interface IRentPopup {
+  plate: string,
+  handleNo(): void,
+  handleYes(info: IRent): void
+}
+
+export interface IConfirmRent extends IRent {
+  handleYes(info: IRent): void,
+  handleNo(): void
 }

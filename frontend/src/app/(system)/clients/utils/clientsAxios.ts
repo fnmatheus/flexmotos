@@ -29,7 +29,7 @@ export const filterClientsByStatus = async (category: string) => {
   const clients: string[][] = data.map((client) => {
     const status = (client.status) ? 'Alugando' : 'Sem alugar';
     const lastVehiclePlate = client.lastVehicle[1];
-    return [client.name, client.CPF, status, lastVehiclePlate]
+    return [client.name, client.CPF, status, lastVehiclePlate];
   });
   return clients;
 }

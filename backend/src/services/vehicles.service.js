@@ -23,10 +23,10 @@ async function add({category, model, year, plate, RENAVAM, IPVA, mileage, securi
 
 async function getAll() {
   try {
-    const vehicles = await Vehicle.find({}, 'category plate model rent');
+    const vehicles = await Vehicle.find({}, 'rentValue plate model rent');
     const vehiclesInfo = vehicles.map((vehicle) => {
       return {
-        category: vehicle.category,
+        rentValue: vehicle.rentValue,
         plate: vehicle.plate,
         model: vehicle.model,
         status: vehicle.rent.status,
@@ -43,7 +43,7 @@ async function getByStatus(status) {
     const vehicles = await Vehicle.find({});
     const vehiclesInfo = vehicles.filter((vehicle) => vehicle.rent.status === status).map((vehicle) =>{
       return {
-        category: vehicle.category,
+        rentValue: vehicle.rentValue,
         plate: vehicle.plate,
         model: vehicle.model,
         status: vehicle.rent.status,
@@ -60,7 +60,7 @@ async function getByModel(model) {
     const vehicles = await Vehicle.find({model: { "$regex": model, "$options": "i" }}, 'category plate model rent');
     const vehiclesInfo = vehicles.map((vehicle) =>{
       return {
-        category: vehicle.category,
+        rentValue: vehicle.rentValue,
         plate: vehicle.plate,
         model: vehicle.model,
         status: vehicle.rent.status,
@@ -203,17 +203,16 @@ async function amountsMonthlysUpdate() {
   }
 }
 
-async function rentVehicle({CPF, name, rentalDate, returnDate, plate, hasSecurite}) {
+async function rentVehicle({CPF, name, rentalDate, returnDate, plate, hasSecurity, rentValue, securityValue}) {
   try {
     const vehicle = await Vehicle.findOne({ plate });
     const {message} = await getDatails(CPF);
     const rentPlates = message.securities.map((securitie) => securitie[0]);
-    console.log(rentPlates.includes(plate));
     if (!vehicle) return { type: 'notFound', message: 'Vehicle not found' };
     if (vehicle.rent.status) return { type: 'rented', message: 'This vehicle is not avaliable' };
     if (rentPlates.includes(plate)) return { type: 'invalidPlate', message: 'This plate has a securitie to return' };
-    await updateClientToRent({CPF, model: vehicle.model, plate, rentalDate, rentValue: vehicle.rentValue, hasSecurite});
-    await changeToday(vehicle.rentValue);
+    await updateClientToRent({CPF, model: vehicle.model, plate, rentalDate, securityValue, hasSecurity});
+    await changeToday(rentValue);
     await Vehicle.findOneAndUpdate({ plate }, {
       rent: {
         status: true,
@@ -221,7 +220,8 @@ async function rentVehicle({CPF, name, rentalDate, returnDate, plate, hasSecurit
         name,
         rentalDate,
         returnDate,
-      }
+      },
+      amount: vehicle.amount + rentValue
     });
     return { type: null, message: 'Vehicle has been rented' };
   } catch (error) {

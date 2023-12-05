@@ -27,11 +27,11 @@ const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, han
                     <td className="flex gap-2">
                       {
                         hasRentAndReturn && handleRent && handleReturn &&
-                        ((item[2] !== 'Alugado')
-                          ? <button onClick={() => handleRent(item)}>
+                        ((item[3] !== 'Alugado')
+                          ? <button onClick={() => handleRent(item[1])}>
                             Alugar
                           </button>
-                          : <button onClick={() => handleReturn(item)}>
+                          : <button onClick={() => handleReturn(item[1])}>
                             Devolver
                           </button>)
                       }
