@@ -6,8 +6,8 @@ import { securityOptions } from '../utils/variables';
 const RentPopup: React.FC<IRentPopup> = ({ plate, handleNo }: IRentPopup) => {
   const [clients, setClients] = useState<string[][]>([]);
   const [clientValue, setClientValue] = useState<string[]>([]);
-  const [rentalDate, setRentalDate] = useState<string>('');
-  const [returnDate, setReturnDate] = useState<string>('');
+  const [rentalDate, setRentalDate] = useState<string | undefined>('');
+  const [returnDate, setReturnDate] = useState<string | undefined>('');
   const [security, setSecurity] = useState<string>('true');
 
   useEffect(() => {
@@ -32,12 +32,27 @@ const RentPopup: React.FC<IRentPopup> = ({ plate, handleNo }: IRentPopup) => {
     setSecurity(value);
   }
 
+  async function handleClient(event: React.ChangeEvent<HTMLSelectElement>) {
+    const value: string = event.target.value;
+    setClientValue(value.split(','));
+  }
+
+  async function handleRentalDate(event: React.ChangeEvent<HTMLInputElement>) {
+    const value: string = new Date(event.target.value).toLocaleDateString('en-GB', {timeZone: "UTC"});
+    setRentalDate(value);
+  }
+
+  async function handleReturnDate(event: React.ChangeEvent<HTMLInputElement>) {
+    const value: string = new Date(event.target.value).toLocaleDateString('en-GB', {timeZone: "UTC"});
+    setReturnDate(value);
+  }
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <h2>{`Alugar o veículo ${plate}`}</h2>
         <div className="flex gap-2 flex-wrap text-black">
-          <select>
+          <select onChange={handleClient} value={clientValue}>
             {
               clients.map((client) =>{
                 const [name, CPF] = client;
@@ -49,8 +64,16 @@ const RentPopup: React.FC<IRentPopup> = ({ plate, handleNo }: IRentPopup) => {
               })
             }
           </select>
-          <input type="date" />
-          <input type="date" />
+          <input type="date" onChange={handleRentalDate} value={
+            (rentalDate)
+              ? rentalDate.split('/').reverse().join('-')
+              : ''
+          } required />
+          <input type="date" onChange={handleReturnDate} value={
+            (returnDate)
+              ? returnDate.split('/').reverse().join('-')
+              : ''
+          } required />
           <select onChange={handleSecurity} value={security}>
             {
               securityOptions.map((item) =>
