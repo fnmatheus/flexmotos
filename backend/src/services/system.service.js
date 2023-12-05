@@ -1,8 +1,10 @@
 const System = require('../database/schemas/System');
+const crypto = require('crypto');
 
 async function createSystem() {
   try {
-    const code = Math.floor(Math.random() * 9000 + 1000);
+    const byteArray = new Uint16Array(1);
+    const code = crypto.getRandomValues(byteArray)[0];
     const year = new Date().getFullYear();
     const month = new Date().getMonth();
     await System.create({
