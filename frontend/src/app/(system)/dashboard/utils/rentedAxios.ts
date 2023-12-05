@@ -1,6 +1,6 @@
 import { instance } from '../../utils/axios';
 import { backendURL } from '../../utils/urls';
-import { IVehicles, IVehiclesDetails } from '../../utils/interfaces';
+import { IVehicles, IVehicleDetails } from '../../utils/interfaces';
 
 export const getVehicles = async () => {
   const {data}: {data: IVehicles[]} = await instance.get(`${backendURL}/vehicles/status`, {
@@ -9,7 +9,7 @@ export const getVehicles = async () => {
     }
   });
   const vehicles = await Promise.all(data.map(async (vehicle) => {
-    const {data: vehicleInfo}: { data: IVehiclesDetails } = await instance.get(`${backendURL}/vehicles/vehicle`, {
+    const {data: vehicleInfo}: { data: IVehicleDetails } = await instance.get(`${backendURL}/vehicles/vehicle`, {
       params: {
         plate: vehicle.plate
       }

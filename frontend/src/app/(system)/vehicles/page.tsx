@@ -7,6 +7,7 @@ import { getCookie } from 'cookies-next';
 import { addVehicle, filterVehicleByStatus, getVehicleDetails, getVehicles, removeVehicle, updateVehicle } from './utils/vehiclesAxios';
 import VehiclesPopup from './components/vehiclesPopup';
 import { IVehicle } from '../utils/interfaces';
+import VehicleDetailsPopup from './components/vehicleDetailsPopup';
 
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState<string[][]>([]);
@@ -14,6 +15,7 @@ const Vehicles = () => {
   const [popup, setPopup] = useState<string[]>(['', '']);
   const [addPopup, setAddPopup] = useState<boolean>(false);
   const [editPopup, setEditPopup] = useState<IVehicle | null>(null);
+  const [detailsPopup, setDetailsPopup] = useState<string>('');
 
   useEffect(() => {
     async function getVehiclesData() {
@@ -92,7 +94,7 @@ const Vehicles = () => {
         handleConfirmRemove={(plate) => handleConfirmRemove(plate)}
         handleDeclineRemove={() => {setPopup(['', ''])}}
         hasDetails
-        handleDetails={() => {}}
+        handleDetails={(plate) => setDetailsPopup(plate)}
         hasRentAndReturn
         handleRent={() => {}}
         handleReturn={() => {}}
@@ -130,6 +132,13 @@ const Vehicles = () => {
           vehiclSecuriteValue={editPopup.securityValue}
           vehicleRentValue={editPopup.rentValue}
           editMode
+        />
+      }
+      {
+        detailsPopup !== '' &&
+        <VehicleDetailsPopup
+          plate={detailsPopup}
+          handleClose={() => setDetailsPopup('')}
         />
       }
     </section>

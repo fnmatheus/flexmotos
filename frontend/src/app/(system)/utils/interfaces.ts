@@ -171,7 +171,7 @@ export interface IVehicles {
   status: boolean
 }
 
-export interface IVehiclesDetails {
+export interface IVehicleDetails {
   category: string,
   model: string
   year: string,
@@ -218,4 +218,9 @@ export interface IVehicle {
   mileage: string,
   securityValue: string,
   rentValue: string
+}
+
+export interface IVehicleDetailsPopup {
+  plate: string,
+  handleClose(): void
 }

@@ -1,5 +1,5 @@
 import { instance } from '../../utils/axios';
-import { IVehicle, IVehicles, IVehiclesDetails } from '../../utils/interfaces';
+import { IVehicle, IVehicles, IVehicleDetails } from '../../utils/interfaces';
 import { backendURL } from '../../utils/urls';
 
 export const getVehicles = async () => {
@@ -45,7 +45,7 @@ export const addVehicle = async (vehicle: IVehicle) => {
 }
 
 export const getVehicleDetails = async (plate: string) => {
-  const {data}: {data: IVehiclesDetails} = await instance.get(`${backendURL}/vehicles/vehicle`, {
+  const {data}: {data: IVehicleDetails} = await instance.get(`${backendURL}/vehicles/vehicle`, {
     params: {
       plate
     },

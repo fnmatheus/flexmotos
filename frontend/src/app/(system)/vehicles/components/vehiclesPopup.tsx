@@ -12,7 +12,7 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
   const [renavam, setRenavam] = useState<string>(vehicleRenavam);
   const [ipva, setIpva] = useState<string>(vehicleIpva);
   const [mileage, setMileage] = useState<string>(vehicleMileage);
-  const [securityValue, setSecuritieValue] = useState<string>(vehiclSecuriteValue);
+  const [securityValue, setSecurityValue] = useState<string>(vehiclSecuriteValue);
   const [rentValue, setRentValue] = useState<string>(vehicleRentValue);
 
   async function handleCategory(event: React.ChangeEvent<HTMLSelectElement>) {
@@ -52,7 +52,7 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
 
   async function handleSecuritieValue(event: React.ChangeEvent<HTMLInputElement>) {
     const value: string = event.target.value;
-    setSecuritieValue(value);
+    setSecurityValue(value);
   }
 
   async function handleRentValue(event: React.ChangeEvent<HTMLInputElement>) {
