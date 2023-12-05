@@ -10,7 +10,7 @@ const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate,
 
   useEffect(() => {
     async function getValues() {
-      const securityValue = (security === 'true') ? true : false;
+      const securityValue = security === 'true';
       setHasSecurity(securityValue);
       const vehicle = await getVehicleDetails(plate);
       const days = dateDifference(rentalDate, returnDate)
