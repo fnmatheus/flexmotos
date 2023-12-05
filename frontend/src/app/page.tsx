@@ -34,21 +34,19 @@ const Home = () => {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div>
-        <form className="flex gap-2 text-black" onSubmit={handleSubmit}>
-          <input id="code" type="text" />
-          <input id="username" type="text" />
-          <input id="password" type="password" />
-          <button className="bg-white">Entrar</button>
-          {
-            incorrectFields &&
-            <span className="text-white">
-              ⓘ campos não preenchidos ou incorretos
-            </span>
-          }
-        </form>
-      </div>
+    <main className="flex justify-center items-center h-screen w-screen">
+      <form className="flex gap-2 text-black" onSubmit={handleSubmit}>
+        <input id="code" type="text" />
+        <input id="username" type="text" />
+        <input id="password" type="password" />
+        <button className="bg-white">Entrar</button>
+        {
+          incorrectFields &&
+          <span className="text-white">
+            ⓘ campos não preenchidos ou incorretos
+          </span>
+        }
+      </form>
     </main>
   )
 }
