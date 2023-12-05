@@ -97,6 +97,7 @@ const Vehicles = () => {
     if (newVehicles) {
       setVehicles(newVehicles);
       setConfirmRentPopup(null);
+      return;
     }
     alert('Precisa devolver o caução para o cliente para alugar novamente!');
   }
