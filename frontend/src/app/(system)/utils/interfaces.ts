@@ -172,9 +172,24 @@ export interface IVehicles {
 }
 
 export interface IVehiclesDetails {
+  category: string,
+  model: string
+  year: string,
+  plate: string
+  RENAVAM: string,
+  IPVA: boolean,
+  mileage: number,
   rent: {
+    status: boolean,
+    CPF: string,
+    name: string,
+    rentalDate: string,
     returnDate: string
-  }
+  },
+  securityValue: number,
+  rentValue: number,
+  oil: boolean,
+  amount: number
 }
 
 export interface IVehiclesPopup {
@@ -189,7 +204,8 @@ export interface IVehiclesPopup {
   vehicleIpva: string,
   vehicleMileage: string,
   vehiclSecuriteValue: string,
-  vehicleRentValue: string
+  vehicleRentValue: string,
+  editMode?: boolean
 }
 
 export interface IVehicle {
@@ -200,6 +216,6 @@ export interface IVehicle {
   RENAVAM: string,
   IPVA: string,
   mileage: string,
-  securitieValue: string,
+  securityValue: string,
   rentValue: string
 }

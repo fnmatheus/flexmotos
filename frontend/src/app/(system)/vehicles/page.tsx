@@ -4,7 +4,7 @@ import PageHeader from '../components/pageHeader';
 import PageTable from '../components/pageTable';
 import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
-import { addVehicle, filterVehicleByStatus, getVehicles, removeVehicle } from './utils/vehiclesAxios';
+import { addVehicle, filterVehicleByStatus, getVehicleDetails, getVehicles, removeVehicle, updateVehicle } from './utils/vehiclesAxios';
 import VehiclesPopup from './components/vehiclesPopup';
 import { IVehicle } from '../utils/interfaces';
 
@@ -13,6 +13,7 @@ const Vehicles = () => {
   const [filteredVehicles, setFilteredVehicles] = useState<string[][]>([]);
   const [popup, setPopup] = useState<string[]>(['', '']);
   const [addPopup, setAddPopup] = useState<boolean>(false);
+  const [editPopup, setEditPopup] = useState<IVehicle | null>(null);
 
   useEffect(() => {
     async function getVehiclesData() {
@@ -51,6 +52,27 @@ const Vehicles = () => {
     setAddPopup(false);
   }
 
+  async function handleEditPopup(plate: string) {
+    const vehicle = await getVehicleDetails(plate);
+    setEditPopup({
+      category: vehicle.category,
+      model: vehicle.model,
+      year: vehicle.year,
+      plate: vehicle.plate,
+      RENAVAM: vehicle.RENAVAM,
+      IPVA: String(vehicle.IPVA),
+      mileage: vehicle.mileage.toFixed(2),
+      securityValue: vehicle.securityValue.toFixed(2),
+      rentValue: vehicle.rentValue.toFixed(2)
+    });
+  }
+
+  async function handleEditSubmit(vehicle: IVehicle) {
+    const newVehicles = await updateVehicle(vehicle);
+    setVehicles(newVehicles);
+    setEditPopup(null);
+  }
+
   return (
     <section>
       <PageHeader
@@ -63,7 +85,7 @@ const Vehicles = () => {
       <PageTable
         tableHeads={tableHeads}
         tableBody={filteredVehicles}
-        handleEdit={() => {}}
+        handleEdit={(plate) => handleEditPopup(plate)}
         handleRemove={([plate]) => setPopup([plate, plate])}
         popup={popup}
         popupText="Tem certeza que deseja excluir o veículo de placa:"
@@ -90,6 +112,24 @@ const Vehicles = () => {
           vehicleMileage=""
           vehiclSecuriteValue=""
           vehicleRentValue=""
+        />
+      }
+      {
+        editPopup &&
+        <VehiclesPopup
+          title="Alterar veículo"
+          handleYes={(vehicle) => handleEditSubmit(vehicle)}
+          handleNo={() => setEditPopup(null)}
+          vehicleCategory={editPopup.category}
+          vehicleModel={editPopup.model}
+          vehicleYear={editPopup.year}
+          vehiclePlate={editPopup.plate}
+          vehicleRenavam={editPopup.RENAVAM}
+          vehicleIpva={editPopup.IPVA}
+          vehicleMileage={editPopup.mileage}
+          vehiclSecuriteValue={editPopup.securityValue}
+          vehicleRentValue={editPopup.rentValue}
+          editMode
         />
       }
     </section>

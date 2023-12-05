@@ -3,7 +3,7 @@ import { IVehiclesPopup } from '../../utils/interfaces';
 import { categories, ipvaOptions } from '../utils/variables';
 
 const VehiclesPopup: React.FC<IVehiclesPopup> = (
-  {title, handleYes, handleNo, vehicleCategory, vehicleModel, vehicleYear, vehiclePlate, vehicleRenavam, vehicleIpva, vehicleMileage, vehiclSecuriteValue, vehicleRentValue}: IVehiclesPopup
+  {title, handleYes, handleNo, vehicleCategory, vehicleModel, vehicleYear, vehiclePlate, vehicleRenavam, vehicleIpva, vehicleMileage, vehiclSecuriteValue, vehicleRentValue, editMode}: IVehiclesPopup
 ) => {
   const [category, setCategory] = useState<string>(vehicleCategory);
   const [model, setModel] = useState<string>(vehicleModel);
@@ -12,7 +12,7 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
   const [renavam, setRenavam] = useState<string>(vehicleRenavam);
   const [ipva, setIpva] = useState<string>(vehicleIpva);
   const [mileage, setMileage] = useState<string>(vehicleMileage);
-  const [securitieValue, setSecuritieValue] = useState<string>(vehiclSecuriteValue);
+  const [securityValue, setSecuritieValue] = useState<string>(vehiclSecuriteValue);
   const [rentValue, setRentValue] = useState<string>(vehicleRentValue);
 
   async function handleCategory(event: React.ChangeEvent<HTMLSelectElement>) {
@@ -62,7 +62,7 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    handleYes({category, model, year, plate, RENAVAM: renavam, IPVA: ipva, mileage, securitieValue, rentValue});
+    handleYes({category, model, year, plate, RENAVAM: renavam, IPVA: ipva, mileage, securityValue, rentValue});
   }
 
   return (
@@ -81,7 +81,7 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
           </select>
           <input onChange={handleModel} type="text" value={model} required />
           <input onChange={handleYear} type="text" value={year} required pattern="\d\d\d\d/\d\d" />
-          <input onChange={handlePlate} type="text" value={plate} required pattern="[A-Z0-9]{7}" />
+          <input onChange={handlePlate} type="text" value={plate} required pattern="[A-Z0-9]{7}" readOnly={editMode} />
           <input onChange={handleRENAVAM} type="text" value={renavam} required pattern="\d+" />
           <select onChange={handleIPVA} value={ipva} required>
             {
@@ -93,7 +93,7 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
             }
           </select>
           <input onChange={handleMileage} type="text" value={mileage} required pattern="\d+.\d\d" />
-          <input onChange={handleSecuritieValue} type="text" value={securitieValue} required pattern="\d+.\d\d" />
+          <input onChange={handleSecuritieValue} type="text" value={securityValue} required pattern="\d+.\d\d" />
           <input onChange={handleRentValue} type="text" value={rentValue} required pattern="\d+.\d\d" />
         </div>
         <div className="flex gap-2">

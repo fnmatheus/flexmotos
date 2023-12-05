@@ -1,5 +1,5 @@
 import { instance } from '../../utils/axios';
-import { IVehicle, IVehicles } from '../../utils/interfaces';
+import { IVehicle, IVehicles, IVehiclesDetails } from '../../utils/interfaces';
 import { backendURL } from '../../utils/urls';
 
 export const getVehicles = async () => {
@@ -40,6 +40,21 @@ export const filterVehicleByStatus = async (status: string) => {
 
 export const addVehicle = async (vehicle: IVehicle) => {
   await instance.post(`${backendURL}/vehicles/add`, vehicle);
+  const vehicles = await getVehicles();
+  return vehicles;
+}
+
+export const getVehicleDetails = async (plate: string) => {
+  const {data}: {data: IVehiclesDetails} = await instance.get(`${backendURL}/vehicles/vehicle`, {
+    params: {
+      plate
+    },
+  });
+  return data;
+}
+
+export const updateVehicle = async (vehicle: IVehicle) => {
+  await instance.post(`${backendURL}/vehicles/update`, vehicle);
   const vehicles = await getVehicles();
   return vehicles;
 }
