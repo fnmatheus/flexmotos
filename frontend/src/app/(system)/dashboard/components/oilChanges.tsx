@@ -24,18 +24,20 @@ const OilChanges: React.FC<IProps> = ({token}: IProps) => {
   }
 
   return (
-    <DashboardTable
-      tableTitle='Troca de óleo'
-      vehicles={vehicles}
-      hasButton
-      buttonText='TROCAR'
-      handleButton={(vehicle) => setPopup(vehicle)}
-      hasPopup
-      popup={popup}
-      popuptext={`Trocou o óleo do veículo ${popup[0]}`}
-      handleYes={() => handleChange(popup)}
-      handleNo={() => setPopup([])}
-    />
+    <div className="h-1/3">
+      <DashboardTable
+        tableTitle='Troca de óleo'
+        vehicles={vehicles}
+        hasButton
+        buttonText='TROCAR'
+        handleButton={(vehicle) => setPopup(vehicle)}
+        hasPopup
+        popup={popup}
+        popuptext={`Trocou o óleo do veículo ${popup[0]}`}
+        handleYes={() => handleChange(popup)}
+        handleNo={() => setPopup([])}
+      />
+    </div>
   );
 }
 

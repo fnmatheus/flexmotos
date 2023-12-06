@@ -7,34 +7,40 @@ const DashboardTable: React.FC<IDashboardTable> = (
   {tableTitle, vehicles, hasButton, buttonText, handleButton, hasThirdText, hasPopup, popup, popuptext, handleYes, handleNo}: IDashboardTable
 ) => {
   return (
-    <div className="w-full">
-      <div className={dashboardTable}>
-        <table className="flex flex-col w-full text-xl">
-          <thead className="border-b border-zinc-400 w-full flex justify-center">
-            <tr>
-              <th className="font-normal">{tableTitle}</th>
+    <div className="w-full h-full p-1">
+      <div className="w-full h-full">
+        <table className={dashboardTable}>
+          <thead className="border-b border-zinc-400 w-full h-[40px] flex justify-center">
+            <tr className="h-full">
+              <th className="font-normal text-xl h-full">{tableTitle}</th>
             </tr>
           </thead>
-          <tbody className="flex flex-col w-full m-1">
+          <tbody className="flex flex-col gap-2 w-full h-full overflow-scroll overflow-x-hidden my-2">
             {
               vehicles.map((vehicle) => {
                 const [plate, model] = vehicle;
                 return (
-                  <tr className="flex w-full items-center" key={plate}>
-                    <td className="border-spacing-0 flex w-full justify-between px-2">
-                      <p className="w-2/5">{model}</p>
-                      <p className="text-center w-1/5">{plate}</p>
-                      {
-                        hasButton && handleButton &&
-                        <button className="w-1/6 text-center bg-amber-400 font-semibold text-black rounded-md" onClick={() => handleButton(vehicle)}>
+                  <tr className="grid grid-cols-4 px-4" key={plate}>
+                    <td className="col-span-2 ml-1">
+                      {model}
+                    </td>
+                    <td className="flex justify-center">
+                      {plate}
+                    </td>
+                    {
+                      hasButton && handleButton &&
+                      <td className="flex justify-end mr-1">
+                        <button className="w-max px-1 text-center bg-amber-400 font-semibold text-black rounded-md" onClick={() => handleButton(vehicle)}>
                           {buttonText}
                         </button>
-                      }
-                      {
-                        hasThirdText &&
-                        <p className="w-1/5">{vehicle[2]}</p>
-                      }
-                    </td>
+                      </td>
+                    }
+                    {
+                      hasThirdText &&
+                      <td className="flex justify-end mr-1">
+                        {vehicle[2]}
+                      </td>
+                    }
                   </tr>
                 );
               })

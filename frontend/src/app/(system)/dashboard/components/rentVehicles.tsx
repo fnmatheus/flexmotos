@@ -17,11 +17,14 @@ const RentVehicles: React.FC<IProps> = ({token}: IProps) => {
   }, [token]);
 
   return (
-    <DashboardTable
-      tableTitle='Veículos para devolução'
-      vehicles={vehicles}
-      hasThirdText
-    />
+    <div className="h-1/3">
+      <DashboardTable
+        tableTitle='Veículos para devolução'
+        vehicles={vehicles}
+        hasThirdText
+        handleYes={() => {}}
+      />
+    </div>
   );
 }
 
