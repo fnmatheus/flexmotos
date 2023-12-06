@@ -79,7 +79,7 @@ const Clients = () => {
   }
 
   return (
-    <section>
+    <section className="m-5">
       <PageHeader
         textButton='Adicionar novo cliente'
         handleAdd={() => setAddPopup(true)}

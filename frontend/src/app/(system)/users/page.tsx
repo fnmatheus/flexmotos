@@ -82,7 +82,7 @@ const Users = () => {
   }
 
   return (
-    <section>
+    <section className="m-5">
       <PageHeader
         textButton='Adicionar novo usuário'
         handleAdd={() => setAddPopup(true)}

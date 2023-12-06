@@ -12,7 +12,7 @@ const DashboardTable: React.FC<IDashboardTable> = (
         <table className={dashboardTable}>
           <thead className="border-b border-zinc-400 w-full h-[40px] flex justify-center">
             <tr className="h-full">
-              <th className="font-normal text-xl h-full">{tableTitle}</th>
+              <th className="font-normal text-2xl h-full">{tableTitle}</th>
             </tr>
           </thead>
           <tbody className="flex flex-col gap-2 w-full h-full overflow-scroll overflow-x-hidden my-2">
@@ -20,8 +20,8 @@ const DashboardTable: React.FC<IDashboardTable> = (
               vehicles.map((vehicle) => {
                 const [plate, model] = vehicle;
                 return (
-                  <tr className="grid grid-cols-4 px-4" key={plate}>
-                    <td className="col-span-2 ml-1">
+                  <tr className="grid grid-cols-3 px-4 text-xl" key={plate}>
+                    <td className="ml-1">
                       {model}
                     </td>
                     <td className="flex justify-center">
@@ -30,7 +30,7 @@ const DashboardTable: React.FC<IDashboardTable> = (
                     {
                       hasButton && handleButton &&
                       <td className="flex justify-end mr-1">
-                        <button className="w-max px-1 text-center bg-amber-400 font-semibold text-black rounded-md" onClick={() => handleButton(vehicle)}>
+                        <button className="w-max px-1 text-center bg-amber-400 font-semibold text-black rounded-md border border-amber-400 hover:bg-transparent" onClick={() => handleButton(vehicle)}>
                           {buttonText}
                         </button>
                       </td>
