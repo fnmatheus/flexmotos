@@ -33,10 +33,7 @@ const IPVAsToPay: React.FC<IProps> = ({token}: IProps) => {
       hasPopup
       popup={popup}
       popuptext={`
-        Utilize o RENAVAM para consultar e pagar o IPVA
-        do veículo escolhido no site do DETRAN
-
-        RENAVAM: ${popup[2]}
+        Utilize o RENAVAM para consultar e pagar o IPVA do veículo escolhido no site do DETRAN - RENAVAM: ${popup[2]}
       `}
       handleYes={() => handlePayIPVA(popup)}
       handleNo={() => setPopup([])}
