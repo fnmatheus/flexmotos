@@ -5,3 +5,5 @@ export {default as Users} from './users.svg';
 export {default as Dashboard} from './dashboard.svg';
 export {default as Clients} from './clients.svg';
 export {default as Vehicles} from './vehicles.svg';
+export {default as Agree} from './agree.svg';
+export {default as Decline} from './decline.svg';
