@@ -8,7 +8,7 @@ const systemLayout = ({
 }) => {
   return (
     <section>
-      <div>
+      <div className="flex">
         <Navbar />
         <div>{children}</div>
       </div>

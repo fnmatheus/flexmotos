@@ -4,8 +4,9 @@ import { deleteCookie, getCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { setAxiosToken } from './utils/axios';
-
 import Popup from '../components/popup';
+import { Clients, Dashboard, Fnmatheus, Logout, Users, Vehicles } from '../components/svgs';
+import { navbarSvg } from '../utils/classnames';
 
 const Navbar = () => {
   const [logout, setLogout] = useState(false);
@@ -25,12 +26,28 @@ const Navbar = () => {
   }
 
   return (
-    <section className='flex gap-2'>
-      <button onClick={ () => setLogout(true) }>logout</button>
-      <Link href='/users'>users</Link>
-      <Link href='/dashboard'>dashboard</Link>
-      <Link href='/clients'>clients</Link>
-      <Link href='/vehicles'>vehicles</Link>
+    <section className="flex flex-col gap-2 bg-zinc-900 w-[72px] h-screen justify-center py-2">
+      <div className="flex flex-col items-center h-full justify-around my-22">
+        <button onClick={ () => setLogout(true) }>
+          <Logout className={navbarSvg} />
+        </button>
+        <Link href='/users'>
+          <Users className={navbarSvg} />
+        </Link>
+        <Link href='/dashboard'>
+          <Dashboard className={navbarSvg} />
+        </Link>
+        <Link href='/clients'>
+          <Clients className={navbarSvg} />
+        </Link>
+        <Link href='/vehicles'>
+          <Vehicles className={navbarSvg} />
+        </Link>
+      </div>
+      <div className="flex flex-col items-center text-[10px] gap-2">
+        <Fnmatheus className="text-[15px]" />
+        <p>© fnmatheus</p>
+      </div>
       {
         logout &&
         <Popup
