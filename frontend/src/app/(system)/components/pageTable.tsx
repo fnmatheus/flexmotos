@@ -1,5 +1,5 @@
 import React from 'react';
-import Popup from './popup';
+import Popup from '../../components/popup';
 import { IPageTable } from '../utils/interfaces';
 
 const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, handleRemove, popup, popupText, handleConfirmRemove, handleDeclineRemove, hasDetails, handleDetails, hasRentAndReturn, handleRent, handleReturn}: IPageTable) => {

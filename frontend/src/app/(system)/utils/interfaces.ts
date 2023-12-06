@@ -76,7 +76,7 @@ export interface IDashboardTable {
   hasPopup?: boolean,
   popup?: string[],
   popuptext?: string,
-  handleYes?(): void,
+  handleYes(): void,
   handleNo?(): void
 }
 
