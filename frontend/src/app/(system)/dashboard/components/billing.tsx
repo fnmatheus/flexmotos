@@ -71,8 +71,8 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
       }
       {
         !invalidUser &&
-        <div className="flex flex-col justify-center items-center gap-4">
-          <div className="w-40 h-40">
+        <div className="flex flex-col justify-center items-center gap-4 h-full">
+          <div className="w-60 h-60">
             {
               data &&
               <Doughnut
@@ -80,7 +80,7 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
               />
             }
           </div>
-          <h2 className="font-medium text-xl">{`Meta mensal R$ ${goal}`}</h2>
+          <h2 className="font-medium text-2xl">{`Meta mensal R$ ${goal}`}</h2>
           <div className="w-full flex justify-center">
             <table className="w-1/2">
               <thead>
