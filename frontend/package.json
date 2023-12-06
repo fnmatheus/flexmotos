@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/cookie": "^0.5.4",
     "axios": "^1.6.2",
     "chart.js": "^4.4.0",

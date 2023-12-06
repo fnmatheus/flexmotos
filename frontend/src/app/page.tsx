@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { setCookie } from 'cookies-next';
 import { backendURL } from './(system)/utils/urls';
+import {Flexmotos, Fnmatheus} from './components/svgs';
+import { loginButton, loginInput } from './utils/classnames';
 
 const Home = () => {
   const [incorrectFields, setIncorrectFields] = useState(false);
@@ -34,20 +36,28 @@ const Home = () => {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div>
-        <form className="flex gap-2 text-black" onSubmit={handleSubmit}>
-          <input id="code" type="text" />
-          <input id="username" type="text" />
-          <input id="password" type="password" />
-          <button className="bg-white">Entrar</button>
-          {
-            incorrectFields &&
-            <span className="text-white">
-              ⓘ campos não preenchidos ou incorretos
-            </span>
-          }
-        </form>
+    <main className="flex flex-col justify-between py-4 items-center h-screen w-screen bg-zinc-900">
+      <Flexmotos className="text-[350px] h-[100px]" />
+      <div className="flex flex-col items-center gap-6 w-screen">
+        <h2 className="text-4xl font-bold">Entrar</h2>
+        <div className="flex justify-center items-center bg-zinc-950/70 w-1/3 h-96 rounded-xl">
+          <form className="flex flex-col items-center gap-6 text-black w-1/2" onSubmit={handleSubmit}>
+            <input className={loginInput} id="code" type="text" placeholder="Código" />
+            <input className={loginInput} id="username" type="text" placeholder="Usuário" />
+            <input className={loginInput} id="password" type="password" placeholder="Senha" />
+            <button className={loginButton}>Entrar</button>
+            {
+              incorrectFields &&
+              <span className="text-white">
+                ⓘ campos não preenchidos ou incorretos
+              </span>
+            }
+          </form>
+        </div>
+      </div>
+      <div className="flex gap-2 text-white">
+        <Fnmatheus className="text-[20px]" />
+        <p>© fnmatheus</p>
       </div>
     </main>
   )

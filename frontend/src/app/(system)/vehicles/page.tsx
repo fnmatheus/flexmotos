@@ -8,7 +8,7 @@ import { addVehicle, filterVehicleByStatus, getVehicleDetails, getVehicles, remo
 import VehiclesPopup from './components/vehiclesPopup';
 import { IRent, IVehicle } from '../utils/interfaces';
 import VehicleDetailsPopup from './components/vehicleDetailsPopup';
-import Popup from '../components/popup';
+import Popup from '../../components/popup';
 import RentPopup from './components/rentPopup';
 import ConfirmRentPopup from './components/confirmRentPopup';
 
