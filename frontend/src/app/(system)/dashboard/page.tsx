@@ -19,7 +19,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <section className="grid gap-2">
+    <section className="grid gap-2 grid-cols-2 grid-rows-3">
       <Billing token={token} />
       <Securities token={token} />
       <IPVAsToPay token={token} />

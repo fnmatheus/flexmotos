@@ -64,7 +64,7 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
   }
   
   return (
-    <section>
+    <section className="row-span-2">
       {
         invalidUser && <h2>Usuário sem permissão</h2>
       }
