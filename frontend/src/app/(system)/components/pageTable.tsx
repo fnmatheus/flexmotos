@@ -43,10 +43,10 @@ const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, han
                           Detalhes
                         </button>
                       }
-                      <button onClick={() => handleEdit(item[1])}>
+                      <button className="hover:opacity-50" onClick={() => handleEdit(item[1])}>
                         <Edit />
                       </button>
-                      <button onClick={() => handleRemove([item[1], item[0]])}>
+                      <button className="hover:opacity-50" onClick={() => handleRemove([item[1], item[0]])}>
                         <Decline />
                       </button>
                     </td>
