@@ -31,7 +31,7 @@ const UsersPopup: React.FC<IUsersPopup> = ({title, options, handleYes, handleNo,
   return (
     <div className={popupContainer}>
       <form className="bg-white flex flex-col gap-8 p-5" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-2 text-center text-xl">
+        <div className="flex flex-col text-center text-xl">
           <h2 className="font-semibold">{title}</h2>
           <label className={popupLabel}>
             <span className={popupLabelText}>Usuário</span>
