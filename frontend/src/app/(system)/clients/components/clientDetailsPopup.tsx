@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { IClientDetailsPopup } from '../../utils/interfaces';
 import { clientDownload, getClientDetails } from '../utils/clientsAxios';
-import { popupContainer } from '@/app/utils/classnames';
+import { pageTableButton, pageTableButtonIndigo, popupContainer, popupLabelText } from '@/app/utils/classnames';
+import { Decline } from '@/app/components/svgs';
 
 const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleClose}: IClientDetailsPopup) => {
   const [name, setName] = useState<string>('');
@@ -34,22 +35,38 @@ const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleCl
 
   return (
     <div className={popupContainer}>
-      <div>
-        <div>
-          <button onClick={handleClose}>
-            close
-          </button>
-        </div>
-        <div>
-          <h2>Informações do cliente</h2>
-          <div>
-            <p>{name}</p>
-            <p>{birth}</p>
-            <p>{cpf}</p>
-            <p>{cnh}</p>
-            <p>{phone}</p>
-            <p>{address}</p>
-            <button onClick={() => handleDownload(cpf)}>
+      <div className="bg-white flex flex-col gap-8 p-5 relative">
+        <button className="absolute top-1 right-1 text-xl" onClick={handleClose}>
+          <Decline />
+        </button>
+        <div className="flex flex-col gap-2 text-xl">
+          <h2 className="font-semibold text-center">Informações do cliente</h2>
+          <div className="flex flex-wrap justify-start">
+            <label className="w-full text-left p-1">
+              <span className={popupLabelText}>Nome</span>
+              <p>{name}</p>
+            </label>
+            <label className="w-3/12 text-left p-1">
+              <span className={popupLabelText}>Data de nascimento</span>
+              <p>{birth}</p>
+            </label>
+            <label className="w-3/12 text-left p-1">
+              <span className={popupLabelText}>CPF</span>
+              <p>{cpf}</p>
+            </label>
+            <label className="w-3/12 text-left p-1">
+              <span className={popupLabelText}>CNH</span>
+              <p>{cnh}</p>
+            </label>
+            <label className="w-3/12 text-left p-1">
+              <span className={popupLabelText}>Telefone</span>
+              <p>{phone}</p>
+            </label>
+            <label className="w-full text-left p-1">
+              <span className={popupLabelText}>Endereço</span>
+              <p>{address}</p>
+            </label>
+            <button className="text-center p-1 border rounded-md text-xl bg-indigo-700 text-white border-indigo-700 hover:bg-transparent hover:text-indigo-700" onClick={() => handleDownload(cpf)}>
               Baixar comprovante
             </button>
           </div>
