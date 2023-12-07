@@ -9,13 +9,13 @@ const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, han
     <div className="w-full h-full border rounded-md border-zinc-400">
       <table className="h-full w-full text-xl text-zinc-600">
         <thead className="w-full border-b border-zinc-400">
-          <tr className="grid grid-cols-5 w-full p-1">
+          <tr className="grid grid-cols-5 w-[99%] p-1">
             {
-              tableHeads.map((text) => <th key={text}>{text}</th>)
+              tableHeads.map((text) => <th className="text-center" key={text}>{text}</th>)
             }
           </tr>
         </thead>
-        <tbody className="flex flex-col gap-1 p-2 h-full overscroll-y-contain">
+        <tbody className="flex flex-col gap-1 p-4 h-full overflow-scroll overflow-x-hidden">
           {
             tableBody.map((item) => {
               return (
