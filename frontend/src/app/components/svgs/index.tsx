@@ -7,3 +7,5 @@ export {default as Clients} from './clients.svg';
 export {default as Vehicles} from './vehicles.svg';
 export {default as Agree} from './agree.svg';
 export {default as Decline} from './decline.svg';
+export {default as Search} from './search.svg';
+export {default as Edit} from './edit.svg';

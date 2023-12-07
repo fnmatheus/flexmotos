@@ -28,19 +28,19 @@ const Navbar = () => {
   return (
     <section className="flex flex-col gap-2 bg-zinc-900 w-[72px] h-screen justify-center py-2">
       <div className="flex flex-col items-center h-full justify-around my-22">
-        <button onClick={ () => setLogout(true) }>
+        <button className="hover:opacity-50" onClick={ () => setLogout(true) }>
           <Logout className={navbarSvg} />
         </button>
-        <Link href='/users'>
+        <Link className="hover:opacity-50" href="/users">
           <Users className={navbarSvg} />
         </Link>
-        <Link href='/dashboard'>
+        <Link className="hover:opacity-50" href="/dashboard">
           <Dashboard className={navbarSvg} />
         </Link>
-        <Link href='/clients'>
+        <Link className="hover:opacity-50" href="/clients">
           <Clients className={navbarSvg} />
         </Link>
-        <Link href='/vehicles'>
+        <Link className="hover:opacity-50" href="/vehicles">
           <Vehicles className={navbarSvg} />
         </Link>
       </div>

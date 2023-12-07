@@ -10,7 +10,7 @@ const systemLayout = ({
     <section>
       <div className="flex">
         <Navbar />
-        <div className="bg-zinc-100 w-full text-black">{children}</div>
+        <div className="bg-zinc-100 w-full h-screen text-black">{children}</div>
       </div>
     </section>
   )

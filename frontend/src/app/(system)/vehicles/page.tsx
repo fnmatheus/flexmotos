@@ -103,7 +103,7 @@ const Vehicles = () => {
   }
 
   return (
-    <section>
+    <section className="flex flex-col p-5 h-full">
       <PageHeader
         textButton="Adicionar novo veículo"
         handleAdd={() => setAddPopup(true)}

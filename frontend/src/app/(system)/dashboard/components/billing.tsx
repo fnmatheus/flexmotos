@@ -46,8 +46,8 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
         datasets: [{
           label: 'Meta mensal',
           data: [remainder, Number(daylyBilling), Number(monthlyBilling)],
-          backgroundColor: ['#E4E4E7', '#4338CA', '#84CC16'],
-          borderColor: ['#E4E4E7', '#4338CA', '#84CC16'],
+          backgroundColor: ['#E4E4E7', '#4338CA', '#40B649'],
+          borderColor: ['#E4E4E7', '#4338CA', '#40B649'],
         }],
       });
     }
@@ -71,8 +71,8 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
       }
       {
         !invalidUser &&
-        <div className="flex flex-col justify-center items-center gap-4">
-          <div className="w-40 h-40">
+        <div className="flex flex-col justify-center items-center gap-4 h-full">
+          <div className="w-60 h-60">
             {
               data &&
               <Doughnut
@@ -80,7 +80,7 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
               />
             }
           </div>
-          <h2 className="font-medium text-xl">{`Meta mensal R$ ${goal}`}</h2>
+          <h2 className="font-medium text-2xl">{`Meta mensal R$ ${goal}`}</h2>
           <div className="w-full flex justify-center">
             <table className="w-1/2">
               <thead>
@@ -98,10 +98,10 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
             </table>
           </div>
           <div className="flex w-full justify-around items-center">
-            <button className={`${billingButton} bg-indigo-700 text-white`} onClick={() => setBillingPopup(true)}>
+            <button className={`${billingButton} bg-indigo-700 text-white border border-indigo-700 hover:bg-transparent hover:text-indigo-700`} onClick={() => setBillingPopup(true)}>
               Faturamento anual
             </button>
-            <button className={`${billingButton} bg-lime-500 text-white`} onClick={() => setGoalPopup(true)}>
+            <button className={`${billingButton} bg-flex-green text-white border border-flex-green hover:bg-transparent hover:text-flex-green`} onClick={() => setGoalPopup(true)}>
               Definir meta mensal
             </button>
           </div>
