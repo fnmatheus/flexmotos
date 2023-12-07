@@ -3,6 +3,7 @@ import { IRentPopup } from '../../utils/interfaces';
 import { getClients } from '../../clients/utils/clientsAxios';
 import { securityOptions } from '../utils/variables';
 import dateDifference from '../../utils/dateDifference';
+import { popupContainer } from '@/app/utils/classnames';
 
 const RentPopup: React.FC<IRentPopup> = ({ plate, handleNo, handleYes }: IRentPopup) => {
   const [clients, setClients] = useState<string[][]>([]);
@@ -59,7 +60,7 @@ const RentPopup: React.FC<IRentPopup> = ({ plate, handleNo, handleYes }: IRentPo
   }
 
   return (
-    <div>
+    <div className={popupContainer}>
       <form onSubmit={handleSubmit}>
         <h2>{`Alugar o veículo ${plate}`}</h2>
         <div className="flex gap-2 flex-wrap text-black">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { IClientsPopup } from '../../utils/interfaces';
+import { popupContainer } from '@/app/utils/classnames';
 
 const ClientsPopup: React.FC<IClientsPopup> = (
   {title, handleYes, handleNo, clientName, clientBirth, clientCPF, clientCNH, clientPhone, clientAdress, editMode}: IClientsPopup
@@ -54,7 +55,7 @@ const ClientsPopup: React.FC<IClientsPopup> = (
   }
 
   return (
-    <div>
+    <div className={popupContainer}>
       <form onSubmit={formsSubmit}>
         <h2>{title}</h2>
         <div className="flex gap-2 text-black flex-wrap">

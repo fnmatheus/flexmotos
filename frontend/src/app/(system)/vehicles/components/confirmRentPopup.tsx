@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { IConfirmRent } from '../../utils/interfaces';
 import { getVehicleDetails } from '../utils/vehiclesAxios';
 import dateDifference from '../../utils/dateDifference';
+import { popupContainer } from '@/app/utils/classnames';
 
 const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate, returnDate, security, handleYes, handleNo}: IConfirmRent) => {
   const [hasSecurity, setHasSecurity] = useState<boolean>(true);
@@ -40,7 +41,7 @@ const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate,
   }
 
   return (
-    <div>
+    <div className={popupContainer}>
       <form onSubmit={handleSubmit}>
         <h2>{`Alugar o veículo ${plate}`}</h2>
         <div className="flex gap-2">

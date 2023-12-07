@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IClientDetailsPopup } from '../../utils/interfaces';
 import { clientDownload, getClientDetails } from '../utils/clientsAxios';
+import { popupContainer } from '@/app/utils/classnames';
 
 const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleClose}: IClientDetailsPopup) => {
   const [name, setName] = useState<string>('');
@@ -32,7 +33,7 @@ const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleCl
   }
 
   return (
-    <div>
+    <div className={popupContainer}>
       <div>
         <div>
           <button onClick={handleClose}>

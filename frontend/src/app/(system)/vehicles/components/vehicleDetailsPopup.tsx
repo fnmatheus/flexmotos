@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IVehicleDetailsPopup } from '../../utils/interfaces';
 import { getVehicleDetails } from '../utils/vehiclesAxios';
+import { popupContainer } from '@/app/utils/classnames';
 
 const VehicleDetailsPopup: React.FC<IVehicleDetailsPopup> = ({plate, handleClose}: IVehicleDetailsPopup) => {
   const [category, setCategory] = useState<string>('');
@@ -40,7 +41,7 @@ const VehicleDetailsPopup: React.FC<IVehicleDetailsPopup> = ({plate, handleClose
   }, [plate]);
 
   return (
-    <div>
+    <div className={popupContainer}>
       <div>
         <div>
           <button onClick={handleClose}>

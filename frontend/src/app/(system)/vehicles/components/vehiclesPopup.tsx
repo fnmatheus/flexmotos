@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IVehiclesPopup } from '../../utils/interfaces';
 import { categories, ipvaOptions } from '../utils/variables';
+import { popupContainer } from '@/app/utils/classnames';
 
 const VehiclesPopup: React.FC<IVehiclesPopup> = (
   {title, handleYes, handleNo, vehicleCategory, vehicleModel, vehicleYear, vehiclePlate, vehicleRenavam, vehicleIpva, vehicleMileage, vehiclSecuriteValue, vehicleRentValue, editMode}: IVehiclesPopup
@@ -66,7 +67,7 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
   }
 
   return (
-    <div>
+    <div className={popupContainer}>
       <form onSubmit={handleSubmit}>
         <h2>{title}</h2>
         <div className="flex gap-2 flex-wrap text-black">
