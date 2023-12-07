@@ -24,18 +24,20 @@ const Securities: React.FC<IProps> = ({token}: IProps) => {
   }
 
   return (
-    <DashboardTable
-      tableTitle='Cauções'
-      vehicles={vehicles}
-      hasButton
-      buttonText='DEVOLVER'
-      handleButton={(vehicle) => setPopup(vehicle)}
-      hasPopup
-      popup={popup}
-      popuptext={`Confirmar devolução do calção de ${popup[2]} com o veículo de placa ${popup[3]}?`}
-      handleYes={() => handleReturn(popup)}
-      handleNo={() => setPopup([])}
-    />
+    <div className="h-1/3">
+      <DashboardTable
+        tableTitle='Cauções'
+        vehicles={vehicles}
+        hasButton
+        buttonText='DEVOLVER'
+        handleButton={(vehicle) => setPopup(vehicle)}
+        hasPopup
+        popup={popup}
+        popuptext={`Confirmar devolução do calção de ${popup[2]} com o veículo de placa ${popup[3]}?`}
+        handleYes={() => handleReturn(popup)}
+        handleNo={() => setPopup([])}
+      />
+    </div>
   );
 }
 

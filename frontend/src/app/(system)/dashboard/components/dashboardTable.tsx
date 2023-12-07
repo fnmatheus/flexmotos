@@ -1,44 +1,53 @@
 import React from 'react';
 import Popup from '../../../components/popup';
 import { IDashboardTable } from '../../utils/interfaces';
+import { dashboardTable } from '@/app/utils/classnames';
 
 const DashboardTable: React.FC<IDashboardTable> = (
   {tableTitle, vehicles, hasButton, buttonText, handleButton, hasThirdText, hasPopup, popup, popuptext, handleYes, handleNo}: IDashboardTable
 ) => {
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>{tableTitle}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            vehicles.map((vehicle) => {
-              const [plate, model] = vehicle;
-              return (
-                <tr key={plate}>
-                  <td className="flex gap-2">
-                    <p>{model}</p>
-                    <p>{plate}</p>
+    <div className="w-full h-full p-1">
+      <div className="w-full h-full">
+        <table className={dashboardTable}>
+          <thead className="border-b border-zinc-400 w-full h-[40px] flex justify-center">
+            <tr className="h-full">
+              <th className="font-normal text-xl h-full">{tableTitle}</th>
+            </tr>
+          </thead>
+          <tbody className="flex flex-col gap-2 w-full h-full overflow-scroll overflow-x-hidden my-2">
+            {
+              vehicles.map((vehicle) => {
+                const [plate, model] = vehicle;
+                return (
+                  <tr className="grid grid-cols-4 px-4" key={plate}>
+                    <td className="col-span-2 ml-1">
+                      {model}
+                    </td>
+                    <td className="flex justify-center">
+                      {plate}
+                    </td>
                     {
                       hasButton && handleButton &&
-                      <button onClick={() => handleButton(vehicle)}>
-                        {buttonText}
-                      </button>
+                      <td className="flex justify-end mr-1">
+                        <button className="w-max px-1 text-center bg-amber-400 font-semibold text-black rounded-md" onClick={() => handleButton(vehicle)}>
+                          {buttonText}
+                        </button>
+                      </td>
                     }
                     {
                       hasThirdText &&
-                      <p>{vehicle[2]}</p>
+                      <td className="flex justify-end mr-1">
+                        {vehicle[2]}
+                      </td>
                     }
-                  </td>
-                </tr>
-              );
-            })
-          }
-        </tbody>
-      </table>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </div>
       {
         hasPopup && popup && popup.length > 0 &&
         <Popup

@@ -24,20 +24,22 @@ const IPVAsToPay: React.FC<IProps> = ({token}: IProps) => {
   }
 
   return (
-    <DashboardTable
-      tableTitle='IPVAs à pagar'
-      vehicles={vehicles}
-      hasButton
-      buttonText='PAGAR'
-      handleButton={(vehicle) => setPopup(vehicle)}
-      hasPopup
-      popup={popup}
-      popuptext={`
-        Utilize o RENAVAM para consultar e pagar o IPVA do veículo escolhido no site do DETRAN - RENAVAM: ${popup[2]}
-      `}
-      handleYes={() => handlePayIPVA(popup)}
-      handleNo={() => setPopup([])}
-    />
+    <div className="h-1/3">
+      <DashboardTable
+        tableTitle='IPVAs à pagar'
+        vehicles={vehicles}
+        hasButton
+        buttonText='PAGAR'
+        handleButton={(vehicle) => setPopup(vehicle)}
+        hasPopup
+        popup={popup}
+        popuptext={`
+          Utilize o RENAVAM para consultar e pagar o IPVA do veículo escolhido no site do DETRAN - RENAVAM: ${popup[2]}
+        `}
+        handleYes={() => handlePayIPVA(popup)}
+        handleNo={() => setPopup([])}
+      />
+    </div>
   );
 }
 

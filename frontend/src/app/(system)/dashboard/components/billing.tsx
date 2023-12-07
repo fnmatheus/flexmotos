@@ -6,6 +6,7 @@ import { getData, setGoalData } from '../utils/systemAxios';
 import Popup from '../../../components/popup';
 import YearlyBilling from './yearlyBilling';
 import { IProps, IDoughnut } from '../../utils/interfaces';
+import { billingButton, billingTable } from '@/app/utils/classnames';
 
 Chart.register(ArcElement, Tooltip);
 
@@ -45,8 +46,8 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
         datasets: [{
           label: 'Meta mensal',
           data: [remainder, Number(daylyBilling), Number(monthlyBilling)],
-          backgroundColor: ['#EBEBEB', '#0745A0', '#40B649'],
-          borderColor: ['#EBEBEB', '#0745A0', '#40B649'],
+          backgroundColor: ['#E4E4E7', '#4338CA', '#84CC16'],
+          borderColor: ['#E4E4E7', '#4338CA', '#84CC16'],
         }],
       });
     }
@@ -64,14 +65,14 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
   }
   
   return (
-    <section>
+    <section className="h-2/3">
       {
         invalidUser && <h2>Usuário sem permissão</h2>
       }
       {
         !invalidUser &&
-        <div>
-          <div className='w-20 h-20'>
+        <div className="flex flex-col justify-center items-center gap-4">
+          <div className="w-40 h-40">
             {
               data &&
               <Doughnut
@@ -79,28 +80,28 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
               />
             }
           </div>
-          <h2>{`Meta mensal R$ ${goal}`}</h2>
-          <div>
-            <table>
+          <h2 className="font-medium text-xl">{`Meta mensal R$ ${goal}`}</h2>
+          <div className="w-full flex justify-center">
+            <table className="w-1/2">
               <thead>
                 <tr>
-                  <th>Hoje</th>
-                  <th>Esse mês</th>
+                  <th className={billingTable}>Hoje</th>
+                  <th className={billingTable}>Esse mês</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>{`R$ ${daylyBilling}`}</td>
-                  <td>{`R$ ${monthlyBilling}`}</td>
+                  <td className={billingTable}>{`R$ ${daylyBilling}`}</td>
+                  <td className={billingTable}>{`R$ ${monthlyBilling}`}</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div className="flex gap-2">
-            <button onClick={() => setBillingPopup(true)}>
+          <div className="flex w-full justify-around items-center">
+            <button className={`${billingButton} bg-indigo-700 text-white`} onClick={() => setBillingPopup(true)}>
               Faturamento anual
             </button>
-            <button onClick={() => setGoalPopup(true)}>
+            <button className={`${billingButton} bg-lime-500 text-white`} onClick={() => setGoalPopup(true)}>
               Definir meta mensal
             </button>
           </div>
