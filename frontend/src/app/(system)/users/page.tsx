@@ -82,7 +82,7 @@ const Users = () => {
   }
 
   return (
-    <section className="m-5">
+    <section className="flex flex-col p-5 h-full">
       <PageHeader
         textButton='Adicionar novo usuário'
         handleAdd={() => setAddPopup(true)}

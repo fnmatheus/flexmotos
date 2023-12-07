@@ -1,51 +1,53 @@
 import React from 'react';
 import Popup from '../../components/popup';
 import { IPageTable } from '../utils/interfaces';
+import { Decline, Edit } from '@/app/components/svgs';
+import { pageTableButton, pageTableButtonIndigo } from '@/app/utils/classnames';
 
 const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, handleRemove, popup, popupText, handleConfirmRemove, handleDeclineRemove, hasDetails, handleDetails, hasRentAndReturn, handleRent, handleReturn}: IPageTable) => {
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
+    <div className="w-full h-full border rounded-md border-zinc-400">
+      <table className="h-full w-full text-xl text-zinc-600">
+        <thead className="w-full border-b border-zinc-400">
+          <tr className="grid grid-cols-5 w-full p-1">
             {
               tableHeads.map((text) => <th key={text}>{text}</th>)
             }
           </tr>
         </thead>
-        <tbody>
+        <tbody className="flex flex-col gap-1 p-2 h-full overscroll-y-contain">
           {
             tableBody.map((item) => {
               return (
-                <tr key={item[1]}>
+                <tr className="grid grid-cols-5 w-full" key={item[1]}>
                   <td>{item[0]}</td>
-                  <td>{item[1]}</td>
-                  <td>{item[2]}</td>
-                  <td>{item[3]}</td>
+                  <td className="text-center">{item[1]}</td>
+                  <td className="text-center">{item[2]}</td>
+                  <td className="text-center">{item[3]}</td>
                   {
                     item[2] !== 'super' &&
-                    <td className="flex gap-2">
+                    <td className="flex justify-end gap-2">
                       {
                         hasRentAndReturn && handleRent && handleReturn &&
                         ((item[3] !== 'Alugado')
-                          ? <button onClick={() => handleRent(item[1])}>
+                          ? <button className={`${pageTableButton} ${pageTableButtonIndigo}`} onClick={() => handleRent(item[1])}>
                             Alugar
                           </button>
-                          : <button onClick={() => handleReturn(item[1])}>
+                          : <button className={`${pageTableButton} bg-amber-400 border-amber-400 text-black hover:bg-transparent hover:text-amber-400`} onClick={() => handleReturn(item[1])}>
                             Devolver
                           </button>)
                       }
                       {
                         hasDetails && handleDetails &&
-                        <button onClick={() => handleDetails(item[1])}>
+                        <button className={`${pageTableButton} ${pageTableButtonIndigo}`} onClick={() => handleDetails(item[1])}>
                           Detalhes
                         </button>
                       }
                       <button onClick={() => handleEdit(item[1])}>
-                        edit
+                        <Edit />
                       </button>
                       <button onClick={() => handleRemove([item[1], item[0]])}>
-                        remove
+                        <Decline />
                       </button>
                     </td>
                   }

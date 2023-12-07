@@ -19,7 +19,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <section className="flex flex-col flex-wrap h-screen w-full p-10 gap-0">
+    <section className="flex flex-col flex-wrap h-screen w-full p-5 gap-0">
       <Billing token={token} />
       <Securities token={token} />
       <IPVAsToPay token={token} />
