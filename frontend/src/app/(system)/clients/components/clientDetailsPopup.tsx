@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IClientDetailsPopup } from '../../utils/interfaces';
 import { clientDownload, getClientDetails } from '../utils/clientsAxios';
-import { pageTableButton, pageTableButtonIndigo, popupContainer, popupLabelText } from '@/app/utils/classnames';
+import { clientsDetailsTable, popupContainer, popupLabelText } from '@/app/utils/classnames';
 import { Decline } from '@/app/components/svgs';
 
 const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleClose}: IClientDetailsPopup) => {
@@ -70,44 +70,40 @@ const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleCl
               Baixar comprovante
             </button>
           </div>
-          <div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Histórico de aluguel</th>
+          <div className="flex h-48">
+            <table className={`${clientsDetailsTable} w-2/3`}>
+              <thead className="border-b border-zinc-400 w-full h-[40px] flex justify-center">
+                <tr className="h-full">
+                  <th className="font-normal text-2xl h-full">Histórico de aluguel</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="flex flex-col gap-2 w-full h-full overflow-scroll overflow-x-hidden my-2">
                 {
                   history.map((item) => {
                     const [model, plate, rentalDate] = item;
-                    return (<tr key={plate}>
-                      <td className="flex gap-2">
-                        <p>{model}</p>
-                        <p>{plate}</p>
-                        <p>{rentalDate}</p>
-                      </td>
+                    return (<tr className="grid grid-cols-3 px-2" key={plate}>
+                      <td>{model}</td>
+                      <td className="text-center">{plate}</td>
+                      <td className="text-end">{rentalDate}</td>
                     </tr>);
                   })
                 }
               </tbody>
             </table>
-            <table>
-              <thead>
-                <tr>
-                  <th>Cauções</th>
+            <table className={`${clientsDetailsTable} w-1/3`}>
+              <thead className="border-b border-zinc-400 w-full h-[40px] flex justify-center">
+                <tr className="h-full">
+                  <th className="font-normal text-2xl h-full">Cauções</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="flex flex-col gap-2 w-full h-full overflow-scroll overflow-x-hidden my-2">
                 {
                   securities.map((securitie) => {
                     const [plate, value] = securitie;
                     const securitieValue = `R$ ${Number(value).toFixed(2)}`
-                    return (<tr key={plate}>
-                      <td className="flex gap-2">
-                        <p>{plate}</p>
-                        <p>{securitieValue}</p>
-                      </td>
+                    return (<tr className="grid grid-cols-2 px-2" key={plate}>
+                      <td>{plate}</td>
+                      <td className="text-end">{securitieValue}</td>
                     </tr>);
                   })
                 }

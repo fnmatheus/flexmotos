@@ -11,3 +11,4 @@ export const popupButtons = 'flex gap-4 text-2xl justify-center';
 export const popupInput = 'bg-transparent border-solid border border-black rounded-md text-black h-8 pl-2 w-full p-1';
 export const popupLabel = 'flex flex-col items-start p-1';
 export const popupLabelText = 'text-sm font-semibold';
+export const clientsDetailsTable = 'border border-zinc-400 rounded-md text-zinc-600 flex flex-col justify-start items-center h-full m-1';
