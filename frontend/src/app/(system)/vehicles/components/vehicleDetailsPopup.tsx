@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { IVehicleDetailsPopup } from '../../utils/interfaces';
 import { getVehicleDetails } from '../utils/vehiclesAxios';
-import { popupContainer } from '@/app/utils/classnames';
+import { hoverPopupButtons, popupContainer, popupLabelText } from '@/app/utils/classnames';
+import { Decline } from '@/app/components/svgs';
 
 const VehicleDetailsPopup: React.FC<IVehicleDetailsPopup> = ({plate, handleClose}: IVehicleDetailsPopup) => {
   const [category, setCategory] = useState<string>('');
@@ -42,28 +43,69 @@ const VehicleDetailsPopup: React.FC<IVehicleDetailsPopup> = ({plate, handleClose
 
   return (
     <div className={popupContainer}>
-      <div>
-        <div>
-          <button onClick={handleClose}>
-            close
-          </button>
-        </div>
-        <div>
-          <h2>Informações do veículo</h2>
-          <div>
-            <p>{category}</p>
-            <p>{model}</p>
-            <p>{year}</p>
-            <p>{renavam}</p>
-            <p>{ipva}</p>
-            <p>{mileage}</p>
-            <p>{status}</p>
-            <p>{client}</p>
-            <p>{rentalDate}</p>
-            <p>{returnDate}</p>
-            <p>{securityValue}</p>
-            <p>{rentValue}</p>
-            <p>{amount}</p>
+      <div className="bg-white flex flex-col gap-8 p-5 relative w-5/12">
+        <button className={`${hoverPopupButtons} absolute top-1 right-1 text-xl`} onClick={handleClose}>
+          <Decline />
+        </button>
+        <div className="flex flex-col gap-2 text-xl items-center">
+          <h2 className="font-semibold">Informações do veículo</h2>
+          <div className="flex flex-wrap justify-start">
+            <label className="w-1/12 text-left p-1">
+              <span className={popupLabelText}>Categoria</span>
+              <p>{category}</p>
+            </label>
+            <label className="w-6/12 text-left p-1">
+              <span className={popupLabelText}>Modelo</span>
+              <p>{model}</p>
+            </label>
+            <label className="w-5/12 text-left p-1">
+              <span className={popupLabelText}>Ano</span>
+              <p>{year}</p>
+            </label>
+            <label className="w-2/12 text-left p-1">
+              <span className={popupLabelText}>Placa</span>
+              <p>{plate}</p>
+            </label>
+            <label className="w-2/12 text-left p-1">
+              <span className={popupLabelText}>RENAVAM</span>
+              <p>{renavam}</p>
+            </label>
+            <label className="w-2/12 text-left p-1">
+              <span className={popupLabelText}>IPVA</span>
+              <p>{ipva}</p>
+            </label>
+            <label className="w-6/12 text-left p-1">
+              <span className={popupLabelText}>Quilometragem</span>
+              <p>{mileage}</p>
+            </label>
+            <label className="w-2/12 text-left p-1">
+              <span className={popupLabelText}>Status</span>
+              <p>{status}</p>
+            </label>
+            <label className="w-6/12 text-left p-1">
+              <span className={popupLabelText}>Cliente alugando</span>
+              <p>{client}</p>
+            </label>
+            <label className="w-2/12 text-left p-1">
+              <span className={popupLabelText}>Alugado em</span>
+              <p>{rentalDate}</p>
+            </label>
+            <label className="w-2/12 text-left p-1">
+              <span className={popupLabelText}>Alugado até</span>
+              <p>{returnDate}</p>
+            </label>
+            <label className="w-2/12 text-left p-1">
+              <span className={popupLabelText}>Valor do caução</span>
+              <p>{securityValue}</p>
+            </label>
+            <label className="w-2/12 text-left p-1">
+              <span className={popupLabelText}>Valor do aluguel</span>
+              <p>{rentValue}</p>
+            </label>
+            <label className="text-left p-1">
+              <span className={popupLabelText}>Valor arrecadado mensal</span>
+              <p>{amount}</p>
+            </label>
           </div>
         </div>
       </div>
