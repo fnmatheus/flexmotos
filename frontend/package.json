@@ -11,6 +11,7 @@
   "dependencies": {
     "@svgr/webpack": "^8.1.0",
     "@types/cookie": "^0.5.4",
+    "@types/pdfmake": "^0.2.8",
     "axios": "^1.6.2",
     "chart.js": "^4.4.0",
     "cookie": "^0.6.0",
@@ -18,6 +19,7 @@
     "framer-motion": "^10.16.16",
     "jsonwebtoken": "^9.0.2",
     "next": "14.0.2",
+    "pdfmake": "^0.2.8",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18"

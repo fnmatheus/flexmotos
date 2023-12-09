@@ -11,6 +11,7 @@ import VehicleDetailsPopup from './components/vehicleDetailsPopup';
 import Popup from '../../components/popup';
 import RentPopup from './components/rentPopup';
 import ConfirmRentPopup from './components/confirmRentPopup';
+import createPdf from './utils/pdf';
 
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState<string[][]>([]);
@@ -95,6 +96,7 @@ const Vehicles = () => {
   async function handleConfirmRentSubmit(info: IRent) {
     const newVehicles = await rentVehicle(info);
     if (newVehicles) {
+      createPdf();
       setVehicles(newVehicles);
       setConfirmRentPopup(null);
       return;
