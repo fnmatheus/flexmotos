@@ -1,5 +1,6 @@
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { Alignment, ContentImage } from 'pdfmake/interfaces';
 
 const toDataURL = async (url: string) => {
   const blob = await (await fetch(url)).blob();
@@ -16,19 +17,18 @@ export default async function createPdf() {
   const logo = await toDataURL('https://64.media.tumblr.com/9fc89b0950dec4ead278a4d03f611c04/81cc08bfff95d123-82/s2048x3072/3b372b5a166f8e18e9ada3d80c092e19ac708906.pnj');
   
   const docDefinitions = {
-    defaultStyle: { font: 'Roboto' },
     content: [
       {
         image: logo,
         width: 300,
         alignment: 'center',
-      },
+      } as ContentImage,
       {
         text: '\n\nCONTRATO DE LOCAÇÃO DE VEÍCULO N. 2023/101\n\n',
         style: 'header'
       },
       {
-        text: [{text: 'FLEX MOTOS', bold: true},', pessoa juridica de direito privado, inscrita no CNPJ nº 47.463.143/0001- 01, estabelecida na rua Eduardo Magalhães, nº 200, Bairro Centro, no municipio de São João del Rei/MG, CEP 36307-340, neste ato representado por seu sócio- administrador, nos termos do contrato social da, doravante designado LOCADORA; e,\n\n', {text: 'Rafael Oliveira Santos', bold: true}, ', brasileiro, solteiro, representante comercial, CPF 101.565.766- 43, RG MG16292265, residente e domiciliado à Rua BN, nº 120 B, Bairro Bomfim, CEP 36307-476 São João Del Rei/MG, ', {text:'telefone com WhatsApp п.(32) 99934-9993 e e-mail', color: 'red'} ,' doravante designado LOCATÁRIO.\n\n As PARTES têm entre si, justo e contratado, o presente contrato de locação de veículo, ficando desde já pactuado o aceite dos termos e condições descritos abaixo, nos moldes do artigo 104 e 425 do código civil brasileiro.\n\n']
+        text: [{text: 'FLEX MOTOS', bold: true},', pessoa juridica de direito privado, inscrita no CNPJ nº 47.463.143/0001- 01, estabelecida na rua Eduardo Magalhães, nº 200, Bairro Centro, no municipio de São João del Rei/MG, CEP 36307-340, neste ato representado por seu sócio- administrador, nos termos do contrato social da, doravante designado LOCADORA; e,\n\n', {text: 'Rafael Oliveira Santos', bold: true}, ', brasileiro, solteiro, representante comercial, CPF 101.565.766- 43, RG MG16292265, residente e domiciliado à Rua BN, nº 120 B, Bairro Bomfim, CEP 36307-476 São João Del Rei/MG, ', {text:'telefone com WhatsApp п.(32) 99934-9993 e e-mail', color: 'red '} ,' doravante designado LOCATÁRIO.\n\n As PARTES têm entre si, justo e contratado, o presente contrato de locação de veículo, ficando desde já pactuado o aceite dos termos e condições descritos abaixo, nos moldes do artigo 104 e 425 do código civil brasileiro.\n\n']
       },
       {
         text: 'Cláusula primeira - DO OBJETO\n\n',
@@ -88,15 +88,16 @@ export default async function createPdf() {
         text: 'São João del Rei, 5 de dezembro de 2023.\n\n\n\n________________________________\nFLEX MOTOS\n\n\n________________________________\nLOCATÁRIO',
         style: {
           bold: true,
-          alignment: 'center',
+          alignment: 'center' as Alignment,
         }
       }
     ],
+    defaultStyle: { font: 'Roboto' },
     styles: {
       header: {
         fontSize: 18,
         bold: true,
-        alignment: 'center',
+        alignment: 'center' as Alignment,
       },
       subheader: {
         fontSize: 15,
