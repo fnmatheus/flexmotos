@@ -46,7 +46,7 @@ const loadingCircleTransition = {
 const Loading = () => {
   return (
     <div>
-      <div className="fixed  w-full min-h-screen z-50 bg-black opacity-30" />
+      <div className="fixed  w-full min-h-screen z-50" />
       <div className="flex fixed w-full justify-center items-center h-screen">
         <motion.div
           style={loadingContainer}
