@@ -19,7 +19,7 @@ const Popup: React.FC<IPopup> = ({title, handleYes, handleNo, hasText, text, has
   }
 
   return (
-    <div className={popupContainer}>
+    <div className={`${popupContainer} z-10`}>
       <form className="flex flex-col gap-4 items-center bg-white text-black p-5" onSubmit={handleSubmit}>
         { title && <h2 className="font-bold text-xl">{title}</h2> }
         { hasText && <p>{text}</p> }
