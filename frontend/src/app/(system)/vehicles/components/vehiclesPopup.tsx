@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { IVehiclesPopup } from '../../utils/interfaces';
 import { categories, ipvaOptions } from '../utils/variables';
+import { hoverPopupButtons, popupButtons, popupContainer, popupInput, popupLabel, popupLabelText } from '@/app/utils/classnames';
+import { Agree, Decline } from '@/app/components/svgs';
 
 const VehiclesPopup: React.FC<IVehiclesPopup> = (
   {title, handleYes, handleNo, vehicleCategory, vehicleModel, vehicleYear, vehiclePlate, vehicleRenavam, vehicleIpva, vehicleMileage, vehiclSecuriteValue, vehicleRentValue, editMode}: IVehiclesPopup
@@ -66,45 +68,72 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h2>{title}</h2>
-        <div className="flex gap-2 flex-wrap text-black">
-          <select onChange={handleCategory} value={category} required>
-            {
-              categories.map((item) =>
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              )
-            }
-          </select>
-          <input onChange={handleModel} type="text" value={model} required />
-          <input onChange={handleYear} type="text" value={year} required pattern="\d\d\d\d/\d\d" />
-          <input onChange={handlePlate} type="text" value={plate} required pattern="[A-Z0-9]{7}" readOnly={editMode} />
-          <input onChange={handleRENAVAM} type="text" value={renavam} required pattern="\d+" />
-          <select onChange={handleIPVA} value={ipva} required>
-            {
-              ipvaOptions.map((item) =>
-                <option key={item[0]} value={item[1]}>
-                  {item[0]}
-                </option>
-              )
-            }
-          </select>
-          <input onChange={handleMileage} type="text" value={mileage} required pattern="\d+.\d\d" />
-          <input onChange={handleSecuritieValue} type="text" value={securityValue} required pattern="\d+.\d\d" />
-          <input onChange={handleRentValue} type="text" value={rentValue} required pattern="\d+.\d\d" />
+    <div className={popupContainer}>
+      <form className="bg-white flex flex-col gap-8 p-5 w-2/3 text-xl" onSubmit={handleSubmit}>
+        <h2 className="font-semibold text-center">{title}</h2>
+        <div className="flex flex-wrap text-black w-full">
+          <label className={`${popupLabel} w-2/12`}>
+            <span className={popupLabelText}>Categoria</span>
+            <select className={popupInput} onChange={handleCategory} value={category} required>
+              {
+                categories.map((item) =>
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                )
+              }
+            </select>
+          </label>
+          <label className={`${popupLabel} w-3/12`}>
+            <span className={popupLabelText}>Modelo</span>
+            <input className={popupInput} onChange={handleModel} type="text" value={model} required />
+          </label>
+          <label className={`${popupLabel} w-2/12`}>
+            <span className={popupLabelText}>Ano</span>
+            <input className={popupInput} onChange={handleYear} type="text" value={year} required pattern="\d\d\d\d/\d\d" />
+          </label>
+          <label className={`${popupLabel} w-2/12`}>
+            <span className={popupLabelText}>Placa</span>
+            <input className={popupInput} onChange={handlePlate} type="text" value={plate} required pattern="[A-Z0-9]{7}" disabled={editMode} />
+          </label>
+          <label className={`${popupLabel} w-3/12`}>
+            <span className={popupLabelText}>RENAVAM</span>
+            <input className={popupInput} onChange={handleRENAVAM} type="text" value={renavam} required pattern="\d+" />
+          </label>
+          <label className={`${popupLabel} w-2/12`}>
+            <span className={popupLabelText}>IPVA</span>
+            <select className={popupInput} onChange={handleIPVA} value={ipva} required>
+              {
+                ipvaOptions.map((item) =>
+                  <option key={item[0]} value={item[1]}>
+                    {item[0]}
+                  </option>
+                )
+              }
+            </select>
+          </label>
+          <label className={`${popupLabel} w-2/12`}>
+            <span className={popupLabelText}>Quilometragem</span>
+            <input className={popupInput} onChange={handleMileage} type="text" value={mileage} required pattern="\d+.\d\d" />
+          </label>
+          <label className={`${popupLabel} w-2/12`}>
+            <span className={popupLabelText}>Caução</span>
+            <input className={popupInput} onChange={handleSecuritieValue} type="text" value={securityValue} required pattern="\d+.\d\d" />
+          </label>
+          <label className={`${popupLabel} w-2/12`}>
+            <span className={popupLabelText}>Aluguel</span>
+            <input className={popupInput} onChange={handleRentValue} type="text" value={rentValue} required pattern="\d+.\d\d" />
+          </label>
         </div>
-        <div className="flex gap-2">
-          <button type="submit">
-            Yes
+        <div className={popupButtons}>
+          <button className={hoverPopupButtons} type="submit">
+            <Agree />
           </button>
-          <button onClick={(event) => {
+          <button className={hoverPopupButtons} onClick={(event) => {
             event.preventDefault();
             handleNo();
           }}>
-            No
+            <Decline />
           </button>
         </div>
       </form>

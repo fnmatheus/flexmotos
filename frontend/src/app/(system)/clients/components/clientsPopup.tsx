@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { IClientsPopup } from '../../utils/interfaces';
+import { hoverPopupButtons, popupButtons, popupContainer, popupInput, popupLabel, popupLabelText } from '@/app/utils/classnames';
+import { Agree, Decline } from '@/app/components/svgs';
 
 const ClientsPopup: React.FC<IClientsPopup> = (
   {title, handleYes, handleNo, clientName, clientBirth, clientCPF, clientCNH, clientPhone, clientAdress, editMode}: IClientsPopup
@@ -54,32 +56,50 @@ const ClientsPopup: React.FC<IClientsPopup> = (
   }
 
   return (
-    <div>
-      <form onSubmit={formsSubmit}>
-        <h2>{title}</h2>
-        <div className="flex gap-2 text-black flex-wrap">
-          <input onChange={handleName} type="text" value={name} required />
-          <input onChange={handleBirth} type="date" value={
-            (birth)
-              ? birth.split('/').reverse().join('-')
-              : ''
-          } required />
-          <input onChange={handleCPF} type="text" readOnly={editMode} value={cpf} required pattern="\d\d\d.\d\d\d.\d\d\d-\d\d" />
-          <input onChange={handleCNH} type="text" readOnly={editMode} value={cnh} required pattern="\d+" />
-          <input onChange={handlePhone} type="text" value={phone} required pattern="\d\d \d\d\d\d\d-\d\d\d\d|\d\d \d\d\d\d-\d\d\d\d" />
-          <input onChange={handleAdress} type="text" value={address} required />
-          <input onChange={handleFile} type="file" accept=".doc,.docx,.pdf,.jpg,.png" />
+    <div className={popupContainer}>
+      <form className="bg-white flex flex-col gap-8 p-5 w-2/3 text-xl" onSubmit={formsSubmit}>
+        <h2 className="font-semibold text-center">{title}</h2>
+        <div className="flex text-black flex-wrap">
+          <label className={`${popupLabel} w-4/12`}>
+            <span className={popupLabelText}>Nome</span>
+            <input className={popupInput} onChange={handleName} type="text" value={name} required />
+          </label>
+          <label className={`${popupLabel} w-2/12`}>
+            <span className={popupLabelText}>Data de nascimento</span>
+            <input className={popupInput} onChange={handleBirth} type="date" value={
+              (birth)
+                ? birth.split('/').reverse().join('-')
+                : ''
+            } required />
+          </label>
+          <label className={`${popupLabel} w-3/12`}>
+            <span className={popupLabelText}>CPF</span>
+            <input className={popupInput} onChange={handleCPF} type="text" disabled={editMode} value={cpf} required pattern="\d\d\d.\d\d\d.\d\d\d-\d\d" />
+          </label>
+          <label className={`${popupLabel} w-3/12`}>
+            <span className={popupLabelText}>CNH</span>
+            <input className={popupInput} onChange={handleCNH} type="text" disabled={editMode} value={cnh} required pattern="\d+" />
+          </label>
+          <label className={`${popupLabel} w-2/12`}>
+            <span className={popupLabelText}>Telefone</span>
+            <input className={popupInput} onChange={handlePhone} type="text" value={phone} required pattern="\d\d \d\d\d\d\d-\d\d\d\d|\d\d \d\d\d\d-\d\d\d\d" />
+          </label>
+          <label className={`${popupLabel} w-10/12`}>
+            <span className={popupLabelText}>Endereço</span>
+            <input className={popupInput} onChange={handleAdress} type="text" value={address} required />
+          </label>
+          <input className="p-1" onChange={handleFile} type="file" accept=".doc,.docx,.pdf,.jpg,.png" />
         </div>
-        <div className="flex gap-2">
-          <button type="submit">
-            Yes
+        <div className={popupButtons}>
+          <button className={hoverPopupButtons} type="submit">
+            <Agree />
           </button>
-          <button onClick={(event) => {
+          <button className={hoverPopupButtons} onClick={(event) => {
             event.preventDefault();
             handleNo();
             }
           }>
-            No
+            <Decline />
           </button>
         </div>
       </form>

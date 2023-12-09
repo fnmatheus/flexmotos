@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { IConfirmRent } from '../../utils/interfaces';
 import { getVehicleDetails } from '../utils/vehiclesAxios';
 import dateDifference from '../../utils/dateDifference';
+import { hoverPopupButtons, popupButtons, popupContainer, popupInput, popupLabel, popupLabelText } from '@/app/utils/classnames';
+import { Agree, Decline } from '@/app/components/svgs';
 
 const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate, returnDate, security, handleYes, handleNo}: IConfirmRent) => {
   const [hasSecurity, setHasSecurity] = useState<boolean>(true);
@@ -40,26 +42,43 @@ const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate,
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h2>{`Alugar o veículo ${plate}`}</h2>
-        <div className="flex gap-2">
-          <p>{`${name} ${CPF}`}</p>
-          <p>{rentalDate}</p>
-          <p>{returnDate}</p>
-          <p>{security}</p>
+    <div className={popupContainer}>
+      <form className="bg-white flex flex-col w-3/12 p-5 text-xl" onSubmit={handleSubmit}>
+        <h2 className="font-semibold text-center pb-8">{`Alugar o veículo ${plate}`}</h2>
+        <div className="flex flex-wrap text-black w-full">
+          <label className={`${popupLabel} w-full`}>
+            <span className={popupLabelText}>Cliente</span>
+            <p>{`${name} ${CPF}`}</p>
+          </label>
+          <label className={`${popupLabel} w-4/12`}>
+            <span className={popupLabelText}>Data do aluguel</span>
+            <p>{rentalDate}</p>
+          </label>
+          <label className={`${popupLabel} w-4/12`}>
+            <span className={popupLabelText}>Data de entrega</span>
+            <p>{returnDate}</p>
+          </label>
         </div>
-        <div className="flex gap-2">
-          <input onChange={handleRentValue} type="text" value={rentValue} pattern="\d+.\d\d" required />
-          <input onChange={handleSecurityValue} type="text" value={securityValue} readOnly={!hasSecurity} pattern="\d+.\d\d" required />
-          <p>{`R$ ${(Number(rentValue) + Number(securityValue)).toFixed(2)}`}</p>
+        <div className="flex flex-wrap text-black w-full pb-8">
+          <label className={`${popupLabel} w-4/12`}>
+            <span className={popupLabelText}>Valor do caução</span>
+            <input className={popupInput} onChange={handleSecurityValue} type="text" value={securityValue} disabled={!hasSecurity} pattern="\d+.\d\d" required />
+          </label>
+          <label className={`${popupLabel} w-4/12`}>
+            <span className={popupLabelText}>Valor do aluguel</span>
+            <input className={popupInput} onChange={handleRentValue} type="text" value={rentValue} pattern="\d+.\d\d" required />
+          </label>
+          <label className={`${popupLabel} gap-2`}>
+            <span className={popupLabelText}>Valor total</span>
+            <p>{`R$ ${(Number(rentValue) + Number(securityValue)).toFixed(2)}`}</p>
+          </label>
         </div>
-        <div className="flex gap-2">
-          <button type="submit">
-            Yes
+        <div className={popupButtons}>
+          <button className={hoverPopupButtons} type="submit">
+            <Agree />
           </button>
-          <button onClick={handleNo}>
-            No
+          <button className={hoverPopupButtons} onClick={handleNo}>
+            <Decline />
           </button>
         </div>
       </form>
