@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IClientDetailsPopup } from '../../utils/interfaces';
 import { clientDownload, getClientDetails } from '../utils/clientsAxios';
-import { clientsDetailsTable, popupContainer, popupLabelText } from '@/app/utils/classnames';
+import { clientsDetailsTable, hoverPopupButtons, popupContainer, popupLabelText } from '@/app/utils/classnames';
 import { Decline } from '@/app/components/svgs';
 
 const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleClose}: IClientDetailsPopup) => {
@@ -36,7 +36,7 @@ const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleCl
   return (
     <div className={popupContainer}>
       <div className="bg-white flex flex-col gap-8 p-5 relative">
-        <button className="absolute top-1 right-1 text-xl" onClick={handleClose}>
+        <button className={`${hoverPopupButtons} absolute top-1 right-1 text-xl`} onClick={handleClose}>
           <Decline />
         </button>
         <div className="flex flex-col gap-2 text-xl">

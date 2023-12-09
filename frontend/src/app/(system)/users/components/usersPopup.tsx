@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IUsersPopup } from '../../utils/interfaces';
-import { popupButtons, popupContainer, popupInput, popupLabel, popupLabelText } from '@/app/utils/classnames';
+import { hoverPopupButtons, popupButtons, popupContainer, popupInput, popupLabel, popupLabelText } from '@/app/utils/classnames';
 import { Agree, Decline } from '@/app/components/svgs';
 
 const UsersPopup: React.FC<IUsersPopup> = ({title, options, handleYes, handleNo, startName, readonlyName, startCategory}: IUsersPopup) => {
@@ -35,7 +35,7 @@ const UsersPopup: React.FC<IUsersPopup> = ({title, options, handleYes, handleNo,
           <h2 className="font-semibold">{title}</h2>
           <label className={popupLabel}>
             <span className={popupLabelText}>Usuário</span>
-            <input readOnly={readonlyName} value={name} onChange={handleName} className={popupInput} type="text" />
+            <input disabled={readonlyName} value={name} onChange={handleName} className={popupInput} type="text" required />
           </label>
           <label className={popupLabel}>
             <span className={popupLabelText}>Senha</span>
@@ -43,7 +43,7 @@ const UsersPopup: React.FC<IUsersPopup> = ({title, options, handleYes, handleNo,
           </label>
           <label className={popupLabel}>
             <span className={popupLabelText}>Categoria</span>
-            <select value={category} onChange={handleCategory} className={popupInput}>
+            <select value={category} onChange={handleCategory} className={popupInput} required>
               {
                 options.filter((_option, i) => i !== 0 && i !== 3).map((option) => <option key={option[1]} value={option[1]}>
                     {option[0]}
@@ -54,10 +54,10 @@ const UsersPopup: React.FC<IUsersPopup> = ({title, options, handleYes, handleNo,
           </label>
         </div>
         <div className={popupButtons}>
-          <button type="submit">
+          <button className={hoverPopupButtons} type="submit">
             <Agree />
           </button>
-          <button onClick={() => handleNo()}>
+          <button className={hoverPopupButtons} onClick={() => handleNo()}>
             <Decline />
           </button>
         </div>

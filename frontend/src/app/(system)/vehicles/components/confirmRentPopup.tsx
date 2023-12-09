@@ -52,7 +52,7 @@ const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate,
         </div>
         <div className="flex gap-2">
           <input onChange={handleRentValue} type="text" value={rentValue} pattern="\d+.\d\d" required />
-          <input onChange={handleSecurityValue} type="text" value={securityValue} readOnly={!hasSecurity} pattern="\d+.\d\d" required />
+          <input onChange={handleSecurityValue} type="text" value={securityValue} disabled={!hasSecurity} pattern="\d+.\d\d" required />
           <p>{`R$ ${(Number(rentValue) + Number(securityValue)).toFixed(2)}`}</p>
         </div>
         <div className="flex gap-2">
