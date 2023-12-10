@@ -247,3 +247,31 @@ export interface IConfirmRent extends IRent {
   handleYes(info: IRent): void,
   handleNo(): void
 }
+
+export interface IContract {
+  year: string,
+  contractCounter: number,
+  clientName: string,
+  clientNationality: string,
+  clientMaritalStatus: string,
+  clientJob: string,
+  clientCpf: string,
+  clientRg: string,
+  clientAdress: string,
+  clientPhone: string,
+  clientEmail: string,
+  vehicleModel: string,
+  vehicleYear: string,
+  vehicleChassis: string,
+  vehicleColor: string,
+  vehiclePlate: string,
+  vehicleValue: string,
+  rentTime: string,
+  rentValue: string,
+  securityValue: string,
+  rentDate: string,
+  returnDate: string,
+  trafficTicketValue: number,
+  fuelValue: number,
+  cleanValue: number
+}
