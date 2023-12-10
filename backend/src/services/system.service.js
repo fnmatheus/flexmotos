@@ -153,12 +153,16 @@ async function getDashboard() {
   try {
     const systems = await System.find();
     const billing = systems[0].billing;
+    const {trafficTicketValue, fuelValue, cleanValue, today, goal} = billing;
     const thisMonth = billing.years[billing.currentYear][billing.currentMonth];
     const monthSum = thisMonth.reduce((acc, value) => acc + value, 0);
     const dashboard = {
-      today: billing.today,
-      goal: billing.goal,
+      today,
+      goal,
       month: monthSum,
+      trafficTicketValue,
+      fuelValue,
+      cleanValue,
     };
     return { type: null, message: dashboard };
   } catch (error) {

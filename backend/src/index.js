@@ -29,9 +29,11 @@ app.use('/clients', checkToken, clientsRoutes);
 app.use('/vehicles', checkToken, vehiclesRoutes);
 
 mongoose
-.connect(process.env.MONGODB_URI)
+// .connect(process.env.MONGODB_URI)
+.connect('mongodb://localhost:27017')
 .then(() => {
-  app.listen(process.env.PORT, () => {
+  // app.listen(process.env.PORT, () => {
+  app.listen(3000, () => {
     console.log(`Database connected! Listen on ${3000}`);
     schedule.dailyUpdate();
     schedule.weeklyUpdate();
