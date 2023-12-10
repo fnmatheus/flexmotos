@@ -249,7 +249,7 @@ export interface IConfirmRent extends IRent {
 }
 
 export interface IContract {
-  year: string,
+  currentYear: string,
   contractCounter: number,
   clientName: string,
   clientNationality: string,
@@ -265,7 +265,7 @@ export interface IContract {
   vehicleChassis: string,
   vehicleColor: string,
   vehiclePlate: string,
-  vehicleValue: string,
+  vehicleValue: number,
   rentTime: string,
   rentValue: string,
   securityValue: string,

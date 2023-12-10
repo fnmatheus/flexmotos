@@ -16,7 +16,7 @@ const toDataURL = async (url: string) => {
 }
 
 export default async function createPdf(
-  { year, contractCounter, clientName, clientNationality, clientMaritalStatus, clientJob, clientCpf, clientRg, clientAdress, clientPhone, clientEmail, vehicleModel, vehicleYear, vehicleChassis, vehicleColor, vehiclePlate, vehicleValue, rentTime, rentValue, securityValue, rentDate, returnDate, trafficTicketValue, fuelValue, cleanValue }: IContract
+  { currentYear, contractCounter, clientName, clientNationality, clientMaritalStatus, clientJob, clientCpf, clientRg, clientAdress, clientPhone, clientEmail, vehicleModel, vehicleYear, vehicleChassis, vehicleColor, vehiclePlate, vehicleValue, rentTime, rentValue, securityValue, rentDate, returnDate, trafficTicketValue, fuelValue, cleanValue }: IContract
 ) {
   const logo = await toDataURL('https://64.media.tumblr.com/9fc89b0950dec4ead278a4d03f611c04/81cc08bfff95d123-82/s2048x3072/3b372b5a166f8e18e9ada3d80c092e19ac708906.pnj');
   
@@ -28,7 +28,7 @@ export default async function createPdf(
         alignment: 'center',
       } as ContentImage,
       {
-        text: `\n\nCONTRATO DE LOCAÇÃO DE VEÍCULO N. ${year}/${contractCounter}\n\n`,
+        text: `\n\nCONTRATO DE LOCAÇÃO DE VEÍCULO N. ${currentYear}/${contractCounter}\n\n`,
         style: 'header'
       },
       {
@@ -39,7 +39,7 @@ export default async function createPdf(
         style: 'subheader'
       },
       {
-        text: ['1.1 - O objeto do presente contrato consiste na locação do veículo ', {text: `${vehicleModel}, fabricado no ano de ${vehicleYear}, chassi ${vehicleChassis}, cor ${vehicleColor}, placa ${vehiclePlate}`, bold: true}, `, categoria PARTICULAR avaliado no valor de mercado, aproximadamente, em R$ ${vehicleValue} (${extenso(Number(vehicleValue), {mode: 'currency'})}) devidamente registrado e licenciado no município de São João del Rei, em nome da LOCADOR.\n\n 1.2 - Acompanha o presente instrumento contratual, um laudo completo de vistoria do automóvel, com a descrição do seu estado de conservação datado do dia em que foi entregue ao LOCATÁRIO. O presente laudo deverá estar assinado, também, pelo LOCATÁRIO, a fim de garantir que o mesmo tenha ciência das condições do automóvel quando da entrega.\n\n 1.3 - LOCATÁRIO permanecerá na posse do objeto presente por ${rentTime} (${extenso(Number(rentTime))}) dias.\n\n 1.4 - Somente o LOCATÁRIO poderá conduzir a motocicleta.\n\n`]
+        text: ['1.1 - O objeto do presente contrato consiste na locação do veículo ', {text: `${vehicleModel}, fabricado no ano de ${vehicleYear}, chassi ${vehicleChassis}, cor ${vehicleColor}, placa ${vehiclePlate}`, bold: true}, `, categoria PARTICULAR avaliado no valor de mercado, aproximadamente, em R$ ${vehicleValue.toFixed(2)} (${extenso(vehicleValue, {mode: 'currency'})}) devidamente registrado e licenciado no município de São João del Rei, em nome da LOCADOR.\n\n 1.2 - Acompanha o presente instrumento contratual, um laudo completo de vistoria do automóvel, com a descrição do seu estado de conservação datado do dia em que foi entregue ao LOCATÁRIO. O presente laudo deverá estar assinado, também, pelo LOCATÁRIO, a fim de garantir que o mesmo tenha ciência das condições do automóvel quando da entrega.\n\n 1.3 - LOCATÁRIO permanecerá na posse do objeto presente por ${rentTime} (${extenso(Number(rentTime))}) dias.\n\n 1.4 - Somente o LOCATÁRIO poderá conduzir a motocicleta.\n\n`]
       },
       {
         text: 'Cláusula segunda - DO VALOR E DAS CONDIÇÕES DE PAGAMENTO\n\n',

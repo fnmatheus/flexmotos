@@ -13,6 +13,22 @@ const System = new mongoose.Schema({
     },
     currentMonth: Number,
     currentYear: Number,
+    contractCounter: {
+      type: Number,
+      default: 1,
+    },
+    trafficTicketValue: {
+      type: Number,
+      default: 0,
+    },
+    fuelValue: {
+      type: Number,
+      default: 0,
+    },
+    cleanValue: {
+      type: Number,
+      default: 0,
+    },
     goal: {
       type: Number,
     },
