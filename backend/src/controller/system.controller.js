@@ -1,8 +1,14 @@
-const { changeToday, setGoal, getDashboard, getYearBilling, setTrafficTicketValue, setFuelValue, setCleanValue } = require('../services/system.service');
+const { changeToday, setGoal, getDashboard, getYearBilling, setTrafficTicketValue, setFuelValue, setCleanValue, changeContractCounter } = require('../services/system.service');
 
 async function changeTodayController(req, res) {
   const { value } = req.body;
   const {type, message} = await changeToday(value);
+  if (type) return res.status(500).json(message);
+  return res.status(200).json(message);
+}
+
+async function cchangeContractCounterController(_req, res) {
+  const {type, message} = await changeContractCounter();
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
 }
@@ -50,6 +56,7 @@ async function getYearBillingController(req, res) {
 
 module.exports = {
   changeTodayController,
+  cchangeContractCounterController,
   setGoalController,
   getDashboardController,
   getYearBillingController,
