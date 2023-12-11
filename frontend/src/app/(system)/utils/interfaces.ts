@@ -37,7 +37,10 @@ export interface IGetDataSystem {
   data: {
     today: number,
     goal: number,
-    month: number
+    month: number,
+    trafficTicketValue: number,
+    cleanValue: number,
+    fuelValue: number,
   }
 }
 

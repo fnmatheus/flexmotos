@@ -5,8 +5,8 @@ import { backendURL } from '../../utils/urls';
 export const getData = async () => {
   try {
     const {data}: IGetDataSystem = await instance.get(`${backendURL}/system/dashboard`);
-    const {today, goal: currGoal, month} = data;
-    return {today, currGoal, month};
+    const {today, goal: currGoal, month, trafficTicketValue, cleanValue, fuelValue,} = data;
+    return {today, currGoal, month, trafficTicketValue, cleanValue, fuelValue};
   } catch (error) {
     return null;
   }

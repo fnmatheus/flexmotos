@@ -14,6 +14,9 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
   const [daylyBilling, setDaylyBilling] = useState('0.00');
   const [monthlyBilling, setMonthlyBilling] = useState('0.00');
   const [goal, setGoal] = useState('0.00');
+  const [trafficTicket, setTrafficTicket] = useState('0.00');
+  const [clean, setClean] = useState('0.00');
+  const [fuel, setFuel] = useState('0.00');
   const [goalPopup, setGoalPopup] = useState(false);
   const [data, setData] = useState<IDoughnut>();
   const [billingPopup, setBillingPopup] = useState(false);
@@ -23,10 +26,13 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
     async function setStates() {
       const response = await getData();
       if (response) {
-        const {today, currGoal, month} = response;
+        const {today, currGoal, month, trafficTicketValue, cleanValue, fuelValue} = response;
         setGoal(currGoal.toFixed(2));
         setDaylyBilling(today.toFixed(2));
         setMonthlyBilling(month.toFixed(2));
+        setTrafficTicket(trafficTicketValue.toFixed(2));
+        setClean(cleanValue.toFixed(2));
+        setFuel(fuelValue.toFixed(2));
         setInvalidUser(false);
       }
       else {
@@ -74,7 +80,7 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
             <h2 className="text-red-500 font-semibold text-3xl">Usuário sem permissão!</h2>
           </div>
         }
-        <div className="flex flex-col justify-center items-center gap-4 h-full">
+        <div className="flex flex-col justify-center items-center gap-4 h-full w-full">
           <div className="w-60 h-60">
             {
               data &&
@@ -85,27 +91,42 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
           </div>
           <h2 className="font-medium text-2xl">{`Meta mensal R$ ${goal}`}</h2>
           <div className="w-full flex justify-center">
-            <table className="w-1/2">
+            <table className="w-2/3">
               <thead>
                 <tr>
                   <th className={billingTable}>Hoje</th>
                   <th className={billingTable}>Esse mês</th>
+                  <th className={billingTable}>Multa</th>
+                  <th className={billingTable}>Limpeza</th>
+                  <th className={billingTable}>Combustível</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td className={billingTable}>{`R$ ${daylyBilling}`}</td>
                   <td className={billingTable}>{`R$ ${monthlyBilling}`}</td>
+                  <td className={billingTable}>{`R$ ${trafficTicket}`}</td>
+                  <td className={billingTable}>{`R$ ${clean}`}</td>
+                  <td className={billingTable}>{`R$ ${fuel}`}</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div className="flex w-full justify-around items-center">
+          <div className="flex w-1/2">
             <button className={`${billingButton} bg-indigo-700 text-white border border-indigo-700 hover:bg-transparent hover:text-indigo-700`} onClick={() => setBillingPopup(true)}>
               Faturamento anual
             </button>
             <button className={`${billingButton} bg-flex-green text-white border border-flex-green hover:bg-transparent hover:text-flex-green`} onClick={() => setGoalPopup(true)}>
               Definir meta mensal
+            </button>
+            <button className={`${billingButton} bg-flex-green text-white border border-flex-green hover:bg-transparent hover:text-flex-green`} onClick={() => setGoalPopup(true)}>
+              Valor da multa
+            </button>
+            <button className={`${billingButton} bg-flex-green text-white border border-flex-green hover:bg-transparent hover:text-flex-green`} onClick={() => setGoalPopup(true)}>
+              Valor da limpeza
+            </button>
+            <button className={`${billingButton} bg-flex-green text-white border border-flex-green hover:bg-transparent hover:text-flex-green`} onClick={() => setGoalPopup(true)}>
+              Valor do combustível
             </button>
           </div>
         </div>
