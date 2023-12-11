@@ -147,7 +147,13 @@ export interface IClientsPopup {
   clientCNH?: string,
   clientPhone?: string,
   clientAdress?: string,
-  editMode?: boolean
+  editMode?: boolean,
+  clientRg?: string,
+  clientNationality?: string,
+  clientJob?: string,
+  clientMaritalStatus?: string,
+  clientIsMarid?: boolean,
+  clientPartnerName?: string,
 }
 
 export interface IClient {
