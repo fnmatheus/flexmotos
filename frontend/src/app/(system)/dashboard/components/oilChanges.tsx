@@ -24,7 +24,7 @@ const OilChanges: React.FC<IProps> = ({token}: IProps) => {
   }
 
   return (
-    <div className="h-1/3">
+    <div className="h-1/3 w-2/5">
       <DashboardTable
         tableTitle='Troca de óleo'
         vehicles={vehicles}

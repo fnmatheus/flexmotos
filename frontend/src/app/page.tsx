@@ -36,7 +36,7 @@ const Home = () => {
   }
 
   return (
-    <main className="flex flex-col justify-between py-4 items-center h-screen w-screen bg-zinc-900">
+    <main className="flex flex-col justify-between py-4 items-center h-screen w-screen bg-zinc-900 text-white">
       <Flexmotos className="text-[350px] h-[100px]" />
       <div className="flex flex-col items-center gap-6 w-screen">
         <h2 className="text-4xl font-bold">Entrar</h2>

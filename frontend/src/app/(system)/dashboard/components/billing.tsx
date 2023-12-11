@@ -2,7 +2,7 @@
 import { Chart, ArcElement, Tooltip } from 'chart.js';
 import {Doughnut} from 'react-chartjs-2';
 import React, { useEffect, useState } from 'react';
-import { getData, setGoalData } from '../utils/systemAxios';
+import { getData, setCleanData, setFuelData, setGoalData, setTrafficTicketData } from '../utils/systemAxios';
 import Popup from '../../../components/popup';
 import YearlyBilling from './yearlyBilling';
 import { IProps, IDoughnut } from '../../utils/interfaces';
@@ -18,6 +18,9 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
   const [clean, setClean] = useState('0.00');
   const [fuel, setFuel] = useState('0.00');
   const [goalPopup, setGoalPopup] = useState(false);
+  const [trafficTicketPopup, setTrafficTicketPopup] = useState(false);
+  const [cleanPopup, setCleanPopup] = useState(false);
+  const [fuelPopup, setFuelPopup] = useState(false);
   const [data, setData] = useState<IDoughnut>();
   const [billingPopup, setBillingPopup] = useState(false);
   const [invalidUser, setInvalidUser] = useState(true);
@@ -70,10 +73,40 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
     }
     alert('campo inválido ou faltando preencher!');
   }
+
+  async function handleTrafficTicket(value: number) {
+    if (typeof value === 'number') {
+      await setTrafficTicketData(value);
+      setTrafficTicket(value.toFixed(2));
+      setTrafficTicketPopup(false);
+      return;
+    }
+    alert('campo inválido ou faltando preencher!');
+  }
+
+  async function handleClean(value: number) {
+    if (typeof value === 'number') {
+      await setCleanData(value);
+      setClean(value.toFixed(2));
+      setCleanPopup(false);
+      return;
+    }
+    alert('campo inválido ou faltando preencher!');
+  }
+
+  async function handleFuel(value: number) {
+    if (typeof value === 'number') {
+      await setFuelData(value);
+      setFuel(value.toFixed(2));
+      setFuelPopup(false);
+      return;
+    }
+    alert('campo inválido ou faltando preencher!');
+  }
   
   return (
     <>
-      <section className="h-2/3 relative">
+      <section className="h-2/3 relative w-3/5">
         {
           invalidUser &&
           <div className="absolute flex flex-col justify-center items-center w-full h-full bg-zinc-100 rounded-md opacity-30">
@@ -112,21 +145,21 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
               </tbody>
             </table>
           </div>
-          <div className="flex w-1/2">
+          <div className="flex">
             <button className={`${billingButton} bg-indigo-700 text-white border border-indigo-700 hover:bg-transparent hover:text-indigo-700`} onClick={() => setBillingPopup(true)}>
-              Faturamento anual
+              Faturamento
             </button>
             <button className={`${billingButton} bg-flex-green text-white border border-flex-green hover:bg-transparent hover:text-flex-green`} onClick={() => setGoalPopup(true)}>
-              Definir meta mensal
+              Meta mensal
             </button>
-            <button className={`${billingButton} bg-flex-green text-white border border-flex-green hover:bg-transparent hover:text-flex-green`} onClick={() => setGoalPopup(true)}>
-              Valor da multa
+            <button className={`${billingButton} bg-amber-400 text-black border border-amber-400 hover:bg-transparent hover:text-amber-400`} onClick={() => setTrafficTicketPopup(true)}>
+              Multa
             </button>
-            <button className={`${billingButton} bg-flex-green text-white border border-flex-green hover:bg-transparent hover:text-flex-green`} onClick={() => setGoalPopup(true)}>
-              Valor da limpeza
+            <button className={`${billingButton} bg-amber-400 text-black border border-amber-400 hover:bg-transparent hover:text-amber-400`} onClick={() => setCleanPopup(true)}>
+              Limpeza
             </button>
-            <button className={`${billingButton} bg-flex-green text-white border border-flex-green hover:bg-transparent hover:text-flex-green`} onClick={() => setGoalPopup(true)}>
-              Valor do combustível
+            <button className={`${billingButton} bg-amber-400 text-black border border-amber-400 hover:bg-transparent hover:text-amber-400`} onClick={() => setFuelPopup(true)}>
+              Combustível
             </button>
           </div>
         </div>
@@ -137,6 +170,33 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
           title="Alterar meta mensal"
           handleYes={handleGoal}
           handleNo={() => setGoalPopup(false)}
+          hasInput={true}
+        />
+      }
+      {
+        trafficTicketPopup &&
+        <Popup
+          title="Alterar valor de multa por atraso"
+          handleYes={handleTrafficTicket}
+          handleNo={() => setTrafficTicketPopup(false)}
+          hasInput={true}
+        />
+      }
+      {
+        cleanPopup &&
+        <Popup
+          title="Alterar valor da limpeza"
+          handleYes={handleClean}
+          handleNo={() => setCleanPopup(false)}
+          hasInput={true}
+        />
+      }
+      {
+        fuelPopup &&
+        <Popup
+          title="Alterar valor fixo do combustível"
+          handleYes={handleFuel}
+          handleNo={() => setFuelPopup(false)}
           hasInput={true}
         />
       }

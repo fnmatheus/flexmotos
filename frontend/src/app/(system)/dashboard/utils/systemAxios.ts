@@ -16,6 +16,18 @@ export const setGoalData = async (value: number) => {
   await instance.post('http://localhost:3000/system/goal', {value});
 }
 
+export const setTrafficTicketData = async (value: number) => {
+  await instance.post('http://localhost:3000/system/traffic_ticket', {value});
+}
+
+export const setCleanData = async (value: number) => {
+  await instance.post('http://localhost:3000/system/fuel', {value});
+}
+
+export const setFuelData = async (value: number) => {
+  await instance.post('http://localhost:3000/system/clean', {value});
+}
+
 export const getYearlyBilling = async (value: number) => {
   const {data}: IGetYearlyBilling = await instance.get(`${backendURL}/system/billing`, {
       params: {
