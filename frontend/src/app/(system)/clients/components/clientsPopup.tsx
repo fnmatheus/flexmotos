@@ -119,15 +119,15 @@ const ClientsPopup: React.FC<IClientsPopup> = (
           </label>
           <label className={`${popupLabel} w-3/12`}>
             <span className={popupLabelText}>RG</span>
-            <input className={popupInput} onChange={handleRg} type="text" value={rg} required pattern="\d+" />
+            <input className={popupInput} onChange={handleRg} type="text" value={rg} required pattern="\w\w\d+" />
           </label>
           <label className={`${popupLabel} w-2/12`}>
             <span className={popupLabelText}>Nacionalidade</span>
-            <input className={popupInput} onChange={handleNationality} type="text" value={nationality} required pattern="\d+" />
+            <input className={popupInput} onChange={handleNationality} type="text" value={nationality} required />
           </label>
           <label className={`${popupLabel} w-2/12`}>
             <span className={popupLabelText}>Emprego</span>
-            <input className={popupInput} onChange={handleJob} type="text" value={job} required pattern="\d+" />
+            <input className={popupInput} onChange={handleJob} type="text" value={job} required />
           </label>
           <label className={`${popupLabel} w-5/12`}>
             <span className={popupLabelText}>Estado cívil</span>
@@ -144,7 +144,7 @@ const ClientsPopup: React.FC<IClientsPopup> = (
                 </select>
               </div>
               <div className="w-full">
-                <input className={popupInput} onChange={handlePartnerName} type="text" disabled={!isMaried} value={partnerName} required pattern="\d+" />
+                <input className={popupInput} onChange={handlePartnerName} type="text" disabled={!isMaried} value={partnerName} required />
               </div>
             </div>
           </label>
