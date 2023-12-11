@@ -1,17 +1,11 @@
 async function vehicleAddChecker(req, res, next) {
   try {
-    const {category, model, year, plate, RENAVAM, IPVA, mileage, securityValue, rentValue} = req.body;
-    const verifyType = (
-      typeof category === 'string' ||
-      typeof model === 'string' ||
-      typeof year === 'string' ||
-      typeof plate === 'string' ||
-      typeof RENAVAM === 'string' ||
-      typeof IPVA === 'boolean' ||
-      typeof mileage === 'number' ||
-      typeof securityValue === 'number' ||
-      typeof rentValue === 'number');
-    if (!verifyType) {
+    const values = ['category', 'model', 'color', 'year', 'plate', 'RENAVAM', 'chassis', 'IPVA', 'mileage', 'vehicleValue', 'securityValue', 'rentValue'];
+    const { body } = req;
+    const testValues = values.reduce((acc, value) => {
+      if (acc) return ((typeof body[value] === 'string' && body[value] !== '') || typeof body[value] === 'number' || typeof body[value] === 'boolean');
+    }, true);
+    if (!testValues) {
       return res.status(406).json({ message: 'incorrect arguments' });
     }
     next();

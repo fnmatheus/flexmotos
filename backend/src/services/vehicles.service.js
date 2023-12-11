@@ -2,16 +2,19 @@ const Vehicle = require('../database/schemas/Vehicle');
 const { updateClientToRent, updateClientToReturn, getDatails } = require('./clients.service');
 const { changeToday } = require('./system.service');
  
-async function add({category, model, year, plate, RENAVAM, IPVA, mileage, securityValue, rentValue}) {
+async function add({category, model, color, year, plate, RENAVAM, chassis, IPVA, mileage, vehicleValue, securityValue, rentValue}) {
   try {
     await Vehicle.create({
       category,
       model,
+      color,
       year,
       plate,
       RENAVAM,
+      chassis,
       IPVA,
       mileage,
+      vehicleValue,
       securityValue,
       rentValue,
     });
