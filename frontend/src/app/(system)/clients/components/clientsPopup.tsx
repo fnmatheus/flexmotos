@@ -88,7 +88,7 @@ const ClientsPopup: React.FC<IClientsPopup> = (
 
   async function formsSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const client = [name, birth, cpf, cnh, phone, address, file];
+    const client = [name, birth, cpf, cnh, rg, nationality, job, maritalStatus, partnerName, phone, address, file];
     handleYes([...client]);
   }
 

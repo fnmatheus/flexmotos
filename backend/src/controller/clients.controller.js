@@ -11,9 +11,9 @@ const {
 } = require('../services/clients.service');
 
 async function addController(req, res) {
-  const {name, birth, CPF, CNH, phone, address, nationality, maritalStatus, job, rg} = req.body;
+  const {name, birth, CPF, CNH, phone, address, nationality, maritalStatus, job, RG} = req.body;
   const file = req.file.path;
-  const {type, message} = await add({name, birth, CPF, CNH, phone, address, file, nationality, maritalStatus, job, rg});
+  const {type, message} = await add({name, birth, CPF, CNH, phone, address, file, nationality, maritalStatus, job, RG});
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
 }
@@ -27,10 +27,10 @@ async function removeController(req, res) {
 }
 
 async function updateController(req, res) {
-  const {name, birth, CPF, CNH, phone, address} = req.body;
+  const {name, birth, CPF, CNH, phone, address, nationality, maritalStatus, job, RG} = req.body;
   let file = '';
   if (req.file) file = req.file.path;
-  const {type, message} = await update({name, birth, CPF, CNH, phone, address, file});
+  const {type, message} = await update({name, birth, CPF, CNH, phone, address, nationality, maritalStatus, job, RG, file});
   if (type === 'notFound') return res.status(404).json(message);
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);

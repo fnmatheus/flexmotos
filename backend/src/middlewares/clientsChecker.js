@@ -1,6 +1,6 @@
 async function clientAddChecker(req, res, next) {
   try {
-    const values = ['name', 'birth', 'CPF', 'CNH', 'phone', 'address', 'nationality', 'maritalStatus', 'job', 'rg'];
+    const values = ['name', 'birth', 'CPF', 'CNH', 'phone', 'address', 'nationality', 'maritalStatus', 'job', 'RG'];
     const { body } = req;
     const testValues = values.reduce((acc, value) => {
       if (acc) return (typeof body[value] === 'string' && body[value] !== '');

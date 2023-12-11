@@ -37,7 +37,7 @@ export const filterClientsByStatus = async (category: string) => {
 export const addNewClient = async (client: (string | File | undefined)[]) => {
   try {
     const formData = new FormData();
-    const [name, birth, cpf, cnh, phone, address, file] = client;
+    const [name, birth, cpf, cnh, rg, nationality, job, maritalStatus, partnerName, phone, address, file] = client;
     if (name && birth && cpf && cnh && phone && address && file) {
       formData.append('name', name);
       formData.append('birth', birth);

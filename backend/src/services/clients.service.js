@@ -1,7 +1,7 @@
 const Client = require('../database/schemas/Client');
 const fs = require('fs')
 
-async function add({name, birth, CPF, CNH, phone, address, file: proof, nationality, maritalStatus, job, rg}) {
+async function add({name, birth, CPF, CNH, phone, address, file: proof, nationality, maritalStatus, job, RG}) {
   try {
     await Client.create({
       name,
@@ -14,7 +14,7 @@ async function add({name, birth, CPF, CNH, phone, address, file: proof, national
       nationality,
       maritalStatus,
       job,
-      rg,
+      RG,
     });
     return { type: null, message: 'Client created' };
   } catch (error) {
@@ -34,7 +34,7 @@ async function remove(CPF) {
   }
 }
 
-async function update({name, birth, CPF, CNH, phone, address, file: proof}) {
+async function update({name, birth, CPF, CNH, phone, address, file: proof, nationality, maritalStatus, job, RG}) {
   try {
     const client = await Client.findOne({ CPF });
     if (!client) return { type: 'notFound', message: 'Client not found' };
@@ -47,6 +47,10 @@ async function update({name, birth, CPF, CNH, phone, address, file: proof}) {
       phone: (!phone) ? client.phone : phone,
       address: (!address) ? client.address : address,
       proof: (!proof) ? client.proof : proof,
+      proof: (!nationality) ? client.nationality : nationality,
+      proof: (!maritalStatus) ? client.proof : maritalStatus,
+      proof: (!job) ? client.job : job,
+      proof: (!RG) ? client.RG : RG,
     });
     return { type: null, message: 'update' };
   } catch (error) {

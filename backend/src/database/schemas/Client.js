@@ -53,7 +53,7 @@ const Client = new mongoose.Schema({
     type: String,
     require: true,
   },
-  rg: {
+  RG: {
     type: String,
     require: true,
   },
