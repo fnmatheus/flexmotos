@@ -1,7 +1,7 @@
 const Client = require('../database/schemas/Client');
 const fs = require('fs')
 
-async function add({name, birth, CPF, CNH, phone, address, file: proof}) {
+async function add({name, birth, CPF, CNH, phone, address, file: proof, nationality, maritalStatu, job, rg}) {
   try {
     await Client.create({
       name,
@@ -11,6 +11,10 @@ async function add({name, birth, CPF, CNH, phone, address, file: proof}) {
       phone,
       address,
       proof,
+      nationality,
+      maritalStatu,
+      job,
+      rg,
     });
     return { type: null, message: 'Client created' };
   } catch (error) {

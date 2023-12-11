@@ -11,9 +11,9 @@ const {
 } = require('../services/clients.service');
 
 async function addController(req, res) {
-  const {name, birth, CPF, CNH, phone, address} = req.body;
+  const {name, birth, CPF, CNH, phone, address, nationality, maritalStatu, job, rg} = req.body;
   const file = req.file.path;
-  const {type, message} = await add({name, birth, CPF, CNH, phone, address, file});
+  const {type, message} = await add({name, birth, CPF, CNH, phone, address, file, nationality, maritalStatu, job, rg});
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
 }
