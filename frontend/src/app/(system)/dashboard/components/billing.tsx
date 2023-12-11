@@ -145,7 +145,7 @@ const Billing: React.FC<IProps> = ({token}: IProps) => {
               </tbody>
             </table>
           </div>
-          <div className="flex justify-btween">
+          <div className="flex w-full justify-between">
             <button className={`${billingButton} bg-indigo-700 text-white border border-indigo-700 hover:bg-transparent hover:text-indigo-700`} onClick={() => setBillingPopup(true)}>
               Faturamento
             </button>
