@@ -40,7 +40,7 @@ const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate,
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    handleYes({CPF, name, rentalDate, returnDate, plate, hasSecurity, rentValue: Number(rentValue), securityValue: Number(securityValue), daysDifference});
+    handleYes({CPF, name, rentalDate, returnDate, plate, hasSecurity, rentValue: Number(rentValue), securityValue: Number(securityValue), rentTime: daysDifference});
   }
 
   return (

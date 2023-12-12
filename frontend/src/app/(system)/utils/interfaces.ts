@@ -258,7 +258,8 @@ export interface IRent {
   security?: string,
   hasSecurity?: boolean,
   rentValue?: number,
-  securityValue?: number
+  securityValue?: number,
+  rentTime?: number,
 }
 
 export interface IRentPopup {
@@ -281,9 +282,8 @@ export interface IContract {
   clientJob: string,
   clientCpf: string,
   clientRg: string,
-  clientAdress: string,
+  clientAddress: string,
   clientPhone: string,
-  clientEmail: string,
   vehicleModel: string,
   vehicleYear: string,
   vehicleChassis: string,
@@ -293,7 +293,7 @@ export interface IContract {
   rentTime: string,
   rentValue: string,
   securityValue: string,
-  rentDate: string,
+  rentalDate: string,
   returnDate: string,
   trafficTicketValue: number,
   fuelValue: number,
@@ -307,4 +307,5 @@ export interface IPdfInformarion {
   returnDate: string,
   rentValue: number,
   securityValue: number,
+  rentTime: number,
 }
