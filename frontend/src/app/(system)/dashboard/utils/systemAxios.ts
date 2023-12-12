@@ -13,19 +13,19 @@ export const getData = async () => {
 }
 
 export const setGoalData = async (value: number) => {
-  await instance.post('http://localhost:3000/system/goal', {value});
+  await instance.post(`${backendURL}/system/goal`, {value});
 }
 
 export const setTrafficTicketData = async (value: number) => {
-  await instance.post('http://localhost:3000/system/traffic_ticket', {value});
+  await instance.post(`${backendURL}/system/traffic_ticket`, {value});
 }
 
 export const setCleanData = async (value: number) => {
-  await instance.post('http://localhost:3000/system/fuel', {value});
+  await instance.post(`${backendURL}/system/fuel`, {value});
 }
 
 export const setFuelData = async (value: number) => {
-  await instance.post('http://localhost:3000/system/clean', {value});
+  await instance.post(`${backendURL}/system/clean`, {value});
 }
 
 export const getYearlyBilling = async (value: number) => {
@@ -44,4 +44,8 @@ export const getYearlyBilling = async (value: number) => {
     else if (i > currentMonth) billing.push(0);
   }
   return ({years, billing});
+}
+
+export const updateContract = async () => {
+  await instance.post(`${backendURL}/system/contract`);
 }

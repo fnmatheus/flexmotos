@@ -12,6 +12,7 @@ import Popup from '../../components/popup';
 import RentPopup from './components/rentPopup';
 import ConfirmRentPopup from './components/confirmRentPopup';
 import createPdf from './utils/pdf';
+import { updateContract } from '../dashboard/utils/systemAxios';
 
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState<string[][]>([]);
@@ -104,6 +105,7 @@ const Vehicles = () => {
         const pdfInfo = await getPdfInformation({CPF, plate, rentalDate, returnDate, rentValue, securityValue, rentTime});
         if (pdfInfo) {
           createPdf(pdfInfo);
+          await updateContract();
         }
         setVehicles(newVehicles);
         setConfirmRentPopup(null);
