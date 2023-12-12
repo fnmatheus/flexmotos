@@ -102,7 +102,9 @@ const Vehicles = () => {
       const {CPF, plate, rentalDate, returnDate, rentValue, securityValue, rentTime} = info;
       if (typeof rentValue === 'number'  && typeof securityValue === 'number' && typeof rentTime === 'number') {
         const pdfInfo = await getPdfInformation({CPF, plate, rentalDate, returnDate, rentValue, securityValue, rentTime});
-        createPdf(pdfInfo);
+        if (pdfInfo) {
+          createPdf(pdfInfo);
+        }
         setVehicles(newVehicles);
         setConfirmRentPopup(null);
         return;

@@ -275,7 +275,7 @@ export interface IConfirmRent extends IRent {
 
 export interface IContract {
   currentYear: string,
-  contractCounter: number,
+  contractCounter: string,
   clientName: string,
   clientNationality: string,
   clientMaritalStatus: string,
@@ -289,15 +289,15 @@ export interface IContract {
   vehicleChassis: string,
   vehicleColor: string,
   vehiclePlate: string,
-  vehicleValue: number,
+  vehicleValue: string,
   rentTime: string,
   rentValue: string,
   securityValue: string,
   rentalDate: string,
   returnDate: string,
-  trafficTicketValue: number,
-  fuelValue: number,
-  cleanValue: number
+  trafficTicketValue: string,
+  fuelValue: string,
+  cleanValue: string,
 }
 
 export interface IPdfInformarion {

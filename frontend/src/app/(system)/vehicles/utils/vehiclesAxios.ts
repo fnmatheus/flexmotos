@@ -85,10 +85,10 @@ export const rentVehicle = async (info: IRent) => {
 export const getPdfInformation = async ({CPF: clientCpf, plate: vehiclePlate, rentalDate, returnDate, rentValue, securityValue, rentTime}: IPdfInformarion) => {
   const systemData = await getData();
   const currentYear = String(new Date().getFullYear());
-  const trafficTicketValue = systemData?.trafficTicketValue.toFixed(2);
-  const fuelValue = systemData?.cleanValue.toFixed(2);
-  const cleanValue = systemData?.fuelValue.toFixed(2);
-  const contractCounter = systemData?.contractCounter;
+  const trafficTicketValue = systemData?.trafficTicketValue.toFixed(2).replace('.', ',');
+  const fuelValue = systemData?.cleanValue.toFixed(2).replace('.', ',');
+  const cleanValue = systemData?.fuelValue.toFixed(2).replace('.', ',');
+  const contractCounter = String(systemData?.contractCounter);
   const {
     name: clientName,
     nationality: clientNationality,
@@ -108,5 +108,8 @@ export const getPdfInformation = async ({CPF: clientCpf, plate: vehiclePlate, re
     vehicleValue,
   } = await getVehicleDetails(vehiclePlate);
   const vehicleYear = year.split('/')[0];
-  return {currentYear, trafficTicketValue, fuelValue, cleanValue, contractCounter, clientCpf, clientName, clientNationality, clientMaritalStatus, clientJob, clientRg, clientAddress, clientPhone, vehiclePlate, vehicleModel, vehicleYear, vehicleChassis, vehicleColor, vehicleValue, rentalDate, returnDate, rentValue, securityValue, rentTime};
+  if (trafficTicketValue !== undefined && fuelValue !== undefined && cleanValue !== undefined) {
+    return {currentYear, trafficTicketValue, fuelValue, cleanValue, contractCounter, clientCpf, clientName, clientNationality, clientMaritalStatus, clientJob, clientRg, clientAddress, clientPhone, vehiclePlate, vehicleModel, vehicleYear, vehicleChassis, vehicleColor, vehicleValue: vehicleValue.toFixed(2).replace('.', ','), rentalDate, returnDate, rentValue: rentValue.toFixed(2).replace('.', ','), securityValue: securityValue.toFixed(2).replace('.', ','), rentTime: String(rentTime)};
+  }
+  return null;
 }
