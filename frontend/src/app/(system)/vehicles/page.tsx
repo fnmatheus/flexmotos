@@ -128,10 +128,9 @@ const Vehicles = () => {
         //   fuelValue: 85,
         //   cleanValue: 30
         // });
-        console.log('aqui');
+        const pdfInfo = await getPdfInformation({CPF, plate, rentalDate, returnDate, rentValue, securityValue});
         setVehicles(newVehicles);
         setConfirmRentPopup(null);
-        const pdfInfo = await getPdfInformation({CPF, plate, rentalDate, returnDate, rentValue, securityValue});
         return;
       }
     }
