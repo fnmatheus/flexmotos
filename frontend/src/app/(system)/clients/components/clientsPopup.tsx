@@ -5,20 +5,20 @@ import { Agree, Decline } from '@/app/components/svgs';
 import { maritalOptions } from '../utils/variables';
 
 const ClientsPopup: React.FC<IClientsPopup> = (
-  {title, handleYes, handleNo, clientName, clientBirth, clientCPF, clientCNH, clientPhone, clientAdress, clientRg, clientNationality, clientJob, clientMaritalStatus, clientIsMarid, clientPartnerName, editMode}: IClientsPopup
+  {title, handleYes, handleNo, clientName, clientBirth, clientCPF, clientCNH, clientPhone, clientAddress, clientRg, clientNationality, clientJob, clientMaritalStatus, clientIsMarid, clientPartnerName, editMode}: IClientsPopup
 ) => {
   const [name, setName] = useState<string | undefined>(clientName);
   const [birth, setBirth] = useState<string | undefined>(clientBirth);
   const [cpf, setCpf] = useState<string | undefined>(clientCPF);
   const [cnh, setCnh] = useState<string | undefined>(clientCNH);
   const [phone, setPhone] = useState<string | undefined>(clientPhone);
-  const [address, setAddress] = useState<string | undefined>(clientAdress);
+  const [address, setAddress] = useState<string | undefined>(clientAddress);
   const [file, setFile] = useState<File | undefined>(undefined);
   const [rg, setRg] = useState<string | undefined>(clientRg);
   const [nationality, setNationality] = useState<string | undefined>(clientNationality);
   const [job, setJob] = useState<string | undefined>(clientJob);
   const [maritalStatus, setMaritalStatus] = useState<string | undefined>(clientMaritalStatus);
-  const [isMaried, setIsMaried] = useState<boolean | undefined>(clientIsMarid);
+  const [isMaried, setIsMaried] = useState<boolean | undefined>(clientIsMarid === 'true');
   const [partnerName, setPartnerName] = useState<string | undefined>(clientPartnerName);
 
   async function handleName(event: React.ChangeEvent<HTMLInputElement>) {
@@ -119,7 +119,7 @@ const ClientsPopup: React.FC<IClientsPopup> = (
           </label>
           <label className={`${popupLabel} w-3/12`}>
             <span className={popupLabelText}>RG</span>
-            <input className={popupInput} onChange={handleRg} type="text" value={rg} required pattern="\w\w\d+" />
+            <input className={popupInput} onChange={handleRg} type="text" value={rg} required pattern="[A-Z]{2}\d+" />
           </label>
           <label className={`${popupLabel} w-2/12`}>
             <span className={popupLabelText}>Nacionalidade</span>

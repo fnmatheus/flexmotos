@@ -9,6 +9,10 @@ const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleCl
   const [birth, setBirth] = useState<string>('');
   const [cpf, setCpf] = useState<string>('');
   const [cnh, setCnh] = useState<string>('');
+  const [rg, setRg] = useState<string>('');
+  const [nationality, setNationality] = useState<string>('');
+  const [job, setJob] = useState<string>('');
+  const [maritalStatus, setMaritalStatus] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [address, setAddress] = useState<string>('');
   const [history, setHistory] = useState<string[][]>([]);
@@ -17,10 +21,15 @@ const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleCl
   useEffect(() => {
     async function getDetails() {
       const client = await getClientDetails(detailsCpf);
+      const martial = client.maritalStatus.split(' ');
       setName(client.name);
       setBirth(client.birth);
       setCpf(client.CPF);
       setCnh(client.CNH);
+      setRg(client.RG);
+      setNationality(client.nationality);
+      setJob(client.job);
+      setMaritalStatus(`${martial[0]} ${martial[0] === 'casado(a)' ? `com ${martial[1]}` : ''}`);
       setPhone(client.phone);
       setAddress(client.address);
       setHistory(client.history);
@@ -57,6 +66,22 @@ const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleCl
             <label className="w-3/12 text-left p-1">
               <span className={popupLabelText}>CNH</span>
               <p>{cnh}</p>
+            </label>
+            <label className="w-3/12 text-left p-1">
+              <span className={popupLabelText}>RG</span>
+              <p>{rg}</p>
+            </label>
+            <label className="w-3/12 text-left p-1">
+              <span className={popupLabelText}>Nacionalidade</span>
+              <p>{nationality}</p>
+            </label>
+            <label className="w-3/12 text-left p-1">
+              <span className={popupLabelText}>Emprego</span>
+              <p>{job}</p>
+            </label>
+            <label className="w-3/12 text-left p-1">
+              <span className={popupLabelText}>Estado civíl</span>
+              <p>{maritalStatus}</p>
             </label>
             <label className="w-3/12 text-left p-1">
               <span className={popupLabelText}>Telefone</span>

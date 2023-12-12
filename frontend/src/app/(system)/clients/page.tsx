@@ -14,7 +14,7 @@ const Clients = () => {
   const [filteredClients, setFilteredClients] = useState<string[][]>([]);
   const [popup, setPopup] = useState<string[]>(['', '']);
   const [addPopup, setAddPopup] = useState(false);
-  const [editPopup, setEditPopup] = useState<string[]>([]);
+  const [editPopup, setEditPopup] = useState<(string)[]>([]);
   const [detailsPopup, setDetailsPopup] = useState<string>('');
 
   useEffect(() => {
@@ -60,8 +60,12 @@ const Clients = () => {
 
   async function handleSetEditPopup(clientCPF: string) {
     const clientDetails: IClient = await getClientDetails(clientCPF);
-    const {name, birth, CPF, CNH, phone, address} = clientDetails;
-    setEditPopup([name, birth, CPF, CNH, phone, address]);
+    const {name, birth, CPF, CNH, phone, address, RG, nationality, job, maritalStatus} = clientDetails;
+    const maritalStatusArr = maritalStatus.split(' ');
+    const realMaritalStatus = maritalStatusArr[0];
+    const isMaried = String(realMaritalStatus === 'casado(a)');
+    const partnerName = maritalStatusArr[1];
+    setEditPopup([name, birth, CPF, CNH, phone, address, RG, nationality, job, isMaried, realMaritalStatus, partnerName]);
   }
 
   async function handleEditClient(client: (string | File | undefined)[]) {
@@ -110,7 +114,13 @@ const Clients = () => {
           clientCPF=''
           clientCNH=''
           clientPhone=''
-          clientAdress=''
+          clientAddress=''
+          clientRg=''
+          clientNationality=''
+          clientJob=''
+          clientIsMarid='false'
+          clientMaritalStatus='solteiro(a)'
+          clientPartnerName=''
         />
       }
       {
@@ -124,8 +134,14 @@ const Clients = () => {
           clientCPF={editPopup[2]}
           clientCNH={editPopup[3]}
           clientPhone={editPopup[4]}
-          clientAdress={editPopup[5]}
+          clientAddress={editPopup[5]}
           editMode
+          clientRg={editPopup[6]}
+          clientNationality={editPopup[7]}
+          clientJob={editPopup[8]}
+          clientIsMarid={editPopup[9]}
+          clientMaritalStatus={editPopup[10]}
+          clientPartnerName={editPopup[11]}
         />
       }
       {

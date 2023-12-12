@@ -146,13 +146,13 @@ export interface IClientsPopup {
   clientCPF?: string,
   clientCNH?: string,
   clientPhone?: string,
-  clientAdress?: string,
+  clientAddress?: string,
   editMode?: boolean,
   clientRg?: string,
   clientNationality?: string,
   clientJob?: string,
   clientMaritalStatus?: string,
-  clientIsMarid?: boolean,
+  clientIsMarid?: string,
   clientPartnerName?: string,
 }
 
@@ -165,7 +165,12 @@ export interface IClient {
   address: string,
   file: File,
   history: string[][],
-  securities: string[][]
+  securities: string[][],
+  RG: string,
+  nationality: string,
+  job: string,
+  maritalStatus: string,
+  clientPartnerName: string,
 }
 
 export interface IClientDetailsPopup {
