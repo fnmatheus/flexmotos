@@ -41,6 +41,7 @@ export interface IGetDataSystem {
     trafficTicketValue: number,
     cleanValue: number,
     fuelValue: number,
+    contractCounter: number,
   }
 }
 
@@ -297,4 +298,13 @@ export interface IContract {
   trafficTicketValue: number,
   fuelValue: number,
   cleanValue: number
+}
+
+export interface IPdfInformarion {
+  CPF: string,
+  plate: string,
+  rentalDate: string,
+  returnDate: string,
+  rentValue: number,
+  securityValue: number,
 }

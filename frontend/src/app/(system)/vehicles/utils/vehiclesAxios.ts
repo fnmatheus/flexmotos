@@ -1,5 +1,6 @@
+import { getData } from '../../dashboard/utils/systemAxios';
 import { instance } from '../../utils/axios';
-import { IVehicle, IVehicles, IVehicleDetails, IRent } from '../../utils/interfaces';
+import { IVehicle, IVehicles, IVehicleDetails, IRent, IPdfInformarion } from '../../utils/interfaces';
 import { backendURL } from '../../utils/urls';
 
 export const getVehicles = async () => {
@@ -78,4 +79,14 @@ export const rentVehicle = async (info: IRent) => {
   } catch (error) {
     return null;
   }
+}
+
+export const getPdfInformation =async ({CPF, plate, rentalDate, returnDate, rentValue, securityValue}: IPdfInformarion) => {
+  const systemData = await getData();
+  const trafficTicketValue = systemData?.trafficTicketValue.toFixed(2);
+  const fuelValue = systemData?.cleanValue.toFixed(2);
+  const cleanValue = systemData?.fuelValue.toFixed(2);
+  const contractCounter = String(systemData?.contractCounter);
+  console.log(systemData);
+  return;
 }

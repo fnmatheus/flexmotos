@@ -142,7 +142,7 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
             <span className={popupLabelText}>Quilometragem</span>
             <input className={popupInput} onChange={handleMileage} type="text" value={mileage} required pattern="\d+.\d\d" />
           </label>
-          <label className={`${popupLabel} w-3/12`}>
+          <label className={`${popupLabel} w-2/12`}>
             <span className={popupLabelText}>Tabela Fipe</span>
             <input className={popupInput} onChange={handleVehicleValue} type="text" value={value} required pattern="\d+.\d\d" />
           </label>

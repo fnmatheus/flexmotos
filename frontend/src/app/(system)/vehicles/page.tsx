@@ -4,7 +4,7 @@ import PageHeader from '../components/pageHeader';
 import PageTable from '../components/pageTable';
 import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
-import { addVehicle, filterVehicleByStatus, getVehicleDetails, getVehicles, removeVehicle, rentVehicle, returnVehicle, updateVehicle } from './utils/vehiclesAxios';
+import { addVehicle, filterVehicleByStatus, getPdfInformation, getVehicleDetails, getVehicles, removeVehicle, rentVehicle, returnVehicle, updateVehicle } from './utils/vehiclesAxios';
 import VehiclesPopup from './components/vehiclesPopup';
 import { IRent, IVehicle } from '../utils/interfaces';
 import VehicleDetailsPopup from './components/vehicleDetailsPopup';
@@ -99,36 +99,41 @@ const Vehicles = () => {
   async function handleConfirmRentSubmit(info: IRent) {
     const newVehicles = await rentVehicle(info);
     if (newVehicles) {
-      createPdf({
-        currentYear: '2023',
-        contractCounter: 1,
-        clientName: 'Fulano',
-        clientNationality: 'brasileiro',
-        clientMaritalStatus: 'solteiro',
-        clientJob: 'desempregado',
-        clientCpf: '111.111.111-11',
-        clientRg: 'MG123123',
-        clientAdress: 'casa',
-        clientPhone: '99 99999-9999',
-        clientEmail: 'fulano@client.com',
-        vehicleModel: 'XRE',
-        vehicleYear: '2023',
-        vehicleChassis: '423423432423',
-        vehicleColor: 'preto',
-        vehiclePlate: 'ADS5435',
-        vehicleValue: 23500,
-        rentTime: '2',
-        rentValue: '280.00',
-        securityValue: '500.00',
-        rentDate: '12/12/2023',
-        returnDate: '14/12/2023',
-        trafficTicketValue: 98,
-        fuelValue: 85,
-        cleanValue: 30
-      });
-      setVehicles(newVehicles);
-      setConfirmRentPopup(null);
-      return;
+      const {CPF, plate, rentalDate, returnDate, rentValue, securityValue} = info;
+      if (rentValue  && securityValue) {
+        // createPdf({
+          //   currentYear: '2023',
+          //   contractCounter: 1,
+          //   clientName: 'Fulano',
+          //   clientNationality: 'brasileiro',
+          //   clientMaritalStatus: 'solteiro',
+          //   clientJob: 'desempregado',
+          //   clientCpf: '111.111.111-11',
+          //   clientRg: 'MG123123',
+          //   clientAdress: 'casa',
+          //   clientPhone: '99 99999-9999',
+        //   clientEmail: 'fulano@client.com',
+        //   vehicleModel: 'XRE',
+        //   vehicleYear: '2023',
+        //   vehicleChassis: '423423432423',
+        //   vehicleColor: 'preto',
+        //   vehiclePlate: 'ADS5435',
+        //   vehicleValue: 23500,
+        //   rentTime: '2',
+        //   rentValue: '280.00',
+        //   securityValue: '500.00',
+        //   rentDate: '12/12/2023',
+        //   returnDate: '14/12/2023',
+        //   trafficTicketValue: 98,
+        //   fuelValue: 85,
+        //   cleanValue: 30
+        // });
+        console.log('aqui');
+        setVehicles(newVehicles);
+        setConfirmRentPopup(null);
+        const pdfInfo = await getPdfInformation({CPF, plate, rentalDate, returnDate, rentValue, securityValue});
+        return;
+      }
     }
     alert('Precisa devolver o caução para o cliente para alugar novamente!');
   }
