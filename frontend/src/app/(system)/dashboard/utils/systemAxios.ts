@@ -21,11 +21,11 @@ export const setTrafficTicketData = async (value: number) => {
 }
 
 export const setCleanData = async (value: number) => {
-  await instance.post(`${backendURL}/system/fuel`, {value});
+  await instance.post(`${backendURL}/system/clean`, {value});
 }
 
 export const setFuelData = async (value: number) => {
-  await instance.post(`${backendURL}/system/clean`, {value});
+  await instance.post(`${backendURL}/system/fuel`, {value});
 }
 
 export const getYearlyBilling = async (value: number) => {
