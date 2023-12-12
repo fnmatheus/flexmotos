@@ -187,10 +187,12 @@ export interface IVehicles {
 
 export interface IVehicleDetails {
   category: string,
-  model: string
+  model: string,
+  color: string,
   year: string,
   plate: string
   RENAVAM: string,
+  chassis: string,
   IPVA: boolean,
   mileage: number,
   rent: {
@@ -200,6 +202,7 @@ export interface IVehicleDetails {
     rentalDate: string,
     returnDate: string
   },
+  vehicleValue: number,
   securityValue: number,
   rentValue: number,
   oil: boolean,
@@ -212,11 +215,14 @@ export interface IVehiclesPopup {
   handleNo(): void,
   vehicleCategory: string,
   vehicleModel: string,
+  vehicleColor: string,
   vehicleYear: string,
   vehiclePlate: string,
   vehicleRenavam: string,
+  vehicleChassis: string,
   vehicleIpva: string,
   vehicleMileage: string,
+  vehicleValue: string,
   vehiclSecuriteValue: string,
   vehicleRentValue: string,
   editMode?: boolean
@@ -225,11 +231,14 @@ export interface IVehiclesPopup {
 export interface IVehicle {
   category: string,
   model: string,
+  color: string,
   year: string,
   plate: string,
   RENAVAM: string,
+  chassis: string,
   IPVA: string,
   mileage: string,
+  vehicleValue: string,
   securityValue: string,
   rentValue: string
 }

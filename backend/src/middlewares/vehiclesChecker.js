@@ -64,13 +64,16 @@ async function vehicleBodyPlateChecker(req, res, next) {
 
 async function vehicleUpdateChecker(req, res, next) {
   try {
-    const {model, year, plate, RENAVAM, mileage, securityValue, rentValue} = req.body;
+    const {model, year, plate, color, RENAVAM, chassis, mileage, vehicleValue, securityValue, rentValue} = req.body;
     const verifyType = (
       typeof model === 'string' ||
       typeof year === 'string' ||
+      typeof color === 'string' ||
       typeof plate === 'string' ||
       typeof RENAVAM === 'string' ||
+      typeof chassis === 'string' ||
       typeof mileage === 'number' ||
+      typeof vehicleValue === 'number' ||
       typeof securityValue === 'number' ||
       typeof rentValue === 'number');
     if (!verifyType) {

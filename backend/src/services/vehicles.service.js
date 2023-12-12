@@ -86,17 +86,22 @@ async function remove(plate) {
   }
 }
 
-async function update({model, year, plate, RENAVAM, mileage, securityValue, rentValue}) {
+async function update({category, model, color, year, plate, RENAVAM, chassis, IPVA, mileage, vehicleValue, securityValue, rentValue}) {
   try {
     const vehicle = await Vehicle.findOne({ plate });
     if (!vehicle) return { type: 'notFound', message: 'Vehicle not found' };
     await Vehicle.findOneAndUpdate({plate}, {
+      category,
       model,
+      color,
       year,
       RENAVAM,
+      chassis,
+      IPVA,
       mileage,
+      vehicleValue,
       securityValue,
-      rentValue,
+      rentValue
     });
     return { type: null, message: 'Vehicle has been updated' };
   } catch (error) {

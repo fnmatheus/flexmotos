@@ -5,15 +5,18 @@ import { hoverPopupButtons, popupButtons, popupContainer, popupInput, popupLabel
 import { Agree, Decline } from '@/app/components/svgs';
 
 const VehiclesPopup: React.FC<IVehiclesPopup> = (
-  {title, handleYes, handleNo, vehicleCategory, vehicleModel, vehicleYear, vehiclePlate, vehicleRenavam, vehicleIpva, vehicleMileage, vehiclSecuriteValue, vehicleRentValue, editMode}: IVehiclesPopup
+  {title, handleYes, handleNo, vehicleCategory, vehicleModel, vehicleColor, vehicleYear, vehiclePlate, vehicleRenavam, vehicleChassis, vehicleIpva, vehicleMileage, vehicleValue, vehiclSecuriteValue, vehicleRentValue, editMode}: IVehiclesPopup
 ) => {
   const [category, setCategory] = useState<string>(vehicleCategory);
   const [model, setModel] = useState<string>(vehicleModel);
+  const [color, setColor] = useState<string>(vehicleColor);
   const [year, setYear] = useState<string>(vehicleYear);
   const [plate, setPlate] = useState<string>(vehiclePlate);
   const [renavam, setRenavam] = useState<string>(vehicleRenavam);
+  const [chassis, setChassis] = useState<string>(vehicleChassis);
   const [ipva, setIpva] = useState<string>(vehicleIpva);
   const [mileage, setMileage] = useState<string>(vehicleMileage);
+  const [value, setValue] = useState<string>(vehicleValue);
   const [securityValue, setSecurityValue] = useState<string>(vehiclSecuriteValue);
   const [rentValue, setRentValue] = useState<string>(vehicleRentValue);
 
@@ -25,6 +28,11 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
   async function handleModel(event: React.ChangeEvent<HTMLInputElement>) {
     const value: string = event.target.value;
     setModel(value);
+  }
+
+  async function handleColor(event: React.ChangeEvent<HTMLInputElement>) {
+    const value: string = event.target.value;
+    setColor(value);
   }
 
   async function handleYear(event: React.ChangeEvent<HTMLInputElement>) {
@@ -42,6 +50,11 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
     setRenavam(value);
   }
 
+  async function handleChassis(event: React.ChangeEvent<HTMLInputElement>) {
+    const value: string = event.target.value;
+    setChassis(value);
+  }
+
   async function handleIPVA(event: React.ChangeEvent<HTMLSelectElement>) {
     const value: string = event.target.value;
     setIpva(value);
@@ -50,6 +63,11 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
   async function handleMileage(event: React.ChangeEvent<HTMLInputElement>) {
     const value: string = event.target.value;
     setMileage(value);
+  }
+
+  async function handleVehicleValue(event: React.ChangeEvent<HTMLInputElement>) {
+    const value: string = event.target.value;
+    setValue(value);
   }
 
   async function handleSecuritieValue(event: React.ChangeEvent<HTMLInputElement>) {
@@ -64,7 +82,7 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    handleYes({category, model, year, plate, RENAVAM: renavam, IPVA: ipva, mileage, securityValue, rentValue});
+    handleYes({category, model, color, year, plate, RENAVAM: renavam, chassis, IPVA: ipva, mileage, vehicleValue: value, securityValue, rentValue});
   }
 
   return (
@@ -88,6 +106,10 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
             <span className={popupLabelText}>Modelo</span>
             <input className={popupInput} onChange={handleModel} type="text" value={model} required />
           </label>
+          <label className={`${popupLabel} w-3/12`}>
+            <span className={popupLabelText}>Cor</span>
+            <input className={popupInput} onChange={handleColor} type="text" value={color} required />
+          </label>
           <label className={`${popupLabel} w-2/12`}>
             <span className={popupLabelText}>Ano</span>
             <input className={popupInput} onChange={handleYear} type="text" value={year} required pattern="\d\d\d\d/\d\d" />
@@ -99,6 +121,10 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
           <label className={`${popupLabel} w-3/12`}>
             <span className={popupLabelText}>RENAVAM</span>
             <input className={popupInput} onChange={handleRENAVAM} type="text" value={renavam} required pattern="\d+" />
+          </label>
+          <label className={`${popupLabel} w-3/12`}>
+            <span className={popupLabelText}>Chassi</span>
+            <input className={popupInput} onChange={handleChassis} type="text" value={chassis} required />
           </label>
           <label className={`${popupLabel} w-2/12`}>
             <span className={popupLabelText}>IPVA</span>
@@ -115,6 +141,10 @@ const VehiclesPopup: React.FC<IVehiclesPopup> = (
           <label className={`${popupLabel} w-2/12`}>
             <span className={popupLabelText}>Quilometragem</span>
             <input className={popupInput} onChange={handleMileage} type="text" value={mileage} required pattern="\d+.\d\d" />
+          </label>
+          <label className={`${popupLabel} w-3/12`}>
+            <span className={popupLabelText}>Tabela Fipe</span>
+            <input className={popupInput} onChange={handleVehicleValue} type="text" value={value} required pattern="\d+.\d\d" />
           </label>
           <label className={`${popupLabel} w-2/12`}>
             <span className={popupLabelText}>Caução</span>

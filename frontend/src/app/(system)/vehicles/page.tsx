@@ -66,11 +66,14 @@ const Vehicles = () => {
     setEditPopup({
       category: vehicle.category,
       model: vehicle.model,
+      color: vehicle.color,
       year: vehicle.year,
       plate: vehicle.plate,
       RENAVAM: vehicle.RENAVAM,
+      chassis: vehicle.chassis,
       IPVA: String(vehicle.IPVA),
       mileage: vehicle.mileage.toFixed(2),
+      vehicleValue: vehicle.vehicleValue.toFixed(2),
       securityValue: vehicle.securityValue.toFixed(2),
       rentValue: vehicle.rentValue.toFixed(2)
     });
@@ -162,11 +165,14 @@ const Vehicles = () => {
           handleNo={() => setAddPopup(false)}
           vehicleCategory="moto"
           vehicleModel=""
+          vehicleColor=""
           vehicleYear=""
           vehiclePlate=""
           vehicleRenavam=""
+          vehicleChassis=""
           vehicleIpva="false"
           vehicleMileage=""
+          vehicleValue=""
           vehiclSecuriteValue=""
           vehicleRentValue=""
         />
@@ -179,11 +185,14 @@ const Vehicles = () => {
           handleNo={() => setEditPopup(null)}
           vehicleCategory={editPopup.category}
           vehicleModel={editPopup.model}
+          vehicleColor={editPopup.color}
           vehicleYear={editPopup.year}
           vehiclePlate={editPopup.plate}
           vehicleRenavam={editPopup.RENAVAM}
+          vehicleChassis={editPopup.chassis}
           vehicleIpva={editPopup.IPVA}
           vehicleMileage={editPopup.mileage}
+          vehicleValue={editPopup.vehicleValue}
           vehiclSecuriteValue={editPopup.securityValue}
           vehicleRentValue={editPopup.rentValue}
           editMode

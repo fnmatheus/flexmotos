@@ -85,7 +85,7 @@ const Clients = () => {
   return (
     <section className="flex flex-col p-5 h-full">
       <PageHeader
-        textButton='Adicionar novo cliente'
+        textButton="Adicionar novo cliente"
         handleAdd={() => setAddPopup(true)}
         handleInputFilter={handleInputFilter}
         handleSelectFilter={handleSelectFilter}
@@ -97,7 +97,7 @@ const Clients = () => {
         handleEdit={(CPF) => handleSetEditPopup(CPF)}
         handleRemove={([CPF, name]) => setPopup([CPF, name])}
         popup={popup}
-        popupText='Tem certeza que deseja excluir o cliente:'
+        popupText="Tem certeza que deseja excluir o cliente:"
         handleConfirmRemove={(CPF) => handleConfirmRemove(CPF)}
         handleDeclineRemove={() => setPopup([''])}
         hasDetails
@@ -109,18 +109,18 @@ const Clients = () => {
           title="Adicionar cliente"
           handleYes={(client) => handleAddClient(client)}
           handleNo={() => setAddPopup(false)}
-          clientName=''
-          clientBirth=''
-          clientCPF=''
-          clientCNH=''
-          clientPhone=''
-          clientAddress=''
-          clientRg=''
-          clientNationality=''
-          clientJob=''
-          clientIsMarid='false'
-          clientMaritalStatus='solteiro(a)'
-          clientPartnerName=''
+          clientName=""
+          clientBirth=""
+          clientCPF=""
+          clientCNH=""
+          clientPhone=""
+          clientAddress=""
+          clientRg=""
+          clientNationality=""
+          clientJob=""
+          clientIsMarid="false"
+          clientMaritalStatus="solteiro(a)"
+          clientPartnerName=""
         />
       }
       {

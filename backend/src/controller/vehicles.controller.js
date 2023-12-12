@@ -51,8 +51,8 @@ async function removeController(req, res) {
 }
 
 async function updateController(req, res) {
-  const {model, year, plate, RENAVAM, mileage, securityValue, rentValue} = req.body;
-  const {type, message} = await update({model, year, plate, RENAVAM, mileage, securityValue, rentValue});
+  const {category, model, color, year, plate, RENAVAM, chassis, IPVA, mileage, vehicleValue, securityValue, rentValue} = req.body;
+  const {type, message} = await update({category, model, color, year, plate, RENAVAM, chassis, IPVA, mileage, vehicleValue, securityValue, rentValue});
   if (type === 'notFound') return res.status(404).json(message);
   if (type) return res.status(500).json(message);
   return res.status(200).json(message);
