@@ -103,7 +103,6 @@ const Vehicles = () => {
       if (rentValue  && securityValue) {
         // createPdf({
           //   currentYear: '2023',
-          //   contractCounter: 1,
           //   clientName: 'Fulano',
           //   clientNationality: 'brasileiro',
           //   clientMaritalStatus: 'solteiro',
@@ -124,9 +123,6 @@ const Vehicles = () => {
         //   securityValue: '500.00',
         //   rentDate: '12/12/2023',
         //   returnDate: '14/12/2023',
-        //   trafficTicketValue: 98,
-        //   fuelValue: 85,
-        //   cleanValue: 30
         // });
         const pdfInfo = await getPdfInformation({CPF, plate, rentalDate, returnDate, rentValue, securityValue});
         setVehicles(newVehicles);

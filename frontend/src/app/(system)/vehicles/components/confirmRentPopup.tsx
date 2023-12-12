@@ -9,13 +9,15 @@ const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate,
   const [hasSecurity, setHasSecurity] = useState<boolean>(true);
   const [rentValue, setRentValue] = useState<string>('');
   const [securityValue, setSecurityValue] = useState<string>('0');
+  const [daysDifference, setDaysDifference] = useState<number>(0);
 
   useEffect(() => {
     async function getValues() {
       const securityValue = security === 'true';
       setHasSecurity(securityValue);
       const vehicle = await getVehicleDetails(plate);
-      const days = dateDifference(rentalDate, returnDate)
+      const days = dateDifference(rentalDate, returnDate);
+      setDaysDifference(days)
       setRentValue((vehicle.rentValue * days).toFixed(2));
       if (securityValue) {
         setSecurityValue(vehicle.securityValue.toFixed(2));
@@ -38,7 +40,7 @@ const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate,
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    handleYes({CPF, name, rentalDate, returnDate, plate, hasSecurity, rentValue: Number(rentValue), securityValue: Number(securityValue)});
+    handleYes({CPF, name, rentalDate, returnDate, plate, hasSecurity, rentValue: Number(rentValue), securityValue: Number(securityValue), daysDifference});
   }
 
   return (
