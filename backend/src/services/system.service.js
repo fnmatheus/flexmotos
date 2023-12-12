@@ -55,6 +55,7 @@ async function checkCurrentYear() {
         },
         currentYear: year,
         currentMonth: month,
+        contractCounter: 1,
       }
     });
   }
@@ -132,6 +133,23 @@ async function changeToday(value) {
   }
 }
 
+async function changeContractCounter() {
+  try { 
+    const systems = await System.find();
+    const system = systems[0];
+    const billing = system.billing;
+    await System.findOneAndUpdate({ code: system.code }, {
+      billing: {
+        ...billing,
+        contractCounter: billing.contractCounter + 1
+      }
+    });
+    return { type: null, message: 'Contract counter updated' };
+  } catch (error) {
+    return { type: 'System Error', message: `Can't access the system` };
+  }
+}
+
 async function setGoal(value) {
   try {
     const systems = await System.find();
@@ -149,16 +167,72 @@ async function setGoal(value) {
   }
 }
 
+async function setTrafficTicketValue(value) {
+  try {
+    const systems = await System.find();
+    const system = systems[0];
+    const billing = system.billing;
+    await System.findOneAndUpdate({ code: system.code }, {
+      billing: {
+        ...billing,
+        trafficTicketValue: value
+      }
+    });
+    return { type: null, message: 'Traffic ticket value was set' };
+  } catch (error) {
+    return { type: 'System Error', message: `Can't access the system` };
+  }
+}
+
+async function setFuelValue(value) {
+  try {
+    const systems = await System.find();
+    const system = systems[0];
+    const billing = system.billing;
+    await System.findOneAndUpdate({ code: system.code }, {
+      billing: {
+        ...billing,
+        fuelValue: value
+      }
+    });
+    return { type: null, message: 'Fuel value was set' };
+  } catch (error) {
+    return { type: 'System Error', message: `Can't access the system` };
+  }
+}
+
+async function setCleanValue(value) {
+  try {
+    const systems = await System.find();
+    const system = systems[0];
+    const billing = system.billing;
+    await System.findOneAndUpdate({ code: system.code }, {
+      billing: {
+        ...billing,
+        cleanValue: value
+      }
+    });
+    return { type: null, message: 'Clean value was set' };
+  } catch (error) {
+    return { type: 'System Error', message: `Can't access the system` };
+  }
+}
+
 async function getDashboard() {
   try {
     const systems = await System.find();
     const billing = systems[0].billing;
+    const {trafficTicketValue, fuelValue, cleanValue, today, goal, contractCounter} = billing;
     const thisMonth = billing.years[billing.currentYear][billing.currentMonth];
     const monthSum = thisMonth.reduce((acc, value) => acc + value, 0);
     const dashboard = {
-      today: billing.today,
-      goal: billing.goal,
+      today,
+      goal,
       month: monthSum,
+      trafficTicketValue,
+      fuelValue,
+      cleanValue,
+      contractCounter,
     };
     return { type: null, message: dashboard };
   } catch (error) {
@@ -183,7 +257,11 @@ module.exports = {
   giveCode,
   dailyBillingUpdate,
   changeToday,
+  changeContractCounter,
   setGoal,
   getDashboard,
-  getYearBilling
+  getYearBilling,
+  setTrafficTicketValue,
+  setFuelValue,
+  setCleanValue
 };

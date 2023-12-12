@@ -26,7 +26,7 @@ const Navbar = () => {
   }
 
   return (
-    <section className="flex flex-col gap-2 bg-zinc-900 w-[72px] h-screen justify-center py-2">
+    <section className="flex flex-col gap-2 bg-zinc-900 w-[72px] h-screen justify-center py-2 text-white">
       <div className="flex flex-col items-center h-full justify-around my-22">
         <button className="hover:opacity-50" onClick={ () => setLogout(true) }>
           <Logout className={navbarSvg} />

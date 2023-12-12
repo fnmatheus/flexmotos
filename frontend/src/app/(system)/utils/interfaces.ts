@@ -37,7 +37,11 @@ export interface IGetDataSystem {
   data: {
     today: number,
     goal: number,
-    month: number
+    month: number,
+    trafficTicketValue: number,
+    cleanValue: number,
+    fuelValue: number,
+    contractCounter: number,
   }
 }
 
@@ -143,8 +147,14 @@ export interface IClientsPopup {
   clientCPF?: string,
   clientCNH?: string,
   clientPhone?: string,
-  clientAdress?: string,
-  editMode?: boolean
+  clientAddress?: string,
+  editMode?: boolean,
+  clientRg?: string,
+  clientNationality?: string,
+  clientJob?: string,
+  clientMaritalStatus?: string,
+  clientIsMarid?: string,
+  clientPartnerName?: string,
 }
 
 export interface IClient {
@@ -156,7 +166,12 @@ export interface IClient {
   address: string,
   file: File,
   history: string[][],
-  securities: string[][]
+  securities: string[][],
+  RG: string,
+  nationality: string,
+  job: string,
+  maritalStatus: string,
+  clientPartnerName: string,
 }
 
 export interface IClientDetailsPopup {
@@ -173,10 +188,12 @@ export interface IVehicles {
 
 export interface IVehicleDetails {
   category: string,
-  model: string
+  model: string,
+  color: string,
   year: string,
   plate: string
   RENAVAM: string,
+  chassis: string,
   IPVA: boolean,
   mileage: number,
   rent: {
@@ -186,6 +203,7 @@ export interface IVehicleDetails {
     rentalDate: string,
     returnDate: string
   },
+  vehicleValue: number,
   securityValue: number,
   rentValue: number,
   oil: boolean,
@@ -198,11 +216,14 @@ export interface IVehiclesPopup {
   handleNo(): void,
   vehicleCategory: string,
   vehicleModel: string,
+  vehicleColor: string,
   vehicleYear: string,
   vehiclePlate: string,
   vehicleRenavam: string,
+  vehicleChassis: string,
   vehicleIpva: string,
   vehicleMileage: string,
+  vehicleValue: string,
   vehiclSecuriteValue: string,
   vehicleRentValue: string,
   editMode?: boolean
@@ -211,11 +232,14 @@ export interface IVehiclesPopup {
 export interface IVehicle {
   category: string,
   model: string,
+  color: string,
   year: string,
   plate: string,
   RENAVAM: string,
+  chassis: string,
   IPVA: string,
   mileage: string,
+  vehicleValue: string,
   securityValue: string,
   rentValue: string
 }
@@ -234,7 +258,8 @@ export interface IRent {
   security?: string,
   hasSecurity?: boolean,
   rentValue?: number,
-  securityValue?: number
+  securityValue?: number,
+  rentTime?: number,
 }
 
 export interface IRentPopup {
@@ -246,4 +271,41 @@ export interface IRentPopup {
 export interface IConfirmRent extends IRent {
   handleYes(info: IRent): void,
   handleNo(): void
+}
+
+export interface IContract {
+  currentYear: string,
+  contractCounter: string,
+  clientName: string,
+  clientNationality: string,
+  clientMaritalStatus: string,
+  clientJob: string,
+  clientCpf: string,
+  clientRg: string,
+  clientAddress: string,
+  clientPhone: string,
+  vehicleModel: string,
+  vehicleYear: string,
+  vehicleChassis: string,
+  vehicleColor: string,
+  vehiclePlate: string,
+  vehicleValue: string,
+  rentTime: string,
+  rentValue: string,
+  securityValue: string,
+  rentalDate: string,
+  returnDate: string,
+  trafficTicketValue: string,
+  fuelValue: string,
+  cleanValue: string,
+}
+
+export interface IPdfInformarion {
+  CPF: string,
+  plate: string,
+  rentalDate: string,
+  returnDate: string,
+  rentValue: number,
+  securityValue: number,
+  rentTime: number,
 }

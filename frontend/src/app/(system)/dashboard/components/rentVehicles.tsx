@@ -17,7 +17,7 @@ const RentVehicles: React.FC<IProps> = ({token}: IProps) => {
   }, [token]);
 
   return (
-    <div className="h-1/3">
+    <div className="h-1/3 w-2/5">
       <DashboardTable
         tableTitle='Veículos para devolução'
         vehicles={vehicles}

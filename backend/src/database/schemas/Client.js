@@ -41,6 +41,22 @@ const Client = new mongoose.Schema({
   securities: [[{
     type: String,
   }]],
+  nationality: {
+    type: String,
+    require: true,
+  },
+  maritalStatus: {
+    type: String,
+    require: true,
+  },
+  job: {
+    type: String,
+    require: true,
+  },
+  RG: {
+    type: String,
+    require: true,
+  },
 });
 
 module.exports = mongoose.model('Client', Client)

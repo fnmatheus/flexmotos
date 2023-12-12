@@ -7,14 +7,17 @@ import { Decline } from '@/app/components/svgs';
 const VehicleDetailsPopup: React.FC<IVehicleDetailsPopup> = ({plate, handleClose}: IVehicleDetailsPopup) => {
   const [category, setCategory] = useState<string>('');
   const [model, setModel] = useState<string>('');
+  const [color, setColor] = useState<string>('');
   const [year, setYear] = useState<string>('');
   const [renavam, setRenavam] = useState<string>('');
+  const [chassis, setChassis] = useState<string>('');
   const [ipva, setIpva] = useState<string>('');
   const [mileage, setMileage] = useState<string>('');
   const [status, setStatus] = useState<string>('');
   const [client, setClient] = useState<string>('');
   const [rentalDate, setRentalDate] = useState<string>('');
   const [returnDate, setReturnDate] = useState<string>('');
+  const [vehicleValue, setVehicleValue] = useState<string>('');
   const [securityValue, setSecurityValue] = useState<string>('');
   const [rentValue, setRentValue] = useState<string>('');
   const [amount, setAmount] = useState<string>('');
@@ -22,10 +25,13 @@ const VehicleDetailsPopup: React.FC<IVehicleDetailsPopup> = ({plate, handleClose
   useEffect(() => {
     async function getVehicle() {
       const vehicle = await getVehicleDetails(plate);
+      console.log(vehicle)
       setCategory(vehicle.category);
       setModel(vehicle.model);
+      setColor(vehicle.color);
       setYear(vehicle.year);
       setRenavam(vehicle.RENAVAM);
+      setChassis(vehicle.chassis);
       const ipvaValue = (vehicle.IPVA) ? 'Pago' : 'Não pago';
       setIpva(ipvaValue);
       setMileage(`${vehicle.mileage.toFixed(2)} Km`);
@@ -34,6 +40,7 @@ const VehicleDetailsPopup: React.FC<IVehicleDetailsPopup> = ({plate, handleClose
       setClient(`${vehicle.rent.CPF} ${vehicle.rent.name}`);
       setRentalDate(vehicle.rent.rentalDate);
       setReturnDate(vehicle.rent.returnDate);
+      setVehicleValue(`R$ ${vehicle.vehicleValue.toFixed(2)}`);
       setSecurityValue(`R$ ${vehicle.securityValue.toFixed(2)}`);
       setRentValue(`R$ ${vehicle.rentValue.toFixed(2)}`);
       setAmount(`R$ ${vehicle.amount.toFixed(2)}`);
@@ -50,15 +57,19 @@ const VehicleDetailsPopup: React.FC<IVehicleDetailsPopup> = ({plate, handleClose
         <div className="flex flex-col gap-2 text-xl items-center">
           <h2 className="font-semibold">Informações do veículo</h2>
           <div className="flex flex-wrap justify-start">
-            <label className="w-1/12 text-left p-1">
+            <label className="w-2/12 text-left">
               <span className={popupLabelText}>Categoria</span>
               <p>{category}</p>
             </label>
-            <label className="w-6/12 text-left p-1">
+            <label className="w-4/12 text-left pr-4">
               <span className={popupLabelText}>Modelo</span>
               <p>{model}</p>
             </label>
-            <label className="w-5/12 text-left p-1">
+            <label className="w-2/12 text-left pr-2">
+              <span className={popupLabelText}>Cor</span>
+              <p>{color}</p>
+            </label>
+            <label className="w-3/12 text-left p-1">
               <span className={popupLabelText}>Ano</span>
               <p>{year}</p>
             </label>
@@ -66,15 +77,23 @@ const VehicleDetailsPopup: React.FC<IVehicleDetailsPopup> = ({plate, handleClose
               <span className={popupLabelText}>Placa</span>
               <p>{plate}</p>
             </label>
-            <label className="w-2/12 text-left p-1">
+            <label className="w-3/12 text-left p-1">
               <span className={popupLabelText}>RENAVAM</span>
               <p>{renavam}</p>
+            </label>
+            <label className="w-3/12 text-left p-1">
+              <span className={popupLabelText}>Chassi</span>
+              <p>{chassis}</p>
             </label>
             <label className="w-2/12 text-left p-1">
               <span className={popupLabelText}>IPVA</span>
               <p>{ipva}</p>
             </label>
-            <label className="w-6/12 text-left p-1">
+            <label className="w-3/12 text-left p-1">
+              <span className={popupLabelText}>Tabela Fipe</span>
+              <p>{vehicleValue}</p>
+            </label>
+            <label className="w-8/12 text-left p-1">
               <span className={popupLabelText}>Quilometragem</span>
               <p>{mileage}</p>
             </label>

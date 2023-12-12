@@ -9,6 +9,10 @@ const Vehicle = new mongoose.Schema({
     type: String,
     require: true,
   },
+  color: {
+    type: String,
+    require: true,
+  },
   year: {
     type: String,
     require: true,
@@ -19,6 +23,10 @@ const Vehicle = new mongoose.Schema({
     unique: true,
   },
   RENAVAM: {
+    type: String,
+    require: true,
+  },
+  chassis: {
     type: String,
     require: true,
   },
@@ -51,6 +59,10 @@ const Vehicle = new mongoose.Schema({
       type: String,
       default: '',
     },
+  },
+  vehicleValue: {
+    type: Number,
+    require: true,
   },
   securityValue: {
     type: Number,

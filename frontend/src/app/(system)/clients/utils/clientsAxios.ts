@@ -37,12 +37,16 @@ export const filterClientsByStatus = async (category: string) => {
 export const addNewClient = async (client: (string | File | undefined)[]) => {
   try {
     const formData = new FormData();
-    const [name, birth, cpf, cnh, phone, address, file] = client;
-    if (name && birth && cpf && cnh && phone && address && file) {
+    const [name, birth, cpf, cnh, rg, nationality, job, maritalStatus, partnerName, phone, address, file] = client;
+    if (name && birth && cpf && cnh && phone && address && file && rg && nationality && job && maritalStatus) {
       formData.append('name', name);
       formData.append('birth', birth);
       formData.append('CPF', cpf);
       formData.append('CNH', cnh);
+      formData.append('RG', rg);
+      formData.append('nationality', nationality);
+      formData.append('job', job);
+      formData.append('maritalStatus', `${maritalStatus} ${(partnerName !==  '' && partnerName) ? partnerName : ''}`);
       formData.append('phone', phone);
       formData.append('address', address);
       formData.append('file', file);
@@ -68,12 +72,16 @@ export const getClientDetails = async (CPF: string) => {
 export const updateClient = async (client: (string | File | undefined)[]) => {
   try {
     const formData = new FormData();
-    const [name, birth, cpf, cnh, phone, address, file] = client;
-    if (name && birth && cpf && cnh && phone && address) {
+    const [name, birth, cpf, cnh, rg, nationality, job, maritalStatus, partnerName, phone, address, file] = client;
+    if (name && birth && cpf && cnh && phone && address && rg && nationality && job && `${maritalStatus} ${(partnerName !==  '' && partnerName) ? partnerName : ''}`) {
       formData.append('name', name);
       formData.append('birth', birth);
       formData.append('CPF', cpf);
       formData.append('CNH', cnh);
+      formData.append('RG', rg);
+      formData.append('nationality', nationality);
+      formData.append('job', job);
+      formData.append('maritalStatus', `${maritalStatus} ${(partnerName !==  '' && partnerName) ? partnerName : ''}`);
       formData.append('phone', phone);
       formData.append('address', address);
     }

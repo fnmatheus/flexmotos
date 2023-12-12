@@ -5,15 +5,27 @@ import { backendURL } from '../../utils/urls';
 export const getData = async () => {
   try {
     const {data}: IGetDataSystem = await instance.get(`${backendURL}/system/dashboard`);
-    const {today, goal: currGoal, month} = data;
-    return {today, currGoal, month};
+    const {today, goal: currGoal, month, trafficTicketValue, cleanValue, fuelValue, contractCounter} = data;
+    return {today, currGoal, month, trafficTicketValue, cleanValue, fuelValue, contractCounter};
   } catch (error) {
     return null;
   }
 }
 
 export const setGoalData = async (value: number) => {
-  await instance.post('http://localhost:3000/system/goal', {value});
+  await instance.post(`${backendURL}/system/goal`, {value});
+}
+
+export const setTrafficTicketData = async (value: number) => {
+  await instance.post(`${backendURL}/system/traffic_ticket`, {value});
+}
+
+export const setCleanData = async (value: number) => {
+  await instance.post(`${backendURL}/system/fuel`, {value});
+}
+
+export const setFuelData = async (value: number) => {
+  await instance.post(`${backendURL}/system/clean`, {value});
 }
 
 export const getYearlyBilling = async (value: number) => {
@@ -32,4 +44,8 @@ export const getYearlyBilling = async (value: number) => {
     else if (i > currentMonth) billing.push(0);
   }
   return ({years, billing});
+}
+
+export const updateContract = async () => {
+  await instance.post(`${backendURL}/system/contract`);
 }

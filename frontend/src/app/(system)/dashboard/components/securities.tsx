@@ -24,7 +24,7 @@ const Securities: React.FC<IProps> = ({token}: IProps) => {
   }
 
   return (
-    <div className="h-1/3">
+    <div className="h-1/3 w-3/5">
       <DashboardTable
         tableTitle='Cauções'
         vehicles={vehicles}

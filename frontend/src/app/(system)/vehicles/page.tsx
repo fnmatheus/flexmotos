@@ -4,13 +4,15 @@ import PageHeader from '../components/pageHeader';
 import PageTable from '../components/pageTable';
 import { options, tableHeads } from './utils/variables';
 import { getCookie } from 'cookies-next';
-import { addVehicle, filterVehicleByStatus, getVehicleDetails, getVehicles, removeVehicle, rentVehicle, returnVehicle, updateVehicle } from './utils/vehiclesAxios';
+import { addVehicle, filterVehicleByStatus, getPdfInformation, getVehicleDetails, getVehicles, removeVehicle, rentVehicle, returnVehicle, updateVehicle } from './utils/vehiclesAxios';
 import VehiclesPopup from './components/vehiclesPopup';
 import { IRent, IVehicle } from '../utils/interfaces';
 import VehicleDetailsPopup from './components/vehicleDetailsPopup';
 import Popup from '../../components/popup';
 import RentPopup from './components/rentPopup';
 import ConfirmRentPopup from './components/confirmRentPopup';
+import createPdf from './utils/pdf';
+import { updateContract } from '../dashboard/utils/systemAxios';
 
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState<string[][]>([]);
@@ -65,11 +67,14 @@ const Vehicles = () => {
     setEditPopup({
       category: vehicle.category,
       model: vehicle.model,
+      color: vehicle.color,
       year: vehicle.year,
       plate: vehicle.plate,
       RENAVAM: vehicle.RENAVAM,
+      chassis: vehicle.chassis,
       IPVA: String(vehicle.IPVA),
       mileage: vehicle.mileage.toFixed(2),
+      vehicleValue: vehicle.vehicleValue.toFixed(2),
       securityValue: vehicle.securityValue.toFixed(2),
       rentValue: vehicle.rentValue.toFixed(2)
     });
@@ -95,9 +100,17 @@ const Vehicles = () => {
   async function handleConfirmRentSubmit(info: IRent) {
     const newVehicles = await rentVehicle(info);
     if (newVehicles) {
-      setVehicles(newVehicles);
-      setConfirmRentPopup(null);
-      return;
+      const {CPF, plate, rentalDate, returnDate, rentValue, securityValue, rentTime} = info;
+      if (typeof rentValue === 'number'  && typeof securityValue === 'number' && typeof rentTime === 'number') {
+        const pdfInfo = await getPdfInformation({CPF, plate, rentalDate, returnDate, rentValue, securityValue, rentTime});
+        if (pdfInfo) {
+          createPdf(pdfInfo);
+          await updateContract();
+        }
+        setVehicles(newVehicles);
+        setConfirmRentPopup(null);
+        return;
+      }
     }
     alert('Precisa devolver o caução para o cliente para alugar novamente!');
   }
@@ -134,11 +147,14 @@ const Vehicles = () => {
           handleNo={() => setAddPopup(false)}
           vehicleCategory="moto"
           vehicleModel=""
+          vehicleColor=""
           vehicleYear=""
           vehiclePlate=""
           vehicleRenavam=""
+          vehicleChassis=""
           vehicleIpva="false"
           vehicleMileage=""
+          vehicleValue=""
           vehiclSecuriteValue=""
           vehicleRentValue=""
         />
@@ -151,11 +167,14 @@ const Vehicles = () => {
           handleNo={() => setEditPopup(null)}
           vehicleCategory={editPopup.category}
           vehicleModel={editPopup.model}
+          vehicleColor={editPopup.color}
           vehicleYear={editPopup.year}
           vehiclePlate={editPopup.plate}
           vehicleRenavam={editPopup.RENAVAM}
+          vehicleChassis={editPopup.chassis}
           vehicleIpva={editPopup.IPVA}
           vehicleMileage={editPopup.mileage}
+          vehicleValue={editPopup.vehicleValue}
           vehiclSecuriteValue={editPopup.securityValue}
           vehicleRentValue={editPopup.rentValue}
           editMode

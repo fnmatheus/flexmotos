@@ -2,16 +2,19 @@ const Vehicle = require('../database/schemas/Vehicle');
 const { updateClientToRent, updateClientToReturn, getDatails } = require('./clients.service');
 const { changeToday } = require('./system.service');
  
-async function add({category, model, year, plate, RENAVAM, IPVA, mileage, securityValue, rentValue}) {
+async function add({category, model, color, year, plate, RENAVAM, chassis, IPVA, mileage, vehicleValue, securityValue, rentValue}) {
   try {
     await Vehicle.create({
       category,
       model,
+      color,
       year,
       plate,
       RENAVAM,
+      chassis,
       IPVA,
       mileage,
+      vehicleValue,
       securityValue,
       rentValue,
     });
@@ -83,17 +86,22 @@ async function remove(plate) {
   }
 }
 
-async function update({model, year, plate, RENAVAM, mileage, securityValue, rentValue}) {
+async function update({category, model, color, year, plate, RENAVAM, chassis, IPVA, mileage, vehicleValue, securityValue, rentValue}) {
   try {
     const vehicle = await Vehicle.findOne({ plate });
     if (!vehicle) return { type: 'notFound', message: 'Vehicle not found' };
     await Vehicle.findOneAndUpdate({plate}, {
+      category,
       model,
+      color,
       year,
       RENAVAM,
+      chassis,
+      IPVA,
       mileage,
+      vehicleValue,
       securityValue,
-      rentValue,
+      rentValue
     });
     return { type: null, message: 'Vehicle has been updated' };
   } catch (error) {

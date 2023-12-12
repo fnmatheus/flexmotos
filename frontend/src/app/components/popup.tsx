@@ -25,7 +25,7 @@ const Popup: React.FC<IPopup> = ({title, handleYes, handleNo, hasText, text, has
         { hasText && <p>{text}</p> }
         {
           hasInput &&
-          <input className={popupInput} id='input' onChange={handleInput} type="text" required pattern="\d+.\d\d" />
+          <input className={`${popupInput} w-32`} id='input' onChange={handleInput} type="text" required pattern="\d+.\d\d" />
         }
         <div className={popupButtons}>
           <button type="submit">

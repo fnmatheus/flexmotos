@@ -1,5 +1,7 @@
+import { getClientDetails } from '../../clients/utils/clientsAxios';
+import { getData } from '../../dashboard/utils/systemAxios';
 import { instance } from '../../utils/axios';
-import { IVehicle, IVehicles, IVehicleDetails, IRent } from '../../utils/interfaces';
+import { IVehicle, IVehicles, IVehicleDetails, IRent, IPdfInformarion } from '../../utils/interfaces';
 import { backendURL } from '../../utils/urls';
 
 export const getVehicles = async () => {
@@ -78,4 +80,36 @@ export const rentVehicle = async (info: IRent) => {
   } catch (error) {
     return null;
   }
+}
+
+export const getPdfInformation = async ({CPF: clientCpf, plate: vehiclePlate, rentalDate, returnDate, rentValue, securityValue, rentTime}: IPdfInformarion) => {
+  const systemData = await getData();
+  const currentYear = String(new Date().getFullYear());
+  const trafficTicketValue = systemData?.trafficTicketValue.toFixed(2).replace('.', ',');
+  const fuelValue = systemData?.cleanValue.toFixed(2).replace('.', ',');
+  const cleanValue = systemData?.fuelValue.toFixed(2).replace('.', ',');
+  const contractCounter = String(systemData?.contractCounter);
+  const {
+    name: clientName,
+    nationality: clientNationality,
+    maritalStatus,
+    job: clientJob,
+    RG: clientRg,
+    address: clientAddress,
+    phone: clientPhone,
+  } = await getClientDetails(clientCpf);
+  const maritalArr = maritalStatus.split(' ');
+  const clientMaritalStatus = `${maritalArr[0]} ${(maritalArr[0] === 'casado(a)' ? `com ${maritalArr[1]}` : '')}`;
+  const {
+    model: vehicleModel,
+    year,
+    chassis: vehicleChassis,
+    color: vehicleColor,
+    vehicleValue,
+  } = await getVehicleDetails(vehiclePlate);
+  const vehicleYear = year.split('/')[0];
+  if (trafficTicketValue !== undefined && fuelValue !== undefined && cleanValue !== undefined) {
+    return {currentYear, trafficTicketValue, fuelValue, cleanValue, contractCounter, clientCpf, clientName, clientNationality, clientMaritalStatus, clientJob, clientRg, clientAddress, clientPhone, vehiclePlate, vehicleModel, vehicleYear, vehicleChassis, vehicleColor, vehicleValue: vehicleValue.toFixed(2).replace('.', ','), rentalDate, returnDate, rentValue: rentValue.toFixed(2).replace('.', ','), securityValue: securityValue.toFixed(2).replace('.', ','), rentTime: String(rentTime)};
+  }
+  return null;
 }

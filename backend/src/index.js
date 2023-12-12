@@ -32,7 +32,7 @@ mongoose
 .connect(process.env.MONGODB_URI)
 .then(() => {
   app.listen(process.env.PORT, () => {
-    console.log(`Database connected! Listen on ${3000}`);
+    console.log(`Database connected! Listen on ${process.env.PORT}`);
     schedule.dailyUpdate();
     schedule.weeklyUpdate();
     schedule.monthlyUpdate();
