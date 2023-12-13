@@ -4,8 +4,7 @@ import { getYearlyBilling } from '../utils/systemAxios';
 import { IYearlyBilling, IBillings } from '../../utils/interfaces';
 import { Decline } from '@/app/components/svgs';
 import { billingTable } from '@/app/utils/classnames';
-
-const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+import months from '../../utils/months';
 
 const YearlyBilling: React.FC<IYearlyBilling> = ({token, handleClose}: IYearlyBilling) => {
   const [billings, setBillings] = useState<IBillings>();
