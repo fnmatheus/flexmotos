@@ -44,7 +44,7 @@ const ClientDetailsPopup: React.FC<IClientDetailsPopup> = ({detailsCpf, handleCl
 
   return (
     <div className={popupContainer}>
-      <div className="bg-white flex flex-col gap-8 p-5 relative">
+      <div className="bg-white flex w-2/3 flex-col gap-8 p-5 relative">
         <button className={`${hoverPopupButtons} absolute top-1 right-1 text-xl`} onClick={handleClose}>
           <Decline />
         </button>
