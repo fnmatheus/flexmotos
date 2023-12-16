@@ -19,7 +19,7 @@ const toDataURL = async (url: string) => {
 export default async function createPdf(
   { currentYear, contractCounter, clientName, clientNationality, clientMaritalStatus, clientJob, clientCpf, clientRg, clientAddress, clientPhone, vehicleModel, vehicleYear, vehicleChassis, vehicleColor, vehiclePlate, vehicleValue, rentTime, rentValue, securityValue, rentalDate, returnDate, trafficTicketValue, fuelValue, cleanValue }: IContract
 ) {
-  const logo = await toDataURL('https://64.media.tumblr.com/9fc89b0950dec4ead278a4d03f611c04/81cc08bfff95d123-82/s2048x3072/3b372b5a166f8e18e9ada3d80c092e19ac708906.pnj');
+  const logo = await toDataURL('./images/logo.png');
 
   const dateArr = (new Date().toLocaleDateString('pt-BR')).split('/')
   const date = dateArr.reduce((acc, item, index) => {

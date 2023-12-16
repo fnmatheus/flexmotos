@@ -1,1 +1,1 @@
-export const backendURL = process.env.BACKEND_URI;
+export const backendURL = 'http://localhost:3000';
