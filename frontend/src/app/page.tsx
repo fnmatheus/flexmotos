@@ -21,7 +21,6 @@ const Home = () => {
     };
 
     try {
-      console.log(backendURL);
       const { data } = await axios.post(`${backendURL}/users/signin`, payload);
       if (data === 'Wrong Code' || data === 'User not Found' || data === 'Wrong Password') {
         setIncorrectFields(true);
