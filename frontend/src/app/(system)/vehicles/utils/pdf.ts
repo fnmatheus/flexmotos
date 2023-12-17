@@ -4,23 +4,11 @@ import { Alignment, ContentImage } from 'pdfmake/interfaces';
 import { IContract } from '../../utils/interfaces';
 import extenso from 'extenso';
 import months from '../../utils/months';
-
-const toDataURL = async (url: string) => {
-  const blob = await (await fetch(url)).blob();
-  const result = await new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(blob);
-  });
-  return result;
-}
+import { images } from './variables';
 
 export default async function createPdf(
   { currentYear, contractCounter, clientName, clientNationality, clientMaritalStatus, clientJob, clientCpf, clientRg, clientAddress, clientPhone, vehicleModel, vehicleYear, vehicleChassis, vehicleColor, vehiclePlate, vehicleValue, rentTime, rentValue, securityValue, rentalDate, returnDate, trafficTicketValue, fuelValue, cleanValue }: IContract
 ) {
-  const logo = await toDataURL('./images/logo.png');
-
   const dateArr = (new Date().toLocaleDateString('pt-BR')).split('/')
   const date = dateArr.reduce((acc, item, index) => {
     if (index === 1) return `${acc} de ${months[Number(item) - 1]}`;
@@ -30,7 +18,7 @@ export default async function createPdf(
   const docDefinitions = {
     content: [
       {
-        image: logo,
+        image: images.logo,
         width: 300,
         alignment: 'center',
       } as ContentImage,
@@ -96,12 +84,31 @@ export default async function createPdf(
       },
       '10.1 - Havendo violação das obrigações previstas neste contrato, por qualquer das partes, estarão sujeitas ao pagamento de indenização e ressarcimento pelas perdas e danos percebidos pela parte afetada, sem prejuízo das demais penalidades cabíveis.\n\n 10.2 - Veda-se, através deste contrato, o empréstimo ou sublocação do veículo locado, sob pena de rescisão imediata da relação jurídica existente, sem prejuízo das demais penalidades cabíveis.\n\n 10.3 - Este contrato poderá ser alterado somente mediante instrumento anexo à este documento, desde que assinado e consentido por todas as partes.\n\n 10.4 - Ocorrendo a nulidade de alguma das cláusulas deste contrato, as restantes disposições contratuais não serão afetadas, continuarão valendo mesmo que ocorram alteração nas demais.\n\n 10.5 - O LOCATÁRIO concorda que a sua assinatura no Contrato implica ciência e adesão por si, seus herdeiros/sucessores a este contrato e demais documentos que compunham o Contrato, desde que respeitados os arts, 46 e 47 da Lei nº 8.078/90, reconhecendo a forma de contratação por meio físico ou eletrônico e digital como válida e plenamente eficaz, constituindo titulo executivo extrajudicial para todos os fins de direito, ainda que seja estabelecida com assinatura eletrônica ou certificação fora dos padrões ICP-BRASIL, conforme disposto pela Medida Provisória nº 2.200/2001.\n\n 10.6 - O LOCATÁRIO aceita receber as comunicações, notificações e avisos através do número de WhatsApp fornecido, e-mail ou SMS, dando por recebidas as comunicações enviadas no período da locação. Em caso de controvérsias, dúvidas, processos e conflitos, fica eleito o foro da comarca de São João del Rei/MG, ainda que exista outro mais privilegiado, sendo este o eleito para qualquer ação ou execução que possa ocorrer por motivo de descumprimento de algumas das cláusulas dispostas neste documento ou da legislação brasileira aplicável. E, por estarem assim, justos e de comum acordo, as PARTES assinam o presente instrumento em 2 (duas) vias de igual teor e forma para a produção de todos os efeitos de direito.\n\n',
       {
-        text: `São João del Rei, ${date}.\n\n\n\n________________________________\nFLEX MOTOS\n\n\n________________________________\nLOCATÁRIO`,
+        text: `São João del Rei, ${date}.\n\n\n\n`,
         style: {
           bold: true,
           alignment: 'center' as Alignment,
         }
-      }
+      },
+      {
+        image: images.signature,
+        width: 200,
+        alignment: 'center',
+      } as ContentImage,
+      {
+        text: '________________________________\nFLEX MOTOS\n\n\n',
+        style: {
+          bold: true,
+          alignment: 'center' as Alignment,
+        }
+      },
+      {
+        text: '________________________________\nLOCATÁRIO',
+        style: {
+          bold: true,
+          alignment: 'center' as Alignment,
+        }
+      },
     ],
     defaultStyle: { font: 'Roboto' },
     styles: {
