@@ -1,27 +1,35 @@
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { Alignment, ContentImage } from 'pdfmake/interfaces';
-import { IContract } from '../../utils/interfaces';
-import extenso from 'extenso';
-import months from '../../utils/months';
-import { images } from './variables';
+const PdfPrinter = require('pdfmake');
+const fs = require('fs');
+const extenso = require('extenso');
+const { images, months } = require('./variables');
 
-export default async function createPdf(
-  { currentYear, contractCounter, clientName, clientNationality, clientMaritalStatus, clientJob, clientCpf, clientRg, clientAddress, clientPhone, vehicleModel, vehicleYear, vehicleChassis, vehicleColor, vehiclePlate, vehicleValue, rentTime, rentValue, securityValue, rentalDate, returnDate, trafficTicketValue, fuelValue, cleanValue }: IContract
+async function createPdf(
+  { currentYear, contractCounter, clientName, clientNationality, clientMaritalStatus, clientJob, clientCpf, clientRg, clientAddress, clientPhone, vehicleModel, vehicleYear, vehicleChassis, vehicleColor, vehiclePlate, vehicleValue, rentTime, rentValue, securityValue, rentalDate, returnDate, trafficTicketValue, fuelValue, cleanValue }
 ) {
+  const fonts = {
+    Helvetica: {
+      normal: 'Helvetica',
+      bold: 'Helvetica-Bold',
+      italics: 'Helvetica-Oblique',
+      bolditalics: 'Helvetica-BoldOblique'
+    },
+  };
+
+  const printer = new PdfPrinter(fonts);
+
   const dateArr = (new Date().toLocaleDateString('pt-BR')).split('/')
   const date = dateArr.reduce((acc, item, index) => {
     if (index === 1) return `${acc} de ${months[Number(item) - 1]}`;
     return `${acc} de ${item}`;
   });
-  
-  const docDefinitions = {
+
+  const docDefinition = {
     content: [
       {
         image: images.logo,
         width: 300,
         alignment: 'center',
-      } as ContentImage,
+      },
       {
         text: `\n\nCONTRATO DE LOCAÇÃO DE VEÍCULO N. ${currentYear}/${contractCounter}\n\n`,
         style: 'header'
@@ -87,35 +95,35 @@ export default async function createPdf(
         text: `São João del Rei, ${date}.\n\n\n\n`,
         style: {
           bold: true,
-          alignment: 'center' as Alignment,
+          alignment: 'center',
         }
       },
       {
         image: images.signature,
         width: 200,
         alignment: 'center',
-      } as ContentImage,
+      },
       {
         text: '________________________________\nFLEX MOTOS\n\n\n',
         style: {
           bold: true,
-          alignment: 'center' as Alignment,
+          alignment: 'center',
         }
       },
       {
         text: '________________________________\nLOCATÁRIO',
         style: {
           bold: true,
-          alignment: 'center' as Alignment,
+          alignment: 'center',
         }
       },
     ],
-    defaultStyle: { font: 'Roboto' },
+    defaultStyle: { font: 'Helvetica' },
     styles: {
       header: {
         fontSize: 18,
         bold: true,
-        alignment: 'center' as Alignment,
+        alignment: 'center',
       },
       subheader: {
         fontSize: 15,
@@ -129,18 +137,10 @@ export default async function createPdf(
       }
     },
   };
-  pdfMake.vfs = pdfFonts.pdfMake.vfs;
-  pdfMake.fonts = {
-    'Roboto': {
-      normal: 'Roboto-Regular.ttf',
-      bold: 'Roboto-Medium.ttf',
-      italics: 'Roboto-Italic.ttf',
-      bolditalics: 'Roboto-Italic.ttf'
-    }
-  };
-  pdfMake.createPdf(docDefinitions).open();
-  // pdfMake.createPdf(docDefinitions).getBlob((blob) => {
-  //   const url = URL.createObjectURL(blob);
-  //   window.open(url);
-  // });
+
+  const pdfDoc = printer.createPdfKitDocument(docDefinition);
+  pdfDoc.pipe(fs.createWriteStream(`src/contracts/${contractCounter}.pdf`));
+  pdfDoc.end();
 }
+
+module.exports = createPdf;
