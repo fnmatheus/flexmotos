@@ -96,7 +96,7 @@ export const updateClient = async (client: (string | File | undefined)[]) => {
   }
 }
 
-export const clientDownload =async (CPF: string) => {
+export const clientDownload = async (CPF: string) => {
   try {
     const response = await instance.get(`${backendURL}/clients/download`, {
       params: {
@@ -107,12 +107,33 @@ export const clientDownload =async (CPF: string) => {
     const href = window.URL.createObjectURL(response.data);
     const anchorElement = document.createElement('a');
     anchorElement.href = href;
-    anchorElement.download = 'download';
+    anchorElement.download = 'comprovante';
     document.body.appendChild(anchorElement);
     anchorElement.click();
     document.body.removeChild(anchorElement);
     window.URL.revokeObjectURL(href);
   } catch (error) {
     alert('Erro ao tentar baixar o arquivo!');
+  }
+}
+
+export const contractDownload = async (CPF: string) => {
+  try {
+    const response = await instance.get(`${backendURL}/clients/contract`, {
+      params: {
+        CPF
+      },
+      responseType: 'blob'
+    });
+    const href = window.URL.createObjectURL(response.data);
+    const anchorElement = document.createElement('a');
+    anchorElement.href = href;
+    anchorElement.download = 'contrato';
+    document.body.appendChild(anchorElement);
+    anchorElement.click();
+    document.body.removeChild(anchorElement);
+    window.URL.revokeObjectURL(href);
+  } catch (error) {
+    alert('Não conseguiu baixar o PDF do contrato!');
   }
 }
