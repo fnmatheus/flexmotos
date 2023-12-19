@@ -8,6 +8,7 @@ import { addNewClient, filterClientsByStatus, getClientDetails, getClients, remo
 import ClientsPopup from './components/clientsPopup';
 import ClientDetailsPopup from './components/clientDetailsPopup';
 import { IClient } from '../utils/interfaces';
+import { useRouter } from 'next/navigation';
 
 const Clients = () => {
   const [clients, setClients] = useState<string[][]>([]);
@@ -17,14 +18,20 @@ const Clients = () => {
   const [editPopup, setEditPopup] = useState<(string)[]>([]);
   const [detailsPopup, setDetailsPopup] = useState<string>('');
 
+  const router = useRouter();
+
   useEffect(() => {
     async function getClientsData() {
-      await getCookie('authorization');
-      const data = await getClients();
-      setClients(data);
+      try {
+        await getCookie('authorization');
+        const data = await getClients();
+        setClients(data);
+      } catch (error) {
+        router.push('/');
+      }
     }
     getClientsData();
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     setFilteredClients(clients);

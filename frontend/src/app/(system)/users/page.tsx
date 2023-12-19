@@ -7,6 +7,7 @@ import PageTable from '../components/pageTable';
 import UsersPopup from './components/usersPopup';
 import { IUser } from '../utils/interfaces';
 import { getCookie } from 'cookies-next';
+import { useRouter } from 'next/navigation';
 
 const Users = () => {
   const [users, setUsers] = useState<string[][]>([]);
@@ -15,14 +16,20 @@ const Users = () => {
   const [addPopup, setAddPopup] = useState(false);
   const [editPopup, setEditPopup] = useState<string[]>([]);
 
+  const router = useRouter();
+
   useEffect(() => {
     async function getToken() {
-      await getCookie('authorization');
-      const data = await getUsers();
-      setUsers(data);
+      try {
+        await getCookie('authorization');
+        const data = await getUsers();
+        setUsers(data);
+      } catch (error) {
+        router.push('/');
+      }
     }
     getToken();
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     setFilteredUsers(users);

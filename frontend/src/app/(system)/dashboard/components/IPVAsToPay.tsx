@@ -2,20 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { IProps } from '../../utils/interfaces';
 import { getIPVAs, payIPVA } from '../utils/IPVAsAxios';
 import DashboardTable from './dashboardTable';
+import { useRouter } from 'next/navigation';
 
 const IPVAsToPay: React.FC<IProps> = ({token}: IProps) => {
   const [vehicles, setVehicles] = useState<string[][]>([]);
   const [popup, setPopup] = useState<string[]>([]);
 
+  const router = useRouter();
+
   useEffect(() => {
     async function getIPVAsData() {
-      if (token !== '') {
-        const data: string[][] = await getIPVAs();
-        setVehicles(data);
+      try {
+        if (token !== '') {
+          const data: string[][] = await getIPVAs();
+          setVehicles(data);
+        }
+      } catch (error) {
+        router.push('/');
       }
     }
     getIPVAsData();
-  }, [token, popup]);
+  }, [token, router, popup]);
 
   async function handlePayIPVA(vehicle: string[]) {
     const [plate] = vehicle;

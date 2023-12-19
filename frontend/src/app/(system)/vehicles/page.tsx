@@ -13,6 +13,7 @@ import RentPopup from './components/rentPopup';
 import ConfirmRentPopup from './components/confirmRentPopup';
 import { updateContract } from '../dashboard/utils/systemAxios';
 import { contractDownload } from '../clients/utils/clientsAxios';
+import { useRouter } from 'next/navigation';
 
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState<string[][]>([]);
@@ -25,14 +26,20 @@ const Vehicles = () => {
   const [rentPopup, setRentPopup] = useState<string>('');
   const [confirmRentPopup, setConfirmRentPopup] = useState<IRent | null>(null);
 
+  const router = useRouter();
+
   useEffect(() => {
     async function getVehiclesData() {
-      await getCookie('authorization');
-      const data = await getVehicles();
-      setVehicles(data);
+      try {
+        await getCookie('authorization');
+        const data = await getVehicles();
+        setVehicles(data);
+      } catch (error) {
+        router.push('/')
+      }
     }
-    getVehiclesData()
-  }, []);
+    getVehiclesData();
+  }, [router]);
 
   useEffect(() => {
     setFilteredVehicles(vehicles);
