@@ -136,7 +136,7 @@ async function changeToday(value) {
 
 async function changeContractCounter(pdfInfo) {
   try {
-    createPdf(pdfInfo);
+    await createPdf(pdfInfo);
     const systems = await System.find();
     const system = systems[0];
     const billing = system.billing;

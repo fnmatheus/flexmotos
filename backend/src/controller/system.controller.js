@@ -11,7 +11,7 @@ async function changeContractCounterController(req, res) {
   const { pdfInfo } = req.body;
   const {type, message} = await changeContractCounter(pdfInfo);
   if (type) return res.status(500).json(message);
-  return res.download(`src/contracts/${pdfInfo.contractCounter}.pdf`);
+  return res.status(200).json('Contract counter changed');
 }
 
 async function setGoalController(req, res) {

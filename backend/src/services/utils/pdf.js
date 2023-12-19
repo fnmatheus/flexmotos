@@ -2,6 +2,9 @@ const PdfPrinter = require('pdfmake');
 const fs = require('fs');
 const extenso = require('extenso');
 const { images, months } = require('./variables');
+const { addContract } = require('../clients.service');
+
+const delay = (delayInms) => new Promise(resolve => setTimeout(resolve, delayInms));
 
 async function createPdf(
   { currentYear, contractCounter, clientName, clientNationality, clientMaritalStatus, clientJob, clientCpf, clientRg, clientAddress, clientPhone, vehicleModel, vehicleYear, vehicleChassis, vehicleColor, vehiclePlate, vehicleValue, rentTime, rentValue, securityValue, rentalDate, returnDate, trafficTicketValue, fuelValue, cleanValue }
@@ -139,8 +142,11 @@ async function createPdf(
   };
 
   const pdfDoc = printer.createPdfKitDocument(docDefinition);
-  pdfDoc.pipe(fs.createWriteStream(`src/contracts/${contractCounter}.pdf`));
+  const path = `src/contracts/${contractCounter}.pdf`;
+  pdfDoc.pipe(fs.createWriteStream(path));
   pdfDoc.end();
+  await addContract(clientCpf, path);
+  await delay(100);
 }
 
 module.exports = createPdf;
