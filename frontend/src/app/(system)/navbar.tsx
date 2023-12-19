@@ -16,9 +16,10 @@ const Navbar = () => {
     async function setData() {
       const newToken = await getCookie('authorization');
       if (typeof newToken === 'string') setAxiosToken(newToken);
+      else router.push('/');
     }
     setData();
-  }, []);
+  }, [router]);
 
   function handleLogout() {
     deleteCookie('authorization');

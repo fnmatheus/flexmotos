@@ -86,8 +86,8 @@ export const getPdfInformation = async ({CPF: clientCpf, plate: vehiclePlate, re
   const systemData = await getData();
   const currentYear = String(new Date().getFullYear());
   const trafficTicketValue = systemData?.trafficTicketValue.toFixed(2).replace('.', ',');
-  const fuelValue = systemData?.cleanValue.toFixed(2).replace('.', ',');
-  const cleanValue = systemData?.fuelValue.toFixed(2).replace('.', ',');
+  const cleanValue = systemData?.cleanValue.toFixed(2).replace('.', ',');
+  const fuelValue = systemData?.fuelValue.toFixed(2).replace('.', ',');
   const contractCounter = String(systemData?.contractCounter);
   const {
     name: clientName,

@@ -21,10 +21,10 @@ const DashboardTable: React.FC<IDashboardTable> = (
                 const [plate, model] = vehicle;
                 return (
                   <tr className="grid grid-cols-3 px-4 text-xl" key={plate}>
-                    <td className="ml-1">
+                    <td className="ml-1 w-full truncate">
                       {model}
                     </td>
-                    <td className="flex justify-center">
+                    <td className="flex w-full truncate justify-center">
                       {plate}
                     </td>
                     {
@@ -37,7 +37,7 @@ const DashboardTable: React.FC<IDashboardTable> = (
                     }
                     {
                       hasThirdText &&
-                      <td className="flex justify-end mr-1">
+                      <td className="flex w-full truncate justify-end mr-1">
                         {vehicle[2]}
                       </td>
                     }

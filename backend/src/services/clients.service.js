@@ -177,6 +177,23 @@ async function updateClientToReturn(CPF) {
   console.log('Client has been updated');
 }
 
+async function addContract(CPF, path) {
+  const client = await Client.findOne({ CPF });
+  await Client.findOneAndUpdate({ CPF }, {
+    contracts: [...client.contracts, path],
+  });
+}
+
+async function downloadContract(CPF) {
+  try {
+    const client = await Client.findOne({ CPF }, 'contracts');
+    const contractPath = client.contracts[client.contracts.length - 1];
+    return { type: null, message: contractPath };
+  } catch (error) {
+    return { type: 'Download Error', message: 'Contract download error!' }
+  }
+}
+
 module.exports = {
   add,
   remove,
@@ -190,4 +207,6 @@ module.exports = {
   removeSecuritie,
   updateClientToRent,
   updateClientToReturn,
+  addContract,
+  downloadContract,
 };

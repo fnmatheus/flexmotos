@@ -1,5 +1,5 @@
 import { instance } from '../../utils/axios';
-import { IGetDataSystem, IGetYearlyBilling } from '../../utils/interfaces';
+import { IContract, IGetDataSystem, IGetYearlyBilling } from '../../utils/interfaces';
 import { backendURL } from '../../utils/urls';
 
 export const getData = async () => {
@@ -21,11 +21,11 @@ export const setTrafficTicketData = async (value: number) => {
 }
 
 export const setCleanData = async (value: number) => {
-  await instance.post(`${backendURL}/system/fuel`, {value});
+  await instance.post(`${backendURL}/system/clean`, {value});
 }
 
 export const setFuelData = async (value: number) => {
-  await instance.post(`${backendURL}/system/clean`, {value});
+  await instance.post(`${backendURL}/system/fuel`, {value});
 }
 
 export const getYearlyBilling = async (value: number) => {
@@ -46,6 +46,6 @@ export const getYearlyBilling = async (value: number) => {
   return ({years, billing});
 }
 
-export const updateContract = async () => {
-  await instance.post(`${backendURL}/system/contract`);
+export const updateContract = async (pdfInfo: IContract) => {
+  await instance.post(`${backendURL}/system/contract`, {pdfInfo});
 }

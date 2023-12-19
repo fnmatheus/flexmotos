@@ -20,10 +20,10 @@ const PageTable: React.FC<IPageTable> = ({tableHeads, tableBody, handleEdit, han
             tableBody.map((item) => {
               return (
                 <tr className="grid grid-cols-5 w-full" key={item[1]}>
-                  <td>{item[0]}</td>
-                  <td className="text-center">{item[1]}</td>
-                  <td className="text-center">{item[2]}</td>
-                  <td className="text-center">{item[3]}</td>
+                  <td className="w-full truncate">{item[0]}</td>
+                  <td className="text-center w-full truncate">{item[1]}</td>
+                  <td className="text-center w-full truncate">{item[2]}</td>
+                  <td className="text-center w-full truncate">{item[3]}</td>
                   {
                     item[2] !== 'super' &&
                     <td className="flex justify-end gap-2">

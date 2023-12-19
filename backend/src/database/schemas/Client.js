@@ -41,6 +41,9 @@ const Client = new mongoose.Schema({
   securities: [[{
     type: String,
   }]],
+  contracts: [{
+    type: String,
+  }],
   nationality: {
     type: String,
     require: true,

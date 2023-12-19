@@ -7,10 +7,11 @@ async function changeTodayController(req, res) {
   return res.status(200).json(message);
 }
 
-async function cchangeContractCounterController(_req, res) {
-  const {type, message} = await changeContractCounter();
+async function changeContractCounterController(req, res) {
+  const { pdfInfo } = req.body;
+  const {type, message} = await changeContractCounter(pdfInfo);
   if (type) return res.status(500).json(message);
-  return res.status(200).json(message);
+  return res.status(200).json('Contract counter changed');
 }
 
 async function setGoalController(req, res) {
@@ -56,7 +57,7 @@ async function getYearBillingController(req, res) {
 
 module.exports = {
   changeTodayController,
-  cchangeContractCounterController,
+  changeContractCounterController,
   setGoalController,
   getDashboardController,
   getYearBillingController,

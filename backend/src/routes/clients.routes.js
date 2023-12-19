@@ -10,6 +10,7 @@ const {
   downloadProofController,
   getSecuritiesController,
   removeSecuritieController,
+  downloadContractController,
 } = require('../controller/clients.controller');
 const {
   clientAddChecker,
@@ -33,5 +34,6 @@ clientsRoutes.get('/name', clientNameChecker, getByNameController);
 clientsRoutes.get('/download', clientCPFChecker, downloadProofController);
 clientsRoutes.get('/securities', getSecuritiesController);
 clientsRoutes.delete('/securities', removeSecuritieChecker, removeSecuritieController);
+clientsRoutes.get('/contract', clientCPFChecker, downloadContractController);
 
 module.exports = clientsRoutes;

@@ -13,6 +13,7 @@ services:
 
   # Node API services
   api:
+    container_name: flexmotos_api
     build: ./backend
     ports:
       - 3000:3000
@@ -24,13 +25,14 @@ services:
     depends_on:
       - mongo_db
 
-  # # Next.js app
-  # frontend:
-  #   build: ./frontend
-  #   ports:
-  #     - 3001:3001
-  #   depends_on:
-  #     - api
+  # Next.js app
+  web:
+    container_name: flexmotos_web
+    build: ./frontend
+    ports:
+      - 3001:3001
+    depends_on:
+      - api
 
 volumes:
   mongo_db: {}
