@@ -8,4 +8,11 @@ RUN npm ci
 
 COPY . .
 
+WORKDIR /usr/app/src
+
+RUN mkdir contracts
+RUN mkdir uploads
+
+WORKDIR /usr/app
+
 CMD ["npm", "start"]

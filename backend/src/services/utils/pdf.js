@@ -17,7 +17,6 @@ async function createPdf(
       bolditalics: 'Helvetica-BoldOblique'
     },
   };
-  console.log(method);
 
   const contractPrinter = new PdfPrinter(fonts);
   const receiptPrinter = new PdfPrinter(fonts);
@@ -192,7 +191,7 @@ async function createPdf(
   contractDoc.pipe(fs.createWriteStream(contractPath));
   contractDoc.end();
 
-  const receiptDoc = contractPrinter.createPdfKitDocument(receiptDefinition);
+  const receiptDoc = receiptPrinter.createPdfKitDocument(receiptDefinition);
   const receiptPath = `src/contracts/${contractCounter}-receipt.pdf`;
   receiptDoc.pipe(fs.createWriteStream(receiptPath));
   receiptDoc.end();
