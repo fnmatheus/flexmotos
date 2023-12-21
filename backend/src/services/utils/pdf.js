@@ -7,7 +7,7 @@ const { addContract } = require('../clients.service');
 const delay = (delayInms) => new Promise(resolve => setTimeout(resolve, delayInms));
 
 async function createPdf(
-  { currentYear, contractCounter, clientName, clientNationality, clientMaritalStatus, clientJob, clientCpf, clientRg, clientAddress, clientPhone, vehicleModel, vehicleYear, vehicleChassis, vehicleColor, vehiclePlate, vehicleValue, rentTime, rentValue, securityValue, rentalDate, returnDate, trafficTicketValue, fuelValue, cleanValue }
+  { currentYear, contractCounter, clientName, clientNationality, clientMaritalStatus, clientJob, clientCpf, clientRg, clientAddress, clientPhone, vehicleModel, vehicleYear, vehicleChassis, vehicleColor, vehiclePlate, vehicleValue, rentTime, rentValue, securityValue, rentalDate, returnDate, trafficTicketValue, fuelValue, cleanValue, method }
 ) {
   const fonts = {
     Helvetica: {
@@ -17,16 +17,18 @@ async function createPdf(
       bolditalics: 'Helvetica-BoldOblique'
     },
   };
+  console.log(method);
 
-  const printer = new PdfPrinter(fonts);
+  const contractPrinter = new PdfPrinter(fonts);
+  const receiptPrinter = new PdfPrinter(fonts);
 
-  const dateArr = (new Date().toLocaleDateString('pt-BR')).split('/')
+  const dateArr = (new Date().toLocaleDateString('pt-BR')).split('/');
   const date = dateArr.reduce((acc, item, index) => {
     if (index === 1) return `${acc} de ${months[Number(item) - 1]}`;
     return `${acc} de ${item}`;
   });
 
-  const docDefinition = {
+  const contractDefinition = {
     content: [
       {
         image: images.logo,
@@ -141,11 +143,61 @@ async function createPdf(
     },
   };
 
-  const pdfDoc = printer.createPdfKitDocument(docDefinition);
-  const path = `src/contracts/${contractCounter}.pdf`;
-  pdfDoc.pipe(fs.createWriteStream(path));
-  pdfDoc.end();
-  await addContract(clientCpf, path);
+  const hour = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+
+  const receiptDefinition = {
+    pageSize: 'A8',
+    pageMargins: [ 5, 5, 5, 5 ],
+    content: [
+      {
+        image: images.blackLogo,
+        width: 100,
+        alignment: 'center',
+      },
+      {
+        text: `\n\nLocatário: ${clientName}\n\nMétodo de pagamento: ${method}\n\nData de saída: ${rentalDate} - ${hour}\n\nData de retorno: ${rentalDate} - ${hour}\n\n`,
+        style: 'text',
+      },
+      {
+        style: 'table',
+        table: {
+          widths: ['*', '*'],
+          body: [
+            ['Valor do aluguel', `R$ ${rentValue}`],
+            ['Valor do seguro', `R$ 30,00`],
+            ['Valor do caução', `R$ ${securityValue}`],
+          ]
+        }
+      },
+      {
+        text: `\n\n_____________________\n\nassinatura do funcionário`,
+        style: 'text',
+      },
+    ],
+    defaultStyle: { font: 'Helvetica' },
+    styles: {
+      text: {
+        fontSize: 8,
+        alignment: 'center',
+      },
+      table: {
+        fontSize: 8,
+        alignment: 'rigth',
+      }
+    },
+  };
+
+  const contractDoc = contractPrinter.createPdfKitDocument(contractDefinition);
+  const contractPath = `src/contracts/${contractCounter}.pdf`;
+  contractDoc.pipe(fs.createWriteStream(contractPath));
+  contractDoc.end();
+
+  const receiptDoc = contractPrinter.createPdfKitDocument(receiptDefinition);
+  const receiptPath = `src/contracts/${contractCounter}-receipt.pdf`;
+  receiptDoc.pipe(fs.createWriteStream(receiptPath));
+  receiptDoc.end();
+
+  await addContract(clientCpf, `${contractPath} ${receiptPath}`);
   await delay(100);
 }
 

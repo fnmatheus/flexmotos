@@ -187,7 +187,7 @@ async function addContract(CPF, path) {
 async function downloadContract(CPF) {
   try {
     const client = await Client.findOne({ CPF }, 'contracts');
-    const contractPath = client.contracts[client.contracts.length - 1];
+    const contractPath = client.contracts[client.contracts.length - 1].split(' ');
     return { type: null, message: contractPath };
   } catch (error) {
     return { type: 'Download Error', message: 'Contract download error!' }

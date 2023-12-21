@@ -4,8 +4,12 @@ import { getVehicleDetails } from '../utils/vehiclesAxios';
 import dateDifference from '../../utils/dateDifference';
 import { hoverPopupButtons, popupButtons, popupContainer, popupInput, popupLabel, popupLabelText } from '@/app/utils/classnames';
 import { Agree, Decline } from '@/app/components/svgs';
+import { paymentMethodOptions } from '../utils/variables';
 
 const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate, returnDate, security, handleYes, handleNo}: IConfirmRent) => {
+  const [paymentMethod, setPaymentMethod] = useState<string>('dinheiro');
+  const [isCredit, setIsCredit] = useState<boolean>(false);
+  const [installments, setInstallments] = useState<string>('');
   const [hasSecurity, setHasSecurity] = useState<boolean>(true);
   const [rentValue, setRentValue] = useState<string>('');
   const [securityValue, setSecurityValue] = useState<string>('0');
@@ -28,6 +32,21 @@ const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate,
     getValues();
   }, [plate, security, rentalDate, returnDate]);
 
+  async function handlePaymentMethod(event: React.ChangeEvent<HTMLSelectElement>) {
+    const value: string = event.target.value;
+    if (value === 'crédito') setIsCredit(true);
+    else {
+      setIsCredit(false);
+      setInstallments('');
+    }
+    setPaymentMethod(value);
+  }
+
+  async function handleInstallments(event: React.ChangeEvent<HTMLInputElement>) {
+    const value: string = event.target.value;
+    setInstallments(value);
+  }
+
   async function handleRentValue(event: React.ChangeEvent<HTMLInputElement>) {
     const value: string = event.target.value;
     setRentValue(value);
@@ -40,7 +59,8 @@ const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate,
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    handleYes({CPF, name, rentalDate, returnDate, plate, hasSecurity, rentValue: Number(rentValue), securityValue: Number(securityValue), rentTime: daysDifference});
+    const method = (paymentMethod !== 'crédito') ? paymentMethod : `${paymentMethod} ${(installments !== '') ? installments : 'à vista'}`
+    handleYes({CPF, name, rentalDate, returnDate, plate, hasSecurity, rentValue: Number(rentValue), securityValue: Number(securityValue), rentTime: daysDifference, method});
   }
 
   return (
@@ -59,6 +79,25 @@ const ConfirmRentPopup: React.FC<IConfirmRent> = ({CPF, name, plate, rentalDate,
           <label className={`${popupLabel} w-4/12`}>
             <span className={popupLabelText}>Data de entrega</span>
             <p>{returnDate}</p>
+          </label>
+        </div>
+        <div className="flex flex-wrap text-black w-full">
+          <label className={`${popupLabel} w-12/12`}>
+            <span className={popupLabelText}>Forma de pagamento</span>
+            <div className="flex gap-2 w-full">            
+              <select className={popupInput} onChange={handlePaymentMethod} value={paymentMethod}>
+                {
+                  paymentMethodOptions.map((method) =>{
+                    return (
+                      <option key={method} value={method}>
+                        {method}
+                      </option>
+                    )
+                  })
+                }
+              </select>
+              <input className={popupInput} onChange={handleInstallments} type="text" value={installments} disabled={!isCredit} />
+            </div>
           </label>
         </div>
         <div className="flex flex-wrap text-black w-full pb-8">

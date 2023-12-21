@@ -134,6 +134,6 @@ export const contractDownload = async (CPF: string) => {
     document.body.removeChild(anchorElement);
     window.URL.revokeObjectURL(href);
   } catch (error) {
-    alert('Não conseguiu baixar o PDF do contrato!');
+    alert('Não conseguiu baixar o arquivo do contrato!');
   }
 }

@@ -82,7 +82,7 @@ export const rentVehicle = async (info: IRent) => {
   }
 }
 
-export const getPdfInformation = async ({CPF: clientCpf, plate: vehiclePlate, rentalDate, returnDate, rentValue, securityValue, rentTime}: IPdfInformarion) => {
+export const getPdfInformation = async ({CPF: clientCpf, plate: vehiclePlate, rentalDate, returnDate, rentValue, securityValue, rentTime, method}: IPdfInformarion) => {
   const systemData = await getData();
   const currentYear = String(new Date().getFullYear());
   const trafficTicketValue = systemData?.trafficTicketValue.toFixed(2).replace('.', ',');
@@ -109,7 +109,7 @@ export const getPdfInformation = async ({CPF: clientCpf, plate: vehiclePlate, re
   } = await getVehicleDetails(vehiclePlate);
   const vehicleYear = year.split('/')[0];
   if (trafficTicketValue !== undefined && fuelValue !== undefined && cleanValue !== undefined) {
-    return {currentYear, trafficTicketValue, fuelValue, cleanValue, contractCounter, clientCpf, clientName, clientNationality, clientMaritalStatus, clientJob, clientRg, clientAddress, clientPhone, vehiclePlate, vehicleModel, vehicleYear, vehicleChassis, vehicleColor, vehicleValue: vehicleValue.toFixed(2).replace('.', ','), rentalDate, returnDate, rentValue: rentValue.toFixed(2).replace('.', ','), securityValue: securityValue.toFixed(2).replace('.', ','), rentTime: String(rentTime)};
+    return {currentYear, trafficTicketValue, fuelValue, cleanValue, contractCounter, clientCpf, clientName, clientNationality, clientMaritalStatus, clientJob, clientRg, clientAddress, clientPhone, vehiclePlate, vehicleModel, vehicleYear, vehicleChassis, vehicleColor, vehicleValue: vehicleValue.toFixed(2).replace('.', ','), rentalDate, returnDate, rentValue: rentValue.toFixed(2).replace('.', ','), securityValue: securityValue.toFixed(2).replace('.', ','), rentTime: String(rentTime), method};
   }
   return null;
 }

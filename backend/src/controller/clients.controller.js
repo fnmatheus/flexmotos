@@ -1,3 +1,5 @@
+const zip = require('express-zip');
+
 const {
   add,
   remove,
@@ -92,7 +94,11 @@ async function downloadContractController(req, res) {
   const {CPF} = req.query;
   const {type, message} = await downloadContract(CPF);
   if (type) return res.status(404).json(message);
-  return res.download(message);
+  const files = [
+    {path : message[0], name : 'contrato.pdf'},
+    {path : message[1], name : 'recibo.pdf'},
+  ]
+  return res.zip(files);
 }
 
 module.exports = {

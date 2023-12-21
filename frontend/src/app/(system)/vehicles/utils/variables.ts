@@ -7,3 +7,5 @@ export const categories = ['moto', 'carro'];
 export const ipvaOptions = [['Não pago', 'false'], ['Pago', 'true']];
 
 export const securityOptions = [['Sim', 'true'], ['Não', 'false']];
+
+export const paymentMethodOptions = ['dinheiro', 'pix', 'débito', 'crédito'];

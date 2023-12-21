@@ -100,9 +100,9 @@ const Vehicles = () => {
   async function handleConfirmRentSubmit(info: IRent) {
     const newVehicles = await rentVehicle(info);
     if (newVehicles) {
-      const {CPF, plate, rentalDate, returnDate, rentValue, securityValue, rentTime} = info;
-      if (typeof rentValue === 'number'  && typeof securityValue === 'number' && typeof rentTime === 'number') {
-        const pdfInfo = await getPdfInformation({CPF, plate, rentalDate, returnDate, rentValue, securityValue, rentTime});
+      const {CPF, plate, rentalDate, returnDate, rentValue, securityValue, rentTime, method} = info;
+      if (typeof rentValue === 'number'  && typeof securityValue === 'number' && typeof rentTime === 'number' && typeof method === 'string') {
+        const pdfInfo = await getPdfInformation({CPF, plate, rentalDate, returnDate, rentValue, securityValue, rentTime, method});
         if (pdfInfo) {
           await updateContract(pdfInfo);
           await contractDownload(CPF);
