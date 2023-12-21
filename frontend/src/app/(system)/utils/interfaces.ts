@@ -260,6 +260,7 @@ export interface IRent {
   rentValue?: number,
   securityValue?: number,
   rentTime?: number,
+  method?: string,
 }
 
 export interface IRentPopup {
@@ -308,4 +309,5 @@ export interface IPdfInformarion {
   rentValue: number,
   securityValue: number,
   rentTime: number,
+  method: string,
 }
