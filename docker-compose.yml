@@ -22,7 +22,7 @@ services:
       MONGODB_URI: mongodb://mongo_db:27017
       DB_NAME: flexmotos_db
       NAME: FlexMotos
-      FRONTEND_URI: http://191.101.78.114:3001
+      FRONTEND_URI: http://flexmotosoficial.com.br
     depends_on:
       - mongo_db
 
