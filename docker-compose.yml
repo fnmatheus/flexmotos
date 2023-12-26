@@ -1,16 +1,6 @@
 version: '3.9'
 
 services:
-  # MongoDB services
-  mongo_db:
-    container_name: db_container
-    image: mongo:latest
-    restart: always
-    ports:
-      - 27017:27017
-    volumes:
-      - mongo_db:/data/db
-
   # Node API services
   api:
     container_name: flexmotos_api
@@ -19,12 +9,10 @@ services:
       - 3000:3000
     environment:
       PORT: 3000
-      MONGODB_URI: mongodb://mongo_db:27017
+      MONGODB_URI: mongodb://localhost:27017
       DB_NAME: flexmotos_db
       NAME: FlexMotos
       FRONTEND_URI: http://flexmotosoficial.com.br
-    depends_on:
-      - mongo_db
 
   # Next.js app
   web:
